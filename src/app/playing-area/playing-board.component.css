@@ -1,0 +1,7 @@
+/*For board*/
+
+.board-frame {
+  width: 602px;
+  height: 602px;
+  background-color: skyblue;
+}
