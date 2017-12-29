@@ -5,3 +5,9 @@
   height: 602px;
   background-color: skyblue;
 }
+
+.pad {
+  width: 86px;
+  height: 86px;
+  border: black 1px solid;
+}
