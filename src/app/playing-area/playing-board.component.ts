@@ -10,9 +10,10 @@ import { PadsService } from './pads.service';
   styleUrls: ['./playing-board.component.css']
 })
 export class PlayingBoardComponent {
-  private padList: typeof Pad[];
+  private _grid: Pad[];
+  private _sparePad: Pad;
   constructor(padsService: PadsService) {
-    this.padList = padsService.pads;
-    console.log(this.padList);
+    this._grid = padsService.gridRep;
+    this._sparePad = padsService.sparePad;
   };
 }

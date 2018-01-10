@@ -8,14 +8,15 @@ export class Pad {
   private _isTreasure: boolean;
   private _treasureName: string;
   private _imgSource: string;
+  private _row: number;
+  private _col: number;
+  animation: string;
 
   constructor() {
-    this._padType = 0;
-    this._padRotation = 0;
+    this._padRotation = 90;
     this._isStart = false;
     this._isFixed = false;
     this._isTreasure = false;
-    this._imgSource = '../assets/img/37zn4gru.bmp';
   }
 
   get padType(): number {
@@ -59,11 +60,27 @@ export class Pad {
   set imgSource(imgSource: string) {
     this._imgSource = imgSource;
   }
+
+  get row(): number {
+    return this._row;
+  }
+  set row(newRow: number) {
+    this._row = newRow;
+  }
+
+  get col(): number {
+    return this._col;
+  }
+  set col(newCol: number) {
+    this._col = newCol;
+  }
 }
 
 export class IPad extends Pad {
   constructor() {
     super();
+    this.padType = 0;
+    this.imgSource = '../assets/img/I-Pad@150px.png';
   }
 }
 
@@ -71,6 +88,7 @@ export class LPad extends Pad {
   constructor() {
     super();
     this.padType = 1;
+    this.imgSource = '../assets/img/L-Pad@150px.png';
   }
 }
 
@@ -79,5 +97,6 @@ export class TPad extends Pad {
     super();
     this.padType = 2;
     this.isTreasure = true;
+    this.imgSource = '../assets/img/T-Pad@150px.png';
   }
 }

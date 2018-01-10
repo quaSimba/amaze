@@ -1,13 +1,114 @@
 /*For board*/
 
-.board-frame {
+.board {
+  position: relative;
   width: 602px;
   height: 602px;
-  background-color: skyblue;
+  background-image: url("../../assets/img/playing-board.png");
+  background-size: cover;
 }
 
 .pad {
+  position: absolute;
+  left: 1000px;
+  top: 500px;
   width: 86px;
   height: 86px;
-  border: black 1px solid;
+}
+
+.pad img {
+  width: 86px;
+  height: 86px;
+}
+
+/* position all pads */
+
+.pad.row1 {
+  top: 0;
+}
+
+.pad.row2 {
+  top: 14.2857%;
+}
+
+.pad.row3 {
+  top: 28.5714%;
+}
+
+.pad.row4 {
+  top: 42.8571%;
+}
+
+.pad.row5 {
+  top: 57.1429%;
+}
+
+.pad.row6 {
+  top: 71.4286%;
+}
+
+.pad.row7 {
+  top: 85.7143%;
+}
+
+.pad.col1 {
+  left: 0;
+}
+
+.pad.col2 {
+  left: 14.2857%;
+}
+
+.pad.col3 {
+  left: 28.5714%;
+}
+
+.pad.col4 {
+  left: 42.8571%;
+}
+
+.pad.col5 {
+  left: 57.1429%;
+}
+
+.pad.col6 {
+  left: 71.4286%;
+}
+
+.pad.col7 {
+  left: 85.7143%;
+}
+
+/* End of positioning */
+
+.move-row-right: {
+  transform: translateX(86px);
+}
+
+.move-row-left {
+  transform: translateX(-86px);
+}
+
+.move-col-right {
+  transform: translateY(86px);
+}
+
+.move-col-left {
+  transform: translateY(-86px);
+}
+
+.rotate0 {
+  transform: rotate(0deg);
+}
+
+.rotate90 {
+  transform: rotate(90deg);
+}
+
+.rotate180 {
+  transform: rotate(180deg);
+}
+
+.rotate270 {
+  transform: rotate(270deg);
 }
