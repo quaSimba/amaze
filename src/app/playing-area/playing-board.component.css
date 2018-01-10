@@ -85,11 +85,6 @@
   transform: translateX(86px);
 }
 
-.move-row-right:hover {
-  transition: 1s ease-in-out;
-  ;
-}
-
 .move-row-left {
   transform: translateX(-86px);
 }
