@@ -1,0 +1,31 @@
+
+Spieleranzahl: {{playerCount}}<br><br>
+<button (click)="setPlayerCountOne()"> Ein Spieler </button>
+<button (click)="setPlayerCountTwo()"> Zwei Spieler </button>
+<button (click)="setPlayerCountThree()"> Drei Spieler </button>
+<button (click)="setPlayerCountFour()"> Vier Spieler </button>
+<hr>
+<div [ngSwitch]="playerCount">
+  <div *ngSwitchCase="1">
+    <img class="target-area" src={{currentTargetOne.path}}>
+  </div>
+  <div *ngSwitchCase="2">
+    <img class="target-area" src={{currentTargetOne.path}}>
+    <img class="target-area" src={{currentTargetTwo.path}}>
+  </div>
+  <div *ngSwitchCase="3">
+    <img class="target-area" src={{currentTargetOne.path}}>
+    <img class="target-area" src={{currentTargetTwo.path}}>
+    <img class="target-area" src={{currentTargetThree.path}}>
+  </div>
+  <div *ngSwitchCase="4">
+    <img class="target-area" src={{currentTargetOne.path}}>
+    <img class="target-area" src={{currentTargetTwo.path}}>
+    <img class="target-area" src={{currentTargetThree.path}}>
+    <img class="target-area" src={{currentTargetFour.path}}>
+  </div>
+  <div *ngSwitchDefault>
+    Wähle eine Spieleranzahl aus.
+  </div>
+</div>
+<hr>
