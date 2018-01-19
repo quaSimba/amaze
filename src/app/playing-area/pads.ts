@@ -2,7 +2,7 @@
 
 export class Pad {
   private _padType: number;
-  private _padRotation: number;
+  private _rotationCase: number;
   private _isStart: boolean;
   private _isFixed: boolean;
   private _isTreasure: boolean;
@@ -10,10 +10,9 @@ export class Pad {
   private _imgSource: string;
   private _row: number;
   private _col: number;
-  animation: string;
 
   constructor() {
-    this._padRotation = 90;
+    this._rotationCase = 90;
     this._isStart = false;
     this._isFixed = false;
     this._isTreasure = false;
@@ -26,11 +25,11 @@ export class Pad {
     this._padType = newType;
   }
 
-  get padRotation(): number {
-    return this._padRotation;
+  get rotationCase(): number {
+    return this._rotationCase;
   }
-  set padRotation(newRotation: number) {
-    this._padRotation = newRotation;
+  set rotationCase(newRotationCase: number) {
+    this._rotationCase = newRotationCase;
   }
 
   get isStart(): boolean {

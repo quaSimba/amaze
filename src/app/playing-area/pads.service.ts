@@ -3,6 +3,7 @@
 import { Injectable } from '@angular/core';
 
 import { Pad, IPad, LPad, TPad } from './pads';
+import { ShuffleService } from '../helper-services/shuffle-service';
 
 declare var $: any;
 declare var jquery: any;
@@ -24,7 +25,7 @@ export class PadsService {
   private _animDuration: number;
   private _isMoving: boolean;
 
-  constructor() {
+  constructor(private _shuffleService: ShuffleService) {
     this._pads = this.createPads();
     this._padsRow1 = [];
     this._padsRow2 = [];
@@ -63,6 +64,12 @@ export class PadsService {
       tPads.push(new TPad);
     }
     tempPads = tempPads.concat(tPads);
+
+    // Shuffle pads and their rotation
+    this._shuffleService.shuffle(tempPads)
+    tempPads.forEach((pad, index) => {
+      pad.rotationCase = Math.floor(Math.random() * 4);
+    })
 
     return tempPads;
   }
@@ -247,8 +254,12 @@ export class PadsService {
     return newSparePad;
   }
 
-  delay(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+  rotatePad(pad: Pad) {
+    if (pad.rotationCase < 3) {
+      pad.rotationCase++;
+    } else {
+      pad.rotationCase = 0;
+    }
   }
 
   get pads(): Pad[] {
