@@ -3,6 +3,7 @@
 import { Injectable } from '@angular/core';
 
 import { Pad, IPad, LPad, TPad } from './pads';
+import { TARGETS } from '../targets/mock-targets';
 import { ShuffleService } from '../helper-services/shuffle-service';
 
 declare var $: any;
@@ -10,7 +11,8 @@ declare var jquery: any;
 
 @Injectable()
 export class PadsService {
-  private _pads: Pad[];
+  private _fixedPads: Pad[];
+  private _loosePads: Pad[];
   private _padsRow1: Pad[];
   private _padsRow2: Pad[];
   private _padsRow3: Pad[];
@@ -26,7 +28,8 @@ export class PadsService {
   private _isMoving: boolean;
 
   constructor(private _shuffleService: ShuffleService) {
-    this._pads = this.createPads();
+    this._fixedPads = this.createFixedPads();
+    this._loosePads = this.createLoosePads();
     this._padsRow1 = [];
     this._padsRow2 = [];
     this._padsRow3 = [];
@@ -38,32 +41,90 @@ export class PadsService {
     this._isMoving = false;
   }
 
-  createPads(): Pad[] {
-    let tempPads = Array();
+  // Create all the pads that are fix on the board.
+  createFixedPads(): Pad[] {
+    let tempPads: Pad[] = [];
+
+    // Create all spawns
+    let spawns: LPad[] = [new LPad, new LPad, new LPad, new LPad];
+    spawns[0].playerSpawn = "red";
+    spawns[1].playerSpawn = "yellow";
+    spawns[2].playerSpawn = "blue";
+    spawns[3].playerSpawn = "green";
+    spawns.forEach((spawn, index) => {
+      spawn.rotationCase = index;
+    })
+
+    // Create all treasure pads
+    let fixedTreasure: TPad[] = [new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad];
+    fixedTreasure.forEach((treasure, index) => {
+      if (2 < index && index < 6) {
+        treasure.rotationCase = 1;
+      } else if (index < 9) {
+        treasure.rotationCase = 2;
+      } else if (index < 12) {
+        treasure.rotationCase = 3;
+      }
+    });
+
+    tempPads = [spawns[0], fixedTreasure[6], fixedTreasure[7], spawns[1], fixedTreasure[9], fixedTreasure[10], fixedTreasure[8], fixedTreasure[3], fixedTreasure[11], fixedTreasure[0], fixedTreasure[4], fixedTreasure[5], spawns[3], fixedTreasure[1], fixedTreasure[2], spawns[2]];
+
+    // Assign the proper treasureID (see targets/mock-targets.ts) to each treasure and set the row and col
+    let treasureID = 0;
+    tempPads.forEach((pad, index) => {
+      if (pad instanceof TPad) {
+        pad.treasureID = treasureID;
+        treasureID++;
+      };
+      if (index < 4) {
+        pad.row = 1;
+        pad.col = index * 2 + 1;
+      } else if (index < 8) {
+        pad.row = 3;
+        pad.col = (index - 4) * 2 + 1;
+      } else if (index < 12) {
+        pad.row = 5;
+        pad.col = (index - 8) * 2 + 1;
+      } else if (index < 16) {
+        pad.row = 7;
+        pad.col = (index - 12) * 2 + 1;
+      }
+    });
+
+    return tempPads;
+  }
+
+  // Create all pads that are loose.
+  createLoosePads(): Pad[] {
+    let tempPads: Pad[] = [];
 
     // Create all the I-shaped pads
     for (var i = 0; i < 13; i++) {
       tempPads.push(new IPad);
     }
 
+    // Create all the T-shaped pads
+    var tPads: Pad[] = [];
+    for (var i = 0; i < 6; i++) {
+      let tPad = new TPad;
+      tPad.treasureID = 12 + i;
+      tPad.imgSource = TARGETS[12 + i].padPath;
+      tPads.push(tPad);
+    }
+    tempPads = tempPads.concat(tPads);
+
     // Create all the L-shaped pads, some with treasure
-    var lPads = Array();
+    var lPads: Pad[] = [];
     for (var i = 0; i < 9; i++) {
       lPads.push(new LPad);
     }
     for (var i = 0; i < 6; i++) {
-      var lPad = new LPad;
-      lPad.isTreasure = true;
+      let lPad = new LPad;
+      lPad.treasureID = 18 + i;
+      lPad.imgSource = TARGETS[18 + i].padPath;
       lPads.push(lPad);
     }
     tempPads = tempPads.concat(lPads);
-
-    // Create all the T-shaped pads
-    var tPads = Array();
-    for (var i = 0; i < 6; i++) {
-      tPads.push(new TPad);
-    }
-    tempPads = tempPads.concat(tPads);
 
     // Shuffle pads and their rotation
     this._shuffleService.shuffle(tempPads)
@@ -75,9 +136,9 @@ export class PadsService {
   }
 
   createGrid(length: number) {
-    this._padsRow1 = this._pads.splice(0, length);
-    this._padsRow2 = this._pads.splice(0, length);
-    this._padsRow3 = this._pads.splice(0, length);
+    this._padsRow1 = this._loosePads.splice(0, length);
+    this._padsRow2 = this._loosePads.splice(0, length);
+    this._padsRow3 = this._loosePads.splice(0, length);
     this._padsRowList = [
       this._padsRow1,
       this._padsRow2,
@@ -91,7 +152,7 @@ export class PadsService {
       this._padsCol2,
       this._padsCol3
     ]
-    this._sparePad = this._pads.splice(0, 1)[0];
+    this._sparePad = this._loosePads.splice(0, 1)[0];
     this.updateGridRepresentation();
   }
 
@@ -141,7 +202,7 @@ export class PadsService {
 
   createColumn(columnNumber: number): Pad[] {
     let index = columnNumber + (columnNumber - 1);
-    return [this._pads.splice(0, 1)[0], this._padsRow1[index], this._pads.splice(0, 1)[0], this._padsRow2[index], this._pads.splice(0, 1)[0], this._padsRow3[index], this._pads.splice(0, 1)[0]];
+    return [this._loosePads.splice(0, 1)[0], this._padsRow1[index], this._loosePads.splice(0, 1)[0], this._padsRow2[index], this._loosePads.splice(0, 1)[0], this._padsRow3[index], this._loosePads.splice(0, 1)[0]];
   }
 
   pushRowRight(row: Pad[]) {
@@ -262,11 +323,11 @@ export class PadsService {
     }
   }
 
-  get pads(): Pad[] {
-    return this._pads;
+  get loosePads(): Pad[] {
+    return this._loosePads;
   }
-  set pads(newPads: Pad[]) {
-    this._pads = newPads;
+  set loosePads(newLoosePads: Pad[]) {
+    this._loosePads = newLoosePads;
   }
 
   get padsRow1(): Pad[] {
