@@ -1,19 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Pad } from './pads';
 import { PadsService } from './pads.service';
 
+declare var $: any;
+declare var jquery: any;
+
 @Component({
   selector: 'playing-board',
-  providers: [PadsService],
   templateUrl: './playing-board.component.html',
   styleUrls: ['./playing-board.component.css']
 })
-export class PlayingBoardComponent {
-  private _grid: Pad[];
-  private _sparePad: Pad;
-  constructor(padsService: PadsService) {
-    this._grid = padsService.gridRep;
-    this._sparePad = padsService.sparePad;
-  };
+export class PlayingBoardComponent implements OnInit {
+
+  constructor(private _padsService: PadsService) {
+  }
+
+  ngOnInit() {
+    this._padsService.animDistance = $(".playing-board").height() / 7;
+  }
 }

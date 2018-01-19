@@ -1,8 +1,11 @@
-// TODO: Funktionen zur Erstellung der Reihen und Spalten, sowie der fixen Pads schreiben.
+// TODO: Funktionen zur Erstellung der fixen Pads schreiben.
 
 import { Injectable } from '@angular/core';
 
 import { Pad, IPad, LPad, TPad } from './pads';
+
+declare var $: any;
+declare var jquery: any;
 
 @Injectable()
 export class PadsService {
@@ -13,8 +16,13 @@ export class PadsService {
   private _padsCol1: Pad[];
   private _padsCol2: Pad[];
   private _padsCol3: Pad[];
+  private _padsRowList: Array<Pad[]>;
+  private _padsColList: Array<Pad[]>;
   private _gridRep: Pad[];
   private _sparePad: Pad;
+  private _animDistance: number;
+  private _animDuration: number;
+  private _isMoving: boolean;
 
   constructor() {
     this._pads = this.createPads();
@@ -24,12 +32,13 @@ export class PadsService {
     this._padsCol1 = [];
     this._padsCol2 = [];
     this._padsCol3 = [];
-    this._gridRep = [];
     this.createGrid(7);
+    this._animDuration = 500;
+    this._isMoving = false;
   }
 
   createPads(): Pad[] {
-    var tempPads = Array();
+    let tempPads = Array();
 
     // Create all the I-shaped pads
     for (var i = 0; i < 13; i++) {
@@ -62,14 +71,25 @@ export class PadsService {
     this._padsRow1 = this._pads.splice(0, length);
     this._padsRow2 = this._pads.splice(0, length);
     this._padsRow3 = this._pads.splice(0, length);
+    this._padsRowList = [
+      this._padsRow1,
+      this._padsRow2,
+      this._padsRow3
+    ]
     this._padsCol1 = this.createColumn(1);
     this._padsCol2 = this.createColumn(2);
     this._padsCol3 = this.createColumn(3);
-    this.updateGridRepresentation();
+    this._padsColList = [
+      this._padsCol1,
+      this._padsCol2,
+      this._padsCol3
+    ]
     this._sparePad = this._pads.splice(0, 1)[0];
+    this.updateGridRepresentation();
   }
 
   updateGridRepresentation() {
+    this._gridRep = [];
     this._gridRep.push(this._padsCol1[0]);
     this._gridRep.push(this._padsCol2[0]);
     this._gridRep.push(this._padsCol3[0]);
@@ -83,8 +103,8 @@ export class PadsService {
     this._gridRep.push(this._padsCol3[4]);
     this._gridRep = this._gridRep.concat(this._padsRow3);
     this._gridRep.push(this._padsCol1[6]);
-    this._gridRep.push(this._padsCol3[6]);
     this._gridRep.push(this._padsCol2[6]);
+    this._gridRep.push(this._padsCol3[6]);
 
     this._gridRep.forEach((pad, index) => {
       if (index < 3) {
@@ -113,7 +133,122 @@ export class PadsService {
   }
 
   createColumn(columnNumber: number): Pad[] {
-    return [this._pads.splice(1, 1)[0], this._padsRow1[columnNumber], this._pads.splice(1, 1)[0], this._padsRow2[columnNumber], this._pads.splice(1, 1)[0], this._padsRow3[columnNumber], this._pads.splice(1, 1)[0]];
+    let index = columnNumber + (columnNumber - 1);
+    return [this._pads.splice(0, 1)[0], this._padsRow1[index], this._pads.splice(0, 1)[0], this._padsRow2[index], this._pads.splice(0, 1)[0], this._padsRow3[index], this._pads.splice(0, 1)[0]];
+  }
+
+  pushRowRight(row: Pad[]) {
+    if (!this._isMoving) {
+      this._isMoving = true;
+
+      let movingRow = row;
+      // Insert the sparePad at the start of the movingRow and move the row.
+      movingRow.splice(0, 0, this._sparePad);
+      this.moveRow("row" + movingRow[4].row, "+=" + this._animDistance);
+
+      // Declare the last item in movingRow the new sparePad with a delay
+      setTimeout(() => {
+        this._sparePad = this.createSparePad(movingRow.splice(movingRow.length - 1, 1)[0]);
+        this.updateCrossedCols(movingRow);
+        this.updateGridRepresentation();
+        this._isMoving = false;
+      }, this._animDuration);
+    }
+  }
+
+  pushRowLeft(row: Pad[]) {
+    if (!this._isMoving) {
+      this._isMoving = true;
+
+      let movingRow = row;
+      // Insert the sparePad at the end of the movingRow and move the row.
+      movingRow.splice(movingRow.length, 0, this._sparePad);
+      this.moveRow("row" + movingRow[4].row, "-=" + this._animDistance);
+
+      // Declare the first item in movingRow the new sparePad with a delay
+      setTimeout(() => {
+        this._sparePad = this.createSparePad(movingRow.splice(0, 1)[0]);
+        this.updateCrossedCols(movingRow);
+        this.updateGridRepresentation();
+        this._isMoving = false;
+      }, this._animDuration);
+    }
+  }
+
+  pushColUp(col: Pad[]) {
+    if (!this._isMoving) {
+      this._isMoving = true;
+
+      let movingCol = col;
+      // Insert the sparePad at the end of the movingCol and  move the column.
+      movingCol.splice(movingCol.length, 0, this._sparePad);
+      this.moveCol("col" + movingCol[4].col, "-=" + this._animDistance);
+
+      // Declare the first item in movingCol the new sparePad with a delay
+      setTimeout(() => {
+        this._sparePad = this.createSparePad(movingCol.splice(0, 1)[0]);
+        this.updateCrossedRows(movingCol);
+        this.updateGridRepresentation();
+        this._isMoving = false;
+      }, this._animDuration);
+    }
+  }
+
+  pushColDown(col: Pad[]) {
+    if (!this._isMoving) {
+      this._isMoving = true;
+
+      let movingCol = col;
+      // Insert the sparePad at the start of the movingCol and  move the column.
+      movingCol.splice(0, 0, this._sparePad);
+      this.moveCol("col" + movingCol[4].col, "+=" + this._animDistance);
+
+      // Declare the last item in movingCol the new sparePad with a delay
+      setTimeout(() => {
+        this._sparePad = this.createSparePad(movingCol.splice(movingCol.length - 1, 1)[0]);
+        this.updateCrossedRows(movingCol);
+        this.updateGridRepresentation();
+        this._isMoving = false;
+      }, this._animDuration);
+    }
+  }
+
+  updateCrossedCols(movingRow: Pad[]) {
+    let index = this._padsRowList.indexOf(movingRow);
+    index += index + 1;
+    for (var i = 1; i < movingRow.length; i += 2) {
+      this._padsCol1[index] = movingRow[1];
+      this._padsCol2[index] = movingRow[3];
+      this._padsCol3[index] = movingRow[5];
+    }
+  }
+
+  updateCrossedRows(movingCol: Pad[]) {
+    let index = this._padsColList.indexOf(movingCol);
+    index += index + 1;
+    for (var i = 1; i < movingCol.length; i += 2) {
+      this._padsRow1[index] = movingCol[1];
+      this._padsRow2[index] = movingCol[3];
+      this._padsRow3[index] = movingCol[5];
+    }
+  }
+
+  moveRow(row: string, distance: string) {
+    $("." + row + "," + " .sparePad").animate({ left: distance }, this._animDuration);
+  }
+
+  moveCol(col: string, distance: string) {
+    $("." + col + "," + " .sparePad").animate({ top: distance }, this._animDuration);
+  }
+
+  createSparePad(newSparePad: Pad): Pad {
+    newSparePad.col = undefined;
+    newSparePad.row = undefined;
+    return newSparePad;
+  }
+
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   get pads(): Pad[] {
@@ -131,14 +266,14 @@ export class PadsService {
   }
 
   get padsRow2(): Pad[] {
-    return this._padsRow1;
+    return this._padsRow2;
   }
   set padsRow2(newPadsRow: Pad[]) {
     this._padsRow2 = newPadsRow;
   }
 
   get padsRow3(): Pad[] {
-    return this._padsRow1;
+    return this._padsRow3;
   }
   set padsRow3(newPadsRow: Pad[]) {
     this._padsRow3 = newPadsRow;
@@ -152,14 +287,14 @@ export class PadsService {
   }
 
   get padsCol2(): Pad[] {
-    return this._padsRow1;
+    return this._padsCol2;
   }
   set padsCol2(newPadsCol: Pad[]) {
     this._padsCol2 = newPadsCol;
   }
 
   get padsCol3(): Pad[] {
-    return this._padsCol1;
+    return this._padsCol3;
   }
   set padsCol3(newPadsCol: Pad[]) {
     this._padsCol3 = newPadsCol;
@@ -177,5 +312,19 @@ export class PadsService {
   }
   set sparePad(newSparePad) {
     this._sparePad = newSparePad;
+  }
+
+  get animDistance(): number {
+    return this._animDistance;
+  }
+  set animDistance(newAnimDistance: number) {
+    this._animDistance = newAnimDistance;
+  }
+
+  get animDuration(): number {
+    return this._animDuration;
+  }
+  set animDuration(newAnimDuration: number) {
+    this._animDuration = newAnimDuration;
   }
 }

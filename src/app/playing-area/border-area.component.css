@@ -1,0 +1,46 @@
+.pad-insertion-area {
+  position: absolute;
+  width: calc(100%/9);
+  height: calc(100%/9);
+  border: 1px solid black;
+}
+
+.hrz-first {
+  left: 0;
+}
+
+.hrz-second {
+  left: calc(200%/9);
+}
+
+.hrz-third {
+  left: calc(400%/9);
+}
+
+.hrz-fourth {
+  left: calc(600%/9);
+}
+
+.hrz-fifth {
+  left: calc(800%/9);
+}
+
+.vrt-first {
+  top: 0;
+}
+
+.vrt-second {
+  top: calc(200%/9)
+}
+
+.vrt-third {
+  top: calc(400%/9)
+}
+
+.vrt-fourth {
+  top: calc(600%/9)
+}
+
+.vrt-fifth {
+  top: calc(800%/9)
+}

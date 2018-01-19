@@ -1,101 +1,97 @@
 /*For board*/
 
-.board {
-  position: relative;
-  width: 602px;
-  height: 602px;
+.playing-board {
+  position: absolute;
+  left: calc(100%/9);
+  top: calc(100%/9);
+  width: calc(700%/9);
+  height: calc(700%/9);
   background-image: url("../../assets/img/playing-board.png");
   background-size: cover;
 }
 
 .pad {
   position: absolute;
-  left: 1000px;
-  top: 500px;
-  width: 86px;
-  height: 86px;
+  width: calc(100%/7);
+  height: calc(100%/7);
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
 }
 
 .pad img {
+  width: 100%;
+  height: 100%;
+}
+
+.spare-pad {
   width: 86px;
   height: 86px;
+  left: 1000px;
+  top: 500px;
 }
 
 /* position all pads */
 
-.pad.row1 {
+.row1 {
   top: 0;
 }
 
-.pad.row2 {
+.row2 {
   top: calc(100%/7);
 }
 
-.pad.row3 {
+.row3 {
   top: calc(200%/7);
 }
 
-.pad.row4 {
+.row4 {
   top: calc(300%/7);
 }
 
-.pad.row5 {
+.row5 {
   top: calc(400%/7);
 }
 
-.pad.row6 {
+.row6 {
   top: calc(500%/7);
 }
 
-.pad.row7 {
+.row7 {
   top: calc(600%/7);
 }
 
-.pad.col1 {
+.col1 {
   left: 0;
 }
 
-.pad.col2 {
+.col2 {
   left: calc(100%/7);
 }
 
-.pad.col3 {
+.col3 {
   left: calc(200%/7);
 }
 
-.pad.col4 {
+.col4 {
   left: calc(300%/7);
 }
 
-.pad.col5 {
+.col5 {
   left: calc(400%/7);
 }
 
-.pad.col6 {
+.col6 {
   left: calc(500%/7);
 }
 
-.pad.col7 {
+.col7 {
   left: calc(600%/7);
 }
 
 /* End of positioning */
-
-.move-row-right {
-  transform: translateX(86px);
-}
-
-.move-row-left {
-  transform: translateX(-86px);
-}
-
-.move-col-right {
-  transform: translateY(86px);
-}
-
-.move-col-left {
-  transform: translateY(-86px);
-}
 
 .rotate0 {
   transform: rotate(0deg);
