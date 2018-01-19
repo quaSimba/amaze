@@ -56,11 +56,7 @@ export class PadsService {
     })
 
     // Create all treasure pads
-<<<<<<< HEAD
     let fixedTreasure: TPad[] = [new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad];
-=======
-    let fixedTreasure: TPad[] = [new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad,];
->>>>>>> c5ea43158ee4b148ae593f744f4bc74a7ea64b78
     fixedTreasure.forEach((treasure, index) => {
       if (2 < index && index < 6) {
         treasure.rotationCase = 1;
