@@ -1,5 +1,6 @@
 export class targets {
   id: number;
   name: string;
-  path: string;
+  cardPath: string;
+  padPath: string;
 }

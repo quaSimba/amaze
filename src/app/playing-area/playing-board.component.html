@@ -1,0 +1,11 @@
+<div class="playing-board">
+  <div *ngFor="let pad of _padsService.gridRep" class="pad row{{pad.row}} col{{pad.col}} rotationCase{{pad.rotationCase}} {{pad.animation}}">
+    <img src="{{pad.imgSource}}" alt="Textur">
+  </div>
+</div>
+<div class="spare-pad-area">
+  <div class="pad spare-pad rotationCase{{_padsService.sparePad.rotationCase}}">
+    <img src="{{_padsService.sparePad.imgSource}}" alt="Textur">
+  </div>
+  <button type="button" name="rotate" (click)="_padsService.rotatePad(_padsService.sparePad)">Rotate spare pad</button>
+</div>
