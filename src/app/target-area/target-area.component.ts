@@ -9,8 +9,9 @@ import { TARGETS } from '../targets/mock-targets';
   styleUrls: ["./target-area.component.css"]
 })
 
-export class TargetAreaComponent{
+export class TargetAreaComponent {
 
+  private _shuffledTargets;
   private _playerCount = 0;
   private _playerOneTargets;
   private _playerTwoTargets;
@@ -21,43 +22,42 @@ export class TargetAreaComponent{
   private _currentTargetThree;
   private _currentTargetFour;
 
-  constructor(shuffleService: ShuffleService){
-
-    shuffleService.shuffle(TARGETS);
+  constructor(shuffleService: ShuffleService) {
+    this._shuffledTargets = shuffleService.shuffle(TARGETS.slice(0, TARGETS.length));
   }
 
-  setPlayerCountOne(){
+  setPlayerCountOne() {
     this.playerCount = 1;
-    this.playerOneTargets = TARGETS;
-    this.currentTargetOne = TARGETS[0];
+    this.playerOneTargets = this._shuffledTargets;
+    this.currentTargetOne = this._shuffledTargets[0];
   }
 
-  setPlayerCountTwo(){
+  setPlayerCountTwo() {
     this.playerCount = 2;
-    this.playerOneTargets = TARGETS.slice(0, 12);
-    this.playerTwoTargets = TARGETS.slice(12, 24);
+    this.playerOneTargets = this._shuffledTargets.slice(0, 12);
+    this.playerTwoTargets = this._shuffledTargets.slice(12, 24);
 
     this.currentTargetOne = this.playerOneTargets[0];
     this.currentTargetTwo = this.playerTwoTargets[0];
   }
 
-  setPlayerCountThree(){
+  setPlayerCountThree() {
     this.playerCount = 3;
-    this.playerOneTargets = TARGETS.slice(0,8);
-    this.playerTwoTargets = TARGETS.slice(8,16);
-    this.playerThreeTargets = TARGETS.slice(16,24);
+    this.playerOneTargets = this._shuffledTargets.slice(0, 8);
+    this.playerTwoTargets = this._shuffledTargets.slice(8, 16);
+    this.playerThreeTargets = this._shuffledTargets.slice(16, 24);
 
     this.currentTargetOne = this.playerOneTargets[0];
     this.currentTargetTwo = this.playerTwoTargets[0];
     this.currentTargetThree = this.playerThreeTargets[0];
   }
 
-  setPlayerCountFour(){
+  setPlayerCountFour() {
     this.playerCount = 4;
-    this.playerOneTargets = TARGETS.slice(0,6);
-    this.playerTwoTargets = TARGETS.slice(6,12);
-    this.playerThreeTargets = TARGETS.slice(12,18);
-    this.playerFourTargets = TARGETS.slice(18,24);
+    this.playerOneTargets = this._shuffledTargets.slice(0, 6);
+    this.playerTwoTargets = this._shuffledTargets.slice(6, 12);
+    this.playerThreeTargets = this._shuffledTargets.slice(12, 18);
+    this.playerFourTargets = this._shuffledTargets.slice(18, 24);
 
     this.currentTargetOne = this.playerOneTargets[0];
     this.currentTargetTwo = this.playerTwoTargets[0];
@@ -65,66 +65,73 @@ export class TargetAreaComponent{
     this.currentTargetFour = this.playerFourTargets[0];
   }
 
-  get currentTargetOne(){
+  get shuffledTargets() {
+    return this._shuffledTargets;
+  }
+  set shuffledTargets(a) {
+    this._shuffledTargets = a;
+  }
+
+  get currentTargetOne() {
     return this._currentTargetOne;
   }
-  set currentTargetOne(a){
+  set currentTargetOne(a) {
     this._currentTargetOne = a;
   }
 
-  get currentTargetTwo(){
+  get currentTargetTwo() {
     return this._currentTargetTwo;
   }
-  set currentTargetTwo(a){
+  set currentTargetTwo(a) {
     this._currentTargetTwo = a;
   }
 
-  get currentTargetThree(){
+  get currentTargetThree() {
     return this._currentTargetThree;
   }
-  set currentTargetThree(a){
+  set currentTargetThree(a) {
     this._currentTargetThree = a;
   }
 
-  get currentTargetFour(){
+  get currentTargetFour() {
     return this._currentTargetFour;
   }
-  set currentTargetFour(a){
+  set currentTargetFour(a) {
     this._currentTargetFour = a;
   }
 
-  get playerOneTargets(){
+  get playerOneTargets() {
     return this._playerOneTargets;
   }
-  set playerOneTargets(a){
+  set playerOneTargets(a) {
     this._playerOneTargets = a;
   }
 
-  get playerTwoTargets(){
+  get playerTwoTargets() {
     return this._playerTwoTargets;
   }
-  set playerTwoTargets(a){
+  set playerTwoTargets(a) {
     this._playerTwoTargets = a;
   }
 
-  get playerThreeTargets(){
+  get playerThreeTargets() {
     return this._playerThreeTargets;
   }
-  set playerThreeTargets(a){
+  set playerThreeTargets(a) {
     this._playerThreeTargets = a;
   }
 
-  get playerFourTargets(){
+  get playerFourTargets() {
     return this._playerFourTargets;
   }
-  set playerFourTargets(a){
+  set playerFourTargets(a) {
     this._playerFourTargets = a;
   }
 
-  get playerCount(){
+  get playerCount() {
     return this._playerCount;
   }
-  set playerCount(a){
+  set playerCount(a) {
     this._playerCount = a;
   }
 

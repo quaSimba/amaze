@@ -28,7 +28,6 @@ export class PadsService {
   private _isMoving: boolean;
 
   constructor(private _shuffleService: ShuffleService) {
-    console.log(TARGETS);
     this._fixedPads = this.createFixedPads();
     this._loosePads = this.createLoosePads();
     this._padsRow1 = [];
