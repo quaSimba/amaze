@@ -11,6 +11,7 @@ import { ShuffleService } from './helper-services/shuffle-service';
 import { TargetAreaComponent } from './target-area/target-area.component';
 import { PlayerComponent } from './player/player.component';
 import { TargetAreaService } from './target-area/target-area.service';
+import { PlayerService } from './player/player.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { TargetAreaService } from './target-area/target-area.service';
   imports: [
     BrowserModule, BrowserAnimationsModule
   ],
-  providers: [PadsService, ShuffleService, TargetAreaService],
+  providers: [PadsService, ShuffleService, TargetAreaService, PlayerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

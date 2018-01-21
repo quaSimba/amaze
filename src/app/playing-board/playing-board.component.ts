@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Pad } from '../pads/pads';
 import { PadsService } from '../pads/pads.service';
+import { PlayerService } from '../player/player.service';
 
 declare var $: any;
 declare var jquery: any;
@@ -13,7 +14,7 @@ declare var jquery: any;
 })
 export class PlayingBoardComponent implements OnInit {
 
-  constructor(private _padsService: PadsService) {
+  constructor(private _padsService: PadsService, private _playerService: PlayerService){
   }
 
   ngOnInit() {

@@ -1,28 +1,28 @@
 
-Spieleranzahl: {{playerCount}}<br><br>
-<button (click)="targetAreaService.setPlayerCountOne()"> Ein Spieler </button>
-<button (click)="targetAreaService.setPlayerCountTwo()"> Zwei Spieler </button>
-<button (click)="targetAreaService.setPlayerCountThree()"> Drei Spieler </button>
-<button (click)="targetAreaService.setPlayerCountFour()"> Vier Spieler </button>
+Spieleranzahl: {{_targetAreaService.playerCount}}<br><br>
+<button (click)="_targetAreaService.setPlayerCountOne()"> Ein Spieler </button>
+<button (click)="_targetAreaService.setPlayerCountTwo()"> Zwei Spieler </button>
+<button (click)="_targetAreaService.setPlayerCountThree()"> Drei Spieler </button>
+<button (click)="_targetAreaService.setPlayerCountFour()"> Vier Spieler </button>
 <hr>
-<div [ngSwitch]="targetAreaService.playerCount">
+<div [ngSwitch]="_targetAreaService.playerCount">
   <div *ngSwitchCase="1">
-    <img class="target-area" src={{targetAreaService.currentTargetOne.cardPath}}>
+    <img class="target-area" src={{_targetAreaService.currentTargetOne.cardPath}}>
   </div>
   <div *ngSwitchCase="2">
-    <img class="target-area" src={{targetAreaService.currentTargetOne.cardPath}}>
-    <img class="target-area" src={{targetAreaService.currentTargetTwo.cardPath}}>
+    <img class="target-area" src={{_targetAreaService.currentTargetOne.cardPath}}>
+    <img class="target-area" src={{_targetAreaService.currentTargetTwo.cardPath}}>
   </div>
   <div *ngSwitchCase="3">
-    <img class="target-area" src={{targetAreaService.currentTargetOne.cardPath}}>
-    <img class="target-area" src={{targetAreaService.currentTargetTwo.cardPath}}>
-    <img class="target-area" src={{targetAreaService.currentTargetThree.cardPath}}>
+    <img class="target-area" src={{_targetAreaService.currentTargetOne.cardPath}}>
+    <img class="target-area" src={{_targetAreaService.currentTargetTwo.cardPath}}>
+    <img class="target-area" src={{_targetAreaService.currentTargetThree.cardPath}}>
   </div>
   <div *ngSwitchCase="4">
-    <img class="target-area" src={{targetAreaService.currentTargetOne.cardPath}}>
-    <img class="target-area" src={{targetAreaService.currentTargetTwo.cardPath}}>
-    <img class="target-area" src={{targetAreaService.currentTargetThree.cardPath}}>
-    <img class="target-area" src={{targetAreaService.currentTargetFour.cardPath}}>
+    <img class="target-area" src={{_targetAreaService.currentTargetOne.cardPath}}>
+    <img class="target-area" src={{_targetAreaService.currentTargetTwo.cardPath}}>
+    <img class="target-area" src={{_targetAreaService.currentTargetThree.cardPath}}>
+    <img class="target-area" src={{_targetAreaService.currentTargetFour.cardPath}}>
   </div>
   <div *ngSwitchDefault>
     Wähle eine Spieleranzahl aus.

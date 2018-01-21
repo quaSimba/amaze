@@ -1,13 +1,14 @@
-<button (click) ="selectBlue()"> Blauer Spieler </button>
-<button (click) ="selectRed()"> Roter Spieler </button>
-<button (click) ="selectYellow()"> Gelber Spieler </button>
-<button (click) ="selectGreen()"> Grüner Spieler </button>
-<button (click) ="reset()"> Neustart </button>
+<button class="buttons" (click) ="playerService.selectBlue()" > Blauer Spieler </button>
+<br />
+<button class="buttons" (click) ="playerService.selectRed()"> Roter Spieler </button>
+<br />
+<button class="buttons" (click) ="playerService.selectYellow()"> Gelber Spieler </button>
+<br />
+<button class="buttons" (click) ="playerService.selectGreen()"> Grüner Spieler </button>
+<br />
+<button class="buttons" (click) ="playerService.reset()"> Neustart </button>
 <br /><br />
-<div id="playingArea">
-  <button (click) ="move(pad)" *ngFor="let pad of pads" class="pads"></button>
-  <div [ngStyle]="{'background-color': playerBlue.color}" id="playerBlue"></div>
-  <div [ngStyle]="{'background-color': playerRed.color}" id="playerRed"></div>
-  <div [ngStyle]="{'background-color': playerGreen.color}" id="playerGreen"></div>
-  <div [ngStyle]="{'background-color': playerYellow.color}" id="playerYellow"></div>
-</div>
+<div [ngStyle]="{'background-color': playerService.playerBlue.color}" id="playerBlue" class="player"></div>
+<div [ngStyle]="{'background-color': playerService.playerRed.color}" id="playerRed" class="player"></div>
+<div [ngStyle]="{'background-color': playerService.playerGreen.color}" id="playerGreen" class="player"></div>
+<div [ngStyle]="{'background-color': playerService.playerYellow.color}" id="playerYellow" class="player"></div>

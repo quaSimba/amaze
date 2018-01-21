@@ -1,45 +1,28 @@
-#playingArea{
-	position: relative;
-	width: 500px;
-	height: 500px;
+.buttons{
+  top: -15%;
+  position: relative;
+  z-index: 2; }
+
+.player{
+    z-index: 1;
+    position: absolute;
+  	border-radius: 50%;
+    width: 30px;
+    height: 30px;
 }
 #playerBlue{
-  position: absolute;
-	top: calc(500%/6 - 25px);
-	left: calc(500%/6 - 25px) ;
-	border-radius: 50%;
-  width: 50px;
-  height: 50px;
+	top: calc(650%/7 - 15px);
+	left: calc(650%/7 - 15px) ;
 }
 #playerRed{
-  position: absolute;
-	top: calc(100%/6 - 25px);
-	left: calc(100%/6 - 25px);
-	border-radius: 50%;
-  width: 50px;
-  height: 50px;
+	top: calc(50%/7 - 15px);
+	left: calc(50%/7 - 15px);
 }
 #playerGreen{
-  position: absolute;
-	top: calc(500%/6 - 25px);
-	left: calc(100%/6 - 25px);
-	border-radius: 50%;
-  width: 50px;
-  height: 50px;
+	top: calc(650%/7 - 15px);
+	left: calc(50%/7 - 15px);
 }
 #playerYellow{
-  position: absolute;
-	top: calc(100%/6 - 25px);
-	left: calc(500%/6 - 25px);
-	border-radius: 50%;
-  width: 50px;
-  height: 50px;
-}
-.pads{
-
-	width: calc(100%/3);
-	height: calc(100%/3);
-	background-color: darkgreen;
-	border-radius: 25%;
-
+	top: calc(50%/7 - 15px);
+	left: calc(650%/7 - 15px  );
 }

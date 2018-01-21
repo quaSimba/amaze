@@ -9,6 +9,7 @@ declare var jquery: any;
 
 @Injectable()
 export class PadsService {
+  private _allPads: Pad[];
   private _fixedPads: Pad[];
   private _loosePads: Pad[];
   private _padsRow1: Pad[];
@@ -28,6 +29,7 @@ export class PadsService {
   constructor(private _shuffleService: ShuffleService) {
     this._fixedPads = this.createFixedPads();
     this._loosePads = this.createLoosePads();
+    this._allPads = this._fixedPads.concat(this._loosePads);
     this._padsRow1 = [];
     this._padsRow2 = [];
     this._padsRow3 = [];
@@ -321,6 +323,12 @@ export class PadsService {
     }
   }
 
+  get allPads(): Pad[]{
+    return this._allPads;
+  }
+  set allPads(newAllPads : Pad[]){
+    this._allPads = newAllPads;
+  }
   get loosePads(): Pad[] {
     return this._loosePads;
   }
