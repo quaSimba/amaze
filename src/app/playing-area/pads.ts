@@ -22,7 +22,7 @@ export class Pad {
     this._treasureID = null;
   }
 
-  updateopenDirections() { }
+  updateOpenDirections() { }
 
   get padType(): number {
     return this._padType;
@@ -37,7 +37,7 @@ export class Pad {
   // Leverage setter to also change openDirections on change of rotationCase
   set rotationCase(newRotationCase: number) {
     this._rotationCase = newRotationCase;
-    this.updateopenDirections();
+    this.updateOpenDirections();
   }
 
   get openDirections(): Map<string, boolean> {
@@ -92,7 +92,7 @@ export class IPad extends Pad {
     this.imgSource = '../assets/img/pads/I-Pad@150px.png';
   }
 
-  updateopenDirections() {
+  updateOpenDirections() {
     switch (this.rotationCase) {
       case 0:
       case 2:
@@ -123,7 +123,7 @@ export class LPad extends Pad {
     this.imgSource = '../assets/img/pads/L-Pad@150px.png';
   }
 
-  updateopenDirections() {
+  updateOpenDirections() {
     switch (this.rotationCase) {
       case 0:
         this.openDirections.set("north", false);
@@ -165,7 +165,7 @@ export class TPad extends Pad {
     this.treasureID = 0;
     this.imgSource = '../assets/img/pads/T-Pad@150px.png';
   }
-  updateopenDirections() {
+  updateOpenDirections() {
     switch (this.rotationCase) {
       case 0:
         this.openDirections.set("north", true);

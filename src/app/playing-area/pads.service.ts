@@ -1,5 +1,3 @@
-// TODO: Funktionen zur Erstellung der fixen Pads schreiben.
-
 import { Injectable } from '@angular/core';
 
 import { Pad, IPad, LPad, TPad } from './pads';
