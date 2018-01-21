@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -8,7 +9,8 @@ import { BorderAreaComponent } from './border-area/border-area.component';
 import { PadsService } from './pads/pads.service';
 import { ShuffleService } from './helper-services/shuffle-service';
 import { TargetAreaComponent } from './target-area/target-area.component';
-//import { PlayerComponent } from './player/player.component';
+import { PlayerComponent } from './player/player.component';
+import { TargetAreaService } from './target-area/target-area.service';
 
 @NgModule({
   declarations: [
@@ -17,12 +19,12 @@ import { TargetAreaComponent } from './target-area/target-area.component';
     PlayingBoardComponent,
     BorderAreaComponent,
     TargetAreaComponent,
-    //PlayerComponent
+    PlayerComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule, BrowserAnimationsModule
   ],
-  providers: [PadsService, ShuffleService],
+  providers: [PadsService, ShuffleService, TargetAreaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,13 @@
+<button (click) ="selectBlue()"> Blauer Spieler </button>
+<button (click) ="selectRed()"> Roter Spieler </button>
+<button (click) ="selectYellow()"> Gelber Spieler </button>
+<button (click) ="selectGreen()"> Grüner Spieler </button>
+<button (click) ="reset()"> Neustart </button>
+<br /><br />
+<div id="playingArea">
+  <button (click) ="move(pad)" *ngFor="let pad of pads" class="pads"></button>
+  <div [ngStyle]="{'background-color': playerBlue.color}" id="playerBlue"></div>
+  <div [ngStyle]="{'background-color': playerRed.color}" id="playerRed"></div>
+  <div [ngStyle]="{'background-color': playerGreen.color}" id="playerGreen"></div>
+  <div [ngStyle]="{'background-color': playerYellow.color}" id="playerYellow"></div>
+</div>
