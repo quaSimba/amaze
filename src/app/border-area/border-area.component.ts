@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { PadsService } from './pads.service';
+import { PadsService } from '../pads/pads.service';
 
 @Component({
   selector: 'border-area',

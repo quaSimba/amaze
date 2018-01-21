@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ShuffleService } from './helper-services/shuffle-service';
 
-import { PadsService } from './playing-area/pads.service';
+import { PadsService } from './pads/pads.service';
 
 @Component({
   selector: 'app-root',

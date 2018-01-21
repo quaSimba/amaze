@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Pad } from './pads';
-import { PadsService } from './pads.service';
+import { Pad } from '../pads/pads';
+import { PadsService } from '../pads/pads.service';
 
 declare var $: any;
 declare var jquery: any;
