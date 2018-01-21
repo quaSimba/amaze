@@ -7,6 +7,7 @@ export class TargetAreaService {
 
 shuffleService = null;
 
+private _shuffledTargets;
 private _playerCount;
 private _playerOneTargets;
 private _playerTwoTargets;
@@ -19,22 +20,23 @@ private _currentTargetFour;
 
   constructor(private _shuffle:ShuffleService) {
     this.shuffleService = _shuffle;
+    this._shuffledTargets = this.shuffleService.shuffle(TARGETS.slice(0, TARGETS.length));
    }
 
   setPlayerCountOne(){
 
     this.playerCount = 1;
-    this.shuffleService.shuffle(TARGETS);
-    this.playerOneTargets = TARGETS;
-    this.currentTargetOne = TARGETS[0];
+    this.shuffleService.shuffle(this._shuffledTargets);
+    this.playerOneTargets = this._shuffledTargets;
+    this.currentTargetOne = this._shuffledTargets[0];
   }
 
   setPlayerCountTwo(){
 
     this.playerCount = 2;
-    this.shuffleService.shuffle(TARGETS);
-    this.playerOneTargets = TARGETS.slice(0, 12);
-    this.playerTwoTargets = TARGETS.slice(12, 24);
+    this.shuffleService.shuffle(this._shuffledTargets);
+    this.playerOneTargets = this._shuffledTargets.slice(0, 12);
+    this.playerTwoTargets = this._shuffledTargets.slice(12, 24);
 
     this.currentTargetOne = this.playerOneTargets[0];
     this.currentTargetTwo = this.playerTwoTargets[0];
@@ -42,10 +44,10 @@ private _currentTargetFour;
 
   setPlayerCountThree(){
     this.playerCount = 3;
-    this.shuffleService.shuffle(TARGETS);
-    this.playerOneTargets = TARGETS.slice(0,8);
-    this.playerTwoTargets = TARGETS.slice(8,16);
-    this.playerThreeTargets = TARGETS.slice(16,24);
+    this.shuffleService.shuffle(this._shuffledTargets);
+    this.playerOneTargets = this._shuffledTargets.slice(0,8);
+    this.playerTwoTargets = this._shuffledTargets.slice(8,16);
+    this.playerThreeTargets = this._shuffledTargets.slice(16,24);
 
     this.currentTargetOne = this.playerOneTargets[0];
     this.currentTargetTwo = this.playerTwoTargets[0];
@@ -54,11 +56,11 @@ private _currentTargetFour;
 
   setPlayerCountFour(){
     this.playerCount = 4;
-    this.shuffleService.shuffle(TARGETS);
-    this.playerOneTargets = TARGETS.slice(0,6);
-    this.playerTwoTargets = TARGETS.slice(6,12);
-    this.playerThreeTargets = TARGETS.slice(12,18);
-    this.playerFourTargets = TARGETS.slice(18,24);
+    this.shuffleService.shuffle(this._shuffledTargets);
+    this.playerOneTargets = this._shuffledTargets.slice(0,6);
+    this.playerTwoTargets = this._shuffledTargets.slice(6,12);
+    this.playerThreeTargets = this._shuffledTargets.slice(12,18);
+    this.playerFourTargets = this._shuffledTargets.slice(18,24);
 
     this.currentTargetOne = this.playerOneTargets[0];
     this.currentTargetTwo = this.playerTwoTargets[0];
@@ -66,6 +68,12 @@ private _currentTargetFour;
     this.currentTargetFour = this.playerFourTargets[0];
   }
 
+  get shuffledTargets(){
+    return this._shuffledTargets;
+  }
+  set shuffledTargets(a){
+    this._shuffledTargets = a;
+  }
   get currentTargetOne(){
     return this._currentTargetOne;
   }

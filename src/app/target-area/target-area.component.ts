@@ -17,5 +17,4 @@ export class TargetAreaComponent {
   constructor(private _targetArea:TargetAreaService){
     this.targetAreaService = _targetArea;
   }
-
 }
