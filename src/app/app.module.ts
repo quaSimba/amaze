@@ -8,6 +8,7 @@ import { BorderAreaComponent } from './border-area/border-area.component';
 import { PadsService } from './pads/pads.service';
 import { ShuffleService } from './helper-services/shuffle-service';
 import { TargetAreaComponent } from './target-area/target-area.component';
+import { SparePadAreaComponent } from './spare-pad-area/spare-pad-area.component';
 //import { PlayerComponent } from './player/player.component';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { TargetAreaComponent } from './target-area/target-area.component';
     PlayingBoardComponent,
     BorderAreaComponent,
     TargetAreaComponent,
+    SparePadAreaComponent,
     //PlayerComponent
   ],
   imports: [

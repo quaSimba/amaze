@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ShuffleService } from './helper-services/shuffle-service';
 
 import { PadsService } from './pads/pads.service';
+
+declare var $: any;
+declare var jquery: any;
 
 @Component({
   selector: 'app-root',
@@ -11,8 +14,11 @@ import { PadsService } from './pads/pads.service';
 })
 
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'the Labyrinth App';
 
   constructor() { }
+
+  ngOnInit() {
+  }
 }

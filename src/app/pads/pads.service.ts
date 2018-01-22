@@ -21,6 +21,8 @@ export class PadsService {
   private _padsColList: Array<Pad[]>;
   private _gridRep: Pad[];
   private _sparePad: Pad;
+  private _sparePadDragged: boolean;
+  private _sparePadDropped: boolean;
   private _animDistance: number;
   private _animDuration: number;
   private _isMoving: boolean;
@@ -35,6 +37,7 @@ export class PadsService {
     this._padsCol2 = [];
     this._padsCol3 = [];
     this.createGrid(7);
+    this._sparePadDropped = false;
     this._animDuration = 500;
     this._isMoving = false;
   }
@@ -129,7 +132,6 @@ export class PadsService {
     tempPads.forEach((pad, index) => {
       pad.rotationCase = Math.floor(Math.random() * 4);
     })
-
     return tempPads;
   }
 
@@ -203,6 +205,12 @@ export class PadsService {
     return [this._loosePads.splice(0, 1)[0], this._padsRow1[index], this._loosePads.splice(0, 1)[0], this._padsRow2[index], this._loosePads.splice(0, 1)[0], this._padsRow3[index], this._loosePads.splice(0, 1)[0]];
   }
 
+  insertSparePad(targetRow: number, targetCol: number) {
+    this.sparePadDropped = true;
+    this.sparePad.row = targetRow;
+    this.sparePad.col = targetCol;
+  }
+
   pushRowRight(row: Pad[]) {
     if (!this._isMoving) {
       this._isMoving = true;
@@ -217,6 +225,9 @@ export class PadsService {
         this._sparePad = this.createSparePad(movingRow.splice(movingRow.length - 1, 1)[0]);
         this.updateCrossedCols(movingRow);
         this.updateGridRepresentation();
+        // Set the sparePadDropped false (since it might be set to true in  border-area.component) to render the <spare-pad> invisible
+        this._sparePadDropped = false;
+        this._sparePadDragged = false;
         this._isMoving = false;
       }, this._animDuration);
     }
@@ -236,6 +247,8 @@ export class PadsService {
         this._sparePad = this.createSparePad(movingRow.splice(0, 1)[0]);
         this.updateCrossedCols(movingRow);
         this.updateGridRepresentation();
+        // Set the sparePadDropped false (since it might be set to true in  border-area.component) to render the <spare-pad> invisible
+        this._sparePadDropped = false;
         this._isMoving = false;
       }, this._animDuration);
     }
@@ -255,6 +268,8 @@ export class PadsService {
         this._sparePad = this.createSparePad(movingCol.splice(0, 1)[0]);
         this.updateCrossedRows(movingCol);
         this.updateGridRepresentation();
+        // Set the sparePadDropped false (since it might be set to true in  border-area.component) to render the <spare-pad> invisible
+        this._sparePadDropped = false;
         this._isMoving = false;
       }, this._animDuration);
     }
@@ -274,6 +289,8 @@ export class PadsService {
         this._sparePad = this.createSparePad(movingCol.splice(movingCol.length - 1, 1)[0]);
         this.updateCrossedRows(movingCol);
         this.updateGridRepresentation();
+        // Set the sparePadDropped false (since it might be set to true in  border-area.component) to render the <spare-pad> invisible
+        this._sparePadDropped = false;
         this._isMoving = false;
       }, this._animDuration);
     }
@@ -300,11 +317,15 @@ export class PadsService {
   }
 
   moveRow(row: string, distance: string) {
-    $("." + row + "," + " .sparePad").animate({ left: distance }, this._animDuration);
+    setTimeout(() => {
+      $("." + row + ", .spare-pad").animate({ left: distance }, this._animDuration);
+    }, 0);
   }
 
   moveCol(col: string, distance: string) {
-    $("." + col + "," + " .sparePad").animate({ top: distance }, this._animDuration);
+    setTimeout(() => {
+      $("." + col + ", .spare-pad").animate({ top: distance }, this._animDuration);
+    }, 0);
   }
 
   createSparePad(newSparePad: Pad): Pad {
@@ -384,6 +405,20 @@ export class PadsService {
     this._sparePad = newSparePad;
   }
 
+  get sparePadDragged(): boolean {
+    return this._sparePadDragged;
+  }
+  set sparePadDragged(isDragged: boolean) {
+    this._sparePadDragged = isDragged;
+  }
+
+  get sparePadDropped(): boolean {
+    return this._sparePadDropped;
+  }
+  set sparePadDropped(isDropped: boolean) {
+    this._sparePadDropped = isDropped;
+  }
+
   get animDistance(): number {
     return this._animDistance;
   }
@@ -396,5 +431,12 @@ export class PadsService {
   }
   set animDuration(newAnimDuration: number) {
     this._animDuration = newAnimDuration;
+  }
+
+  get isMoving(): boolean {
+    return this._isMoving;
+  }
+  set isMoving(isMoving: boolean) {
+    this._isMoving = isMoving;
   }
 }
