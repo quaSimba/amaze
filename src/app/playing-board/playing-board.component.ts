@@ -10,7 +10,7 @@ declare var jquery: any;
 @Component({
   selector: 'playing-board',
   templateUrl: './playing-board.component.html',
-  styleUrls: ['./playing-board.component.css']
+  styleUrls: ['../pads/pads.component.css', './playing-board.component.css']
 })
 export class PlayingBoardComponent implements OnInit {
 

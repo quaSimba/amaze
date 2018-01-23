@@ -7,10 +7,11 @@ import { PlayingAreaComponent } from './playing-area/playing-area.component'
 import { PlayingBoardComponent } from './playing-board/playing-board.component';
 import { BorderAreaComponent } from './border-area/border-area.component';
 import { PadsService } from './pads/pads.service';
+import { SparePadAreaComponent } from './spare-pad-area/spare-pad-area.component';
 import { ShuffleService } from './helper-services/shuffle-service';
 import { TargetAreaComponent } from './target-area/target-area.component';
-import { PlayerComponent } from './player/player.component';
 import { TargetAreaService } from './target-area/target-area.service';
+import { PlayerComponent } from './player/player.component';
 import { PlayerService } from './player/player.service';
 
 @NgModule({
@@ -20,7 +21,8 @@ import { PlayerService } from './player/player.service';
     PlayingBoardComponent,
     BorderAreaComponent,
     TargetAreaComponent,
-    PlayerComponent
+    PlayerComponent,
+    SparePadAreaComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule

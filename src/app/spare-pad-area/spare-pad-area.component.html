@@ -1,0 +1,8 @@
+<div class="spare-pad-area">
+  <div class="draggable-container" draggable="true" (dragstart)="drag($event)" (dragend)="endDrag()">
+    <div id="spare-pad" class="pad spare-pad" [ngClass]="((_padsService.sparePadDragged && !_padsService.isMoving)||(_padsService.sparePadDropped && _padsService.isMoving)) ? 'hide' : ''">
+      <img src="{{_padsService.sparePad.imgSource}}" class="rotation-case{{_padsService.sparePad.rotationCase}}" alt="Textur">
+    </div>
+  </div>
+  <button type="button" name="rotate" (click)="_padsService.rotatePad(_padsService.sparePad)">Rotate spare pad</button>
+</div>

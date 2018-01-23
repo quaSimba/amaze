@@ -1,14 +1,98 @@
 <div class="border-area">
-  <div class="pad-insertion-area hrz-second vrt-first" (click)="this._padsService.pushColDown(this._padsService.padsCol1); this._playerService.pushColDown(2)"></div>
-  <div class="pad-insertion-area hrz-third vrt-first" (click)="this._padsService.pushColDown(this._padsService.padsCol2); this._playerService.pushColDown(4)"></div>
-  <div class="pad-insertion-area hrz-fourth vrt-first" (click)="this._padsService.pushColDown(this._padsService.padsCol3); this._playerService.pushColDown(6)"></div>
-  <div class="pad-insertion-area vrt-second hrz-fifth" (click)="this._padsService.pushRowLeft(this._padsService.padsRow1); this._playerService.pushRowLeft(2)"></div>
-  <div class="pad-insertion-area vrt-third hrz-fifth" (click)="this._padsService.pushRowLeft(this._padsService.padsRow2); this._playerService.pushRowLeft(4)"></div>
-  <div class="pad-insertion-area vrt-fourth hrz-fifth" (click)="this._padsService.pushRowLeft(this._padsService.padsRow3); this._playerService.pushRowLeft(6)"></div>
-  <div class="pad-insertion-area hrz-second vrt-fifth" (click)="this._padsService.pushColUp(this._padsService.padsCol1); this._playerService.pushColUp(2)"></div>
-  <div class="pad-insertion-area hrz-third vrt-fifth" (click)="this._padsService.pushColUp(this._padsService.padsCol2); this._playerService.pushColUp(4)"></div>
-  <div class="pad-insertion-area hrz-fourth vrt-fifth" (click)="this._padsService.pushColUp(this._padsService.padsCol3); this._playerService.pushColUp(6)"></div>
-  <div class="pad-insertion-area vrt-second hrz-first" (click)="this._padsService.pushRowRight(this._padsService.padsRow1); this._playerService.pushRowRight(2)"></div>
-  <div class="pad-insertion-area vrt-third hrz-first" (click)="this._padsService.pushRowRight(this._padsService.padsRow2); this._playerService.pushRowRight(4)"></div>
-  <div class="pad-insertion-area vrt-fourth hrz-first" (click)="this._padsService.pushRowRight(this._padsService.padsRow3); this._playerService.pushRowRight(6)"></div>
+  <div id="pia-1">
+    <div *ngIf="_pia1" class="pad-insertion-area hrz-second vrt-first enabled" (dragover)="_padsService.sparePadDragged ? enableDrop($event) : null" (drop)="dropAbove1($event)">
+      <p>Drop pad here</p>
+    </div>
+    <div *ngIf="!_pia1" class="pad-insertion-area hrz-second vrt-first disabled">
+      <p>Can't drop here</p>
+    </div>
+  </div>
+  <div id="pia-2">
+    <div *ngIf="_pia2" class="pad-insertion-area hrz-third vrt-first enabled" (dragover)="enableDrop($event)" (drop)="dropAbove2($event)">
+      <p>Drop pad here</p>
+    </div>
+    <div *ngIf="!_pia2" class="pad-insertion-area hrz-third vrt-first disabled">
+      <p>Can't drop here</p>
+    </div>
+  </div>
+  <div id="pia-3">
+    <div *ngIf="_pia3" class="pad-insertion-area hrz-fourth vrt-first enabled" (dragover)="_padsService.sparePadDragged ? enableDrop($event) : null" (drop)="dropAbove3($event)">
+      <p>Drop pad here</p>
+    </div>
+    <div *ngIf="!_pia3" class="pad-insertion-area hrz-fourth vrt-first disabled">
+      <p>Can't drop here</p>
+    </div>
+  </div>
+  <div id="pia-4">
+    <div *ngIf="_pia4" class="pad-insertion-area vrt-second hrz-fifth enabled" (dragover)="_padsService.sparePadDragged ? enableDrop($event) : null" (drop)="dropRight1($event)">
+      <p>Drop pad here</p>
+    </div>
+    <div *ngIf="!_pia4" class="pad-insertion-area vrt-second hrz-fifth disabled">
+      <p>Can't drop here</p>
+    </div>
+  </div>
+  <div id="pia-5">
+    <div *ngIf="_pia5" class="pad-insertion-area vrt-third hrz-fifth enabled" (dragover)="_padsService.sparePadDragged ? enableDrop($event) : null" (drop)="dropRight2($event)">
+      <p>Drop pad here</p>
+    </div>
+    <div *ngIf="!_pia5" class="pad-insertion-area vrt-third hrz-fifth disabled">
+      <p>Can't drop here</p>
+    </div>
+  </div>
+  <div id="pia-6">
+    <div *ngIf="_pia6" class="pad-insertion-area vrt-fourth hrz-fifth enabled" (dragover)="_padsService.sparePadDragged ? enableDrop($event) : null" (drop)="dropRight3($event)">
+      <p>Drop pad here</p>
+    </div>
+    <div *ngIf="!_pia6" class="pad-insertion-area vrt-fourth hrz-fifth disabled">
+      <p>Can't drop here</p>
+    </div>
+  </div>
+  <div id="pia-7">
+    <div *ngIf="_pia7" class="pad-insertion-area hrz-second vrt-fifth enabled" (dragover)="_padsService.sparePadDragged ? enableDrop($event) : null" (drop)="dropBeneath1($event)">
+      <p>Drop pad here</p>
+    </div>
+    <div *ngIf="!_pia7" class="pad-insertion-area hrz-second vrt-fifth disabled">
+      <p>Can't drop here</p>
+    </div>
+  </div>
+  <div id="pia-8">
+    <div *ngIf="_pia8" class="pad-insertion-area hrz-third vrt-fifth enabled" (dragover)="_padsService.sparePadDragged ? enableDrop($event) : null" (drop)="dropBeneath2($event)">
+      <p>Drop pad here</p>
+    </div>
+    <div *ngIf="!_pia8" class="pad-insertion-area hrz-third vrt-fifth disabled">
+      <p>Can't drop here</p>
+    </div>
+  </div>
+  <div id="pia-9">
+    <div *ngIf="_pia9" class="pad-insertion-area hrz-fourth vrt-fifth enabled" (dragover)="_padsService.sparePadDragged ? enableDrop($event) : null" (drop)="dropBeneath3($event)">
+      <p>Drop pad here</p>
+    </div>
+    <div *ngIf="!_pia9" class="pad-insertion-area hrz-fourth vrt-fifth disabled">
+      <p>Can't drop here</p>
+    </div>
+  </div>
+  <div id="pia-10">
+    <div *ngIf="_pia10" class="pad-insertion-area vrt-second hrz-first enabled" (dragover)="_padsService.sparePadDragged ? enableDrop($event) : null" (drop)="dropLeft1($event)">
+      <p>Drop pad here</p>
+    </div>
+    <div *ngIf="!_pia10" class="pad-insertion-area vrt-second hrz-first disabled">
+      <p>Can't drop here</p>
+    </div>
+  </div>
+  <div id="pia-11">
+    <div *ngIf="_pia11" class="pad-insertion-area vrt-third hrz-first enabled" (dragover)="_padsService.sparePadDragged ? enableDrop($event) : null" (drop)="dropLeft2($event)">
+      <p>Drop pad here</p>
+    </div>
+    <div *ngIf="!_pia11" class="pad-insertion-area vrt-third hrz-first disabled">
+      <p>Can't drop here</p>
+    </div>
+  </div>
+  <div id="pia-12">
+    <div *ngIf="_pia12" class="pad-insertion-area vrt-fourth hrz-first enabled" (dragover)="_padsService.sparePadDragged ? enableDrop($event) : null" (drop)="dropLeft3($event)">
+      <p>Drop pad here</p>
+    </div>
+    <div *ngIf="!_pia12" class="pad-insertion-area vrt-fourth hrz-first disabled">
+      <p>Can't drop here</p>
+    </div>
+  </div>
 </div>

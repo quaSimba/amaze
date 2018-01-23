@@ -2,7 +2,25 @@
   position: absolute;
   width: calc(100%/9);
   height: calc(100%/9);
-  border: 1px solid black;
+  box-sizing: border-box;
+  border: 2px dashed;
+  border-radius: 10px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.enabled {
+  border-color: grey;
+  color: grey;
+}
+
+.disabled {
+  border-color: red;
+  color: red;
+}
+
+.hide {
+  opacity: 0;
 }
 
 .hrz-first {
