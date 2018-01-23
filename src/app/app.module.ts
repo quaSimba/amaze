@@ -13,6 +13,8 @@ import { TargetAreaComponent } from './target-area/target-area.component';
 import { TargetAreaService } from './target-area/target-area.service';
 import { PlayerComponent } from './player/player.component';
 import { PlayerService } from './player/player.service';
+import { PathFinderService } from './path-finder/path-finder.service';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +29,7 @@ import { PlayerService } from './player/player.service';
   imports: [
     BrowserModule, BrowserAnimationsModule
   ],
-  providers: [PadsService, ShuffleService, TargetAreaService, PlayerService],
+  providers: [PadsService, ShuffleService, TargetAreaService, PlayerService, PathFinderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

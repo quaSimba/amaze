@@ -9,6 +9,7 @@ export class Pad {
   private _imgSource: string;
   private _row: number;
   private _col: number;
+  private _reachableForPlayers: Map<string, boolean>;
 
   constructor() {
     this._padType = null
@@ -20,6 +21,11 @@ export class Pad {
     this._rotationCase = 0;
     this._playerSpawn = null;
     this._treasureID = null;
+    this._reachableForPlayers = new Map<string, boolean>();
+    this._reachableForPlayers.set("red", false);
+    this._reachableForPlayers.set("blue", false);
+    this._reachableForPlayers.set("yellow", false);
+    this._reachableForPlayers.set("green", false);
   }
 
   updateOpenDirections() { }
@@ -80,6 +86,13 @@ export class Pad {
   }
   set col(newCol: number) {
     this._col = newCol;
+  }
+
+  get reachableForPlayers(): Map<string, boolean> {
+    return this._reachableForPlayers;
+  }
+  set reachableForPlayers(newReachable: Map<string, boolean>) {
+    this._reachableForPlayers = newReachable;
   }
 }
 
