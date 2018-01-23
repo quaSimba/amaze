@@ -7,22 +7,52 @@ Spieleranzahl: {{_targetAreaService.playerCount}}<br><br>
 <hr>
 <div [ngSwitch]="_targetAreaService.playerCount">
   <div *ngSwitchCase="1">
-    <img class="target-area" src={{_targetAreaService.currentTargetOne.cardPath}}>
+    <div *ngIf="_targetAreaService.playerOneTargets.length == 0">
+      Geschafft! Gehe zurück zum Anfang!
+    </div>
+    <img *ngIf="_targetAreaService.playerOneTargets.length != 0" class="target-area" src={{_targetAreaService.currentTargetOne.cardPath}}>
   </div>
   <div *ngSwitchCase="2">
-    <img class="target-area" src={{_targetAreaService.currentTargetOne.cardPath}}>
-    <img class="target-area" src={{_targetAreaService.currentTargetTwo.cardPath}}>
+    <div *ngIf="_targetAreaService.playerOneTargets.length == 0">
+      Geschafft! Gehe zurück zum Anfang!
+    </div>
+    <img *ngIf="_targetAreaService.playerOneTargets.length != 0" class="target-area" src={{_targetAreaService.currentTargetOne.cardPath}}>
+    <div *ngIf="_targetAreaService.playerTwoTargets.length == 0">
+        Geschafft! Gehe zurück zum Anfang!
+    </div>
+    <img *ngIf="_targetAreaService.playerTwoTargets.length != 0" class="target-area" src={{_targetAreaService.currentTargetTwo.cardPath}}>
   </div>
   <div *ngSwitchCase="3">
-    <img class="target-area" src={{_targetAreaService.currentTargetOne.cardPath}}>
-    <img class="target-area" src={{_targetAreaService.currentTargetTwo.cardPath}}>
-    <img class="target-area" src={{_targetAreaService.currentTargetThree.cardPath}}>
+    <div *ngIf="_targetAreaService.playerOneTargets.length == 0">
+      Geschafft! Gehe zurück zum Anfang!
+    </div>
+    <img *ngIf="_targetAreaService.playerOneTargets.length != 0" class="target-area" src={{_targetAreaService.currentTargetOne.cardPath}}>
+    <div *ngIf="_targetAreaService.playerTwoTargets.length == 0" class="target-area">
+      Geschafft! Gehe zurück zum Anfang!
+    </div>
+    <img *ngIf="_targetAreaService.playerTwoTargets.length != 0"  class="target-area" src={{_targetAreaService.currentTargetTwo.cardPath}}>
+    <div *ngIf="_targetAreaService.playerThreeTargets.length == 0" class="target-area">
+      Geschafft! Gehe zurück zum Anfang!
+    </div>
+    <img *ngIf="_targetAreaService.playerThreeTargets.length != 0" class="target-area" src={{_targetAreaService.currentTargetThree.cardPath}}>
   </div>
   <div *ngSwitchCase="4">
-    <img class="target-area" src={{_targetAreaService.currentTargetOne.cardPath}}>
-    <img class="target-area" src={{_targetAreaService.currentTargetTwo.cardPath}}>
-    <img class="target-area" src={{_targetAreaService.currentTargetThree.cardPath}}>
-    <img class="target-area" src={{_targetAreaService.currentTargetFour.cardPath}}>
+    <div *ngIf="_targetAreaService.playerOneTargets.length == 0" class="target-area">
+      Geschafft! Gehe zurück zum Anfang!
+    </div>
+    <img *ngIf="_targetAreaService.playerOneTargets.length != 0" class="target-area" src={{_targetAreaService.currentTargetOne.cardPath}}>
+    <div *ngIf="_targetAreaService.playerTwoTargets.length == 0" class="target-area">
+      Geschafft! Gehe zurück zum Anfang!
+    </div>
+    <img *ngIf="_targetAreaService.playerTwoTargets.length != 0" class="target-area" src={{_targetAreaService.currentTargetTwo.cardPath}}>
+    <div *ngIf="_targetAreaService.playerThreeTargets.length == 0" class="target-area">
+      Geschafft! Gehe zurück zum Anfang!
+    </div>
+    <img *ngIf="_targetAreaService.playerThreeTargets.length != 0" class="target-area" src={{_targetAreaService.currentTargetThree.cardPath}}>
+    <div *ngIf="_targetAreaService.playerFourTargets.length == 0" class="target-area">
+      Geschafft! Gehe zurück zum Anfang!
+    </div>
+    <img *ngIf="_targetAreaService.playerFourTargets.length != 0" class="target-area" src={{_targetAreaService.currentTargetFour.cardPath}}>
   </div>
   <div *ngSwitchDefault>
     Wähle eine Spieleranzahl aus.

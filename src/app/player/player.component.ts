@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { PlayerService } from './player.service';
 import { PadsService } from '../pads/pads.service';
+import { TargetAreaService } from '../target-area/target-area.service';
 
 @Component({
 
@@ -11,11 +12,13 @@ import { PadsService } from '../pads/pads.service';
 
 export class PlayerComponent {
 
+  targetAreaService = null;
   playerService = null;
   padsService = null;
 
-  constructor(private _player:PlayerService, private _pads: PadsService){
+  constructor(private _player:PlayerService, private _pads: PadsService, private _targetArea: TargetAreaService){
     this.playerService = _player;
     this.padsService = _pads;
+    this.targetAreaService = _targetArea;
   }
 }

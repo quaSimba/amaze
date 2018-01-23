@@ -1,14 +1,41 @@
-<button class="buttons" (click) ="playerService.selectBlue()" > Blauer Spieler </button>
-<br />
-<button class="buttons" (click) ="playerService.selectRed()"> Roter Spieler </button>
-<br />
-<button class="buttons" (click) ="playerService.selectYellow()"> Gelber Spieler </button>
-<br />
-<button class="buttons" (click) ="playerService.selectGreen()"> Grüner Spieler </button>
-<br />
 <button class="buttons" (click) ="playerService.reset()"> Neustart </button>
-<br /><br />
-<div [ngStyle]="{'background-color': playerService.playerBlue.color}" id="playerBlue" class="player"></div>
-<div [ngStyle]="{'background-color': playerService.playerRed.color}" id="playerRed" class="player"></div>
-<div [ngStyle]="{'background-color': playerService.playerGreen.color}" id="playerGreen" class="player"></div>
-<div [ngStyle]="{'background-color': playerService.playerYellow.color}" id="playerYellow" class="player"></div>
+<div [ngSwitch]="targetAreaService.playerCount">
+  <div *ngSwitchCase="1">
+    <button class="buttons" (click) ="playerService.selectRed()"> Roter Spieler </button>
+    <br />
+    <div [ngStyle]="{'background-color': playerService.playerOne.color}" id="playerOne" class="player"></div>
+  </div>
+  <div *ngSwitchCase="2">
+    <button class="buttons" (click) ="playerService.selectRed()"> Roter Spieler </button>
+    <br />
+    <button class="buttons" (click) ="playerService.selectBlue()" > Blauer Spieler </button>
+    <br />
+    <div [ngStyle]="{'background-color': playerService.playerOne.color}" id="playerOne" class="player"></div>
+    <div [ngStyle]="{'background-color': playerService.playerTwo.color}" id="playerTwo" class="player"></div>
+  </div>
+  <div *ngSwitchCase="3">
+    <button class="buttons" (click) ="playerService.selectRed()"> Roter Spieler </button>
+    <br />
+    <button class="buttons" (click) ="playerService.selectBlue()" > Blauer Spieler </button>
+    <br />
+    <button class="buttons" (click) ="playerService.selectYellow()"> Gelber Spieler </button>
+    <br />
+    <div [ngStyle]="{'background-color': playerService.playerOne.color}" id="playerOne" class="player"></div>
+    <div [ngStyle]="{'background-color': playerService.playerTwo.color}" id="playerTwo" class="player"></div>
+    <div [ngStyle]="{'background-color': playerService.playerThree.color}" id="playerThree" class="player"></div>
+  </div>
+  <div *ngSwitchCase="4">
+    <button class="buttons" (click) ="playerService.selectRed()"> Roter Spieler </button>
+    <br />
+    <button class="buttons" (click) ="playerService.selectBlue()" > Blauer Spieler </button>
+    <br />
+    <button class="buttons" (click) ="playerService.selectYellow()"> Gelber Spieler </button>
+    <br />
+    <button class="buttons" (click) ="playerService.selectGreen()"> Grüner Spieler </button>
+    <br />
+    <div [ngStyle]="{'background-color': playerService.playerTwo.color}" id="playerTwo" class="player"></div>
+    <div [ngStyle]="{'background-color': playerService.playerOne.color}" id="playerOne" class="player"></div>
+    <div [ngStyle]="{'background-color': playerService.playerFour.color}" id="playerFour" class="player"></div>
+    <div [ngStyle]="{'background-color': playerService.playerThree.color}" id="playerThree" class="player"></div>
+  </div>
+</div>

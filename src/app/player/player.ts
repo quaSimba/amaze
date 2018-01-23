@@ -1,30 +1,32 @@
+import { Pad } from '../pads/pads';
+
 export class Player{
-  private _row;
-  private _col;
+  private _currentPad;
   private _color;
+  private _cssID;
 
-constructor (row: number, col: number, color: string){
-  this.row = row;
-  this.col = col;
-  this.color = color;
-}
+  constructor (spawnPad: Pad, newCssID){
+    this._currentPad = spawnPad;
+    this._color = spawnPad.playerSpawn;
+    this.cssID = newCssID;
+  }
 
+  get currentPad(): Pad{
+    return this._currentPad;
+  }
+  set currentPad(a: Pad){
+    this._currentPad = a;
+  }
   get color(){
     return this._color;
   }
   set color(a: string){
     this._color = a;
   }
-  get row(){
-    return this._row;
+  get cssID(){
+    return this._cssID;
   }
-  set row(a: number){
-    this._row = a;
-  }
-  get col(){
-    return this._col;
-  }
-  set col(a: number){
-    this._col = a;
+  set cssID(a: string){
+    this._cssID = a;
   }
 }

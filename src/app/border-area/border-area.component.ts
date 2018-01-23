@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { PadsService } from '../pads/pads.service';
+import { PlayerService } from '../player/player.service';
 
 @Component({
   selector: 'border-area',
@@ -10,6 +11,6 @@ import { PadsService } from '../pads/pads.service';
 
 export class BorderAreaComponent {
 
-  constructor(private _padsService: PadsService) {
+  constructor(private _padsService: PadsService, private _playerService:PlayerService) {
   }
 }

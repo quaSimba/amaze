@@ -12,8 +12,6 @@ import { TargetAreaService } from './target-area.service'
 
 export class TargetAreaComponent {
 
-
-
   constructor(private _targetAreaService:TargetAreaService){
   }
 }

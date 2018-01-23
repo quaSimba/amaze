@@ -1,14 +1,14 @@
 <div class="border-area">
-  <div class="pad-insertion-area hrz-second vrt-first" (click)="this._padsService.pushColDown(this._padsService.padsCol1)"></div>
-  <div class="pad-insertion-area hrz-third vrt-first" (click)="this._padsService.pushColDown(this._padsService.padsCol2)"></div>
-  <div class="pad-insertion-area hrz-fourth vrt-first" (click)="this._padsService.pushColDown(this._padsService.padsCol3)"></div>
-  <div class="pad-insertion-area vrt-second hrz-fifth" (click)="this._padsService.pushRowLeft(this._padsService.padsRow1)"></div>
-  <div class="pad-insertion-area vrt-third hrz-fifth" (click)="this._padsService.pushRowLeft(this._padsService.padsRow2)"></div>
-  <div class="pad-insertion-area vrt-fourth hrz-fifth" (click)="this._padsService.pushRowLeft(this._padsService.padsRow3)"></div>
-  <div class="pad-insertion-area hrz-second vrt-fifth" (click)="this._padsService.pushColUp(this._padsService.padsCol1)"></div>
-  <div class="pad-insertion-area hrz-third vrt-fifth" (click)="this._padsService.pushColUp(this._padsService.padsCol2)"></div>
-  <div class="pad-insertion-area hrz-fourth vrt-fifth" (click)="this._padsService.pushColUp(this._padsService.padsCol3)"></div>
-  <div class="pad-insertion-area vrt-second hrz-first" (click)="this._padsService.pushRowRight(this._padsService.padsRow1)"></div>
-  <div class="pad-insertion-area vrt-third hrz-first" (click)="this._padsService.pushRowRight(this._padsService.padsRow2)"></div>
-  <div class="pad-insertion-area vrt-fourth hrz-first" (click)="this._padsService.pushRowRight(this._padsService.padsRow3)"></div>
+  <div class="pad-insertion-area hrz-second vrt-first" (click)="this._padsService.pushColDown(this._padsService.padsCol1); this._playerService.pushColDown(2)"></div>
+  <div class="pad-insertion-area hrz-third vrt-first" (click)="this._padsService.pushColDown(this._padsService.padsCol2); this._playerService.pushColDown(4)"></div>
+  <div class="pad-insertion-area hrz-fourth vrt-first" (click)="this._padsService.pushColDown(this._padsService.padsCol3); this._playerService.pushColDown(6)"></div>
+  <div class="pad-insertion-area vrt-second hrz-fifth" (click)="this._padsService.pushRowLeft(this._padsService.padsRow1); this._playerService.pushRowLeft(2)"></div>
+  <div class="pad-insertion-area vrt-third hrz-fifth" (click)="this._padsService.pushRowLeft(this._padsService.padsRow2); this._playerService.pushRowLeft(4)"></div>
+  <div class="pad-insertion-area vrt-fourth hrz-fifth" (click)="this._padsService.pushRowLeft(this._padsService.padsRow3); this._playerService.pushRowLeft(6)"></div>
+  <div class="pad-insertion-area hrz-second vrt-fifth" (click)="this._padsService.pushColUp(this._padsService.padsCol1); this._playerService.pushColUp(2)"></div>
+  <div class="pad-insertion-area hrz-third vrt-fifth" (click)="this._padsService.pushColUp(this._padsService.padsCol2); this._playerService.pushColUp(4)"></div>
+  <div class="pad-insertion-area hrz-fourth vrt-fifth" (click)="this._padsService.pushColUp(this._padsService.padsCol3); this._playerService.pushColUp(6)"></div>
+  <div class="pad-insertion-area vrt-second hrz-first" (click)="this._padsService.pushRowRight(this._padsService.padsRow1); this._playerService.pushRowRight(2)"></div>
+  <div class="pad-insertion-area vrt-third hrz-first" (click)="this._padsService.pushRowRight(this._padsService.padsRow2); this._playerService.pushRowRight(4)"></div>
+  <div class="pad-insertion-area vrt-fourth hrz-first" (click)="this._padsService.pushRowRight(this._padsService.padsRow3); this._playerService.pushRowRight(6)"></div>
 </div>

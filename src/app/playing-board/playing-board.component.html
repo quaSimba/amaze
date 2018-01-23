@@ -1,9 +1,10 @@
 <div class="playing-board">
   <player></player>
-  
-  <div (click) ="_playerService.move(pad)" *ngFor="let pad of _padsService.gridRep" class="pad row{{pad.row}} col{{pad.col}} rotationCase{{pad.rotationCase}} {{pad.animation}}">
+  <div (click) ="_playerService.move(pad)" *ngFor="let pad of _padsService.gridRep" class="pad row{{pad.row}} col{{pad.col}} rotationCase{{pad.rotationCase}}">
     <img src="{{pad.imgSource}}" alt="Textur">
   </div>
+ <div (click) ="_playerService.move(pad)" *ngFor="let pad of _padsService.fixedPads" class="pad row{{pad.row}} col{{pad.col}} rotationCase{{pad.rotationCase}}">
+ </div>
 </div>
 <div class="spare-pad-area">
   <div class="pad spare-pad rotationCase{{_padsService.sparePad.rotationCase}}">

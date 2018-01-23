@@ -24,5 +24,5 @@ export const TARGETS: targets[] = [
   { id: 20, name: "Mouse", cardPath: "../assets/img/cards/Mouse.png", padPath: "../assets/img/pads/treasure-pad_mouse@150px.png" },
   { id: 21, name: "Moth", cardPath: "../assets/img/cards/Moth.png", padPath: "../assets/img/pads/treasure-pad_moth@150px.png" },
   { id: 22, name: "Owl", cardPath: "../assets/img/cards/Owl.png", padPath: "../assets/img/pads/treasure-pad_owl@150px.png" },
-  { id: 23, name: "Spider", cardPath: "../assets/cards/img/Spider.png", padPath: "../assets/img/pads/treasure-pad_spider@150px.png" },
+  { id: 23, name: "Spider", cardPath: "../assets/img/cards/Spider.png", padPath: "../assets/img/pads/treasure-pad_spider@150px.png" },
 ];
