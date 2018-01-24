@@ -1,1 +1,8 @@
+playing-area {
+  float: left;
+}
 
+.right-column {
+  overflow: hidden;
+  padding: calc(602px/9) 70px;
+}

@@ -1,28 +1,23 @@
-.buttons{
-  top: -15%;
-  position: relative;
-  z-index: 2; }
-
 .player{
     z-index: 1;
     position: absolute;
   	border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
 }
 #playerOne{
-  top: calc(50%/7 - 15px);
-  left: calc(50%/7 - 15px);
+  top: calc(50%/7 - 12px);
+  left: calc(50%/7 - 12px);
 }
 #playerTwo{
-	top: calc(650%/7 - 15px);
-	left: calc(650%/7 - 15px) ;
+	top: calc(650%/7 - 12px);
+	left: calc(650%/7 - 12px);
 }
 #playerThree{
-	top: calc(50%/7 - 15px);
-	left: calc(650%/7 - 15px  );
+	top: calc(50%/7 - 12px);
+	left: calc(650%/7 - 12px);
 }
 #playerFour{
-  top: calc(650%/7 - 15px);
-  left: calc(50%/7 - 15px);
+  top: calc(650%/7 - 12px);
+  left: calc(50%/7 - 12px);
 }

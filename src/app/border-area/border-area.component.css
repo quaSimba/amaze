@@ -1,3 +1,8 @@
+.border-area {
+  width: 100%;
+  height: 100%;
+}
+
 .pad-insertion-area {
   position: absolute;
   width: calc(100%/9);
@@ -5,6 +10,7 @@
   box-sizing: border-box;
   border: 2px dashed;
   border-radius: 10px;
+  font-size: 0.8em;
   text-align: center;
   vertical-align: middle;
 }

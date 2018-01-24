@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ShuffleService } from '../helper-services/shuffle-service';
 import { TARGETS } from '../targets/mock-targets';
-import { TargetAreaService } from './target-area.service'
+import { PlayerTargetsService } from '../player-targets/player-targets.service';
+import { PlayerService } from '../player/player.service';
 
 
 @Component({
@@ -12,6 +13,6 @@ import { TargetAreaService } from './target-area.service'
 
 export class TargetAreaComponent {
 
-  constructor(private _targetAreaService:TargetAreaService){
+  constructor(private _playerTargetsService:PlayerTargetsService, private _playerService:PlayerService){
   }
 }

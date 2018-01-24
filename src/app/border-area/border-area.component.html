@@ -1,4 +1,4 @@
-<div class="border-area">
+<div *ngIf="_playerService.hasPushed == false" class="border-area">
   <div id="pia-1">
     <div *ngIf="_pia1" class="pad-insertion-area hrz-second vrt-first enabled" (dragover)="_padsService.sparePadDragged ? enableDrop($event) : null" (drop)="dropAbove1($event)">
       <p>Drop pad here</p>

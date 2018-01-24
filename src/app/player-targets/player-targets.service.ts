@@ -3,7 +3,7 @@ import { ShuffleService } from '../helper-services/shuffle-service';
 import { TARGETS } from '../targets/mock-targets';
 
 @Injectable()
-export class TargetAreaService {
+export class PlayerTargetsService {
 
 shuffleService = null;
 
@@ -22,15 +22,6 @@ private _currentTargetFour;
     this.shuffleService = _shuffle;
     this._shuffledTargets = this.shuffleService.shuffle(TARGETS.slice(0, TARGETS.length));
    }
-
-  setPlayerCountOne(){
-
-    this.playerCount = 1;
-    this.shuffleService.shuffle(this._shuffledTargets);
-    this.playerOneTargets = this._shuffledTargets;
-    this.currentTargetOne = this._shuffledTargets[0];
-  }
-
   setPlayerCountTwo(){
 
     this.playerCount = 2;
@@ -66,6 +57,9 @@ private _currentTargetFour;
     this.currentTargetTwo = this.playerTwoTargets[0];
     this.currentTargetThree = this.playerThreeTargets[0];
     this.currentTargetFour = this.playerFourTargets[0];
+  }
+  reset(){
+    location.reload();
   }
 
   get shuffledTargets(){

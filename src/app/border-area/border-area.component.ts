@@ -64,6 +64,7 @@ export class BorderAreaComponent {
   }
 
   dropAbove1(event) {
+    this._playerService.hasPushed = true;
     event.preventDefault();
     this.prepareDrop();
     let counterpart = "#pia-7";
@@ -76,6 +77,7 @@ export class BorderAreaComponent {
   }
 
   dropAbove2(event) {
+    this._playerService.hasPushed = true;
     event.preventDefault();
     this.prepareDrop();
     this._padsService.sparePadDragged = false;
@@ -90,6 +92,7 @@ export class BorderAreaComponent {
   }
 
   dropAbove3(event) {
+    this._playerService.hasPushed = true;
     event.preventDefault();
     this.prepareDrop();
     this._padsService.sparePadDragged = false;
@@ -103,6 +106,7 @@ export class BorderAreaComponent {
   }
 
   dropRight1(event) {
+    this._playerService.hasPushed = true;
     event.preventDefault();
     this.prepareDrop();
     this._padsService.sparePadDragged = false;
@@ -116,6 +120,7 @@ export class BorderAreaComponent {
   }
 
   dropRight2(event) {
+    this._playerService.hasPushed = true;
     event.preventDefault();
     this.prepareDrop();
     this._padsService.sparePadDragged = false;
@@ -129,6 +134,7 @@ export class BorderAreaComponent {
   }
 
   dropRight3(event) {
+    this._playerService.hasPushed = true;
     event.preventDefault();
     this.prepareDrop();
     this._padsService.sparePadDragged = false;
@@ -142,6 +148,7 @@ export class BorderAreaComponent {
   }
 
   dropBeneath1(event) {
+    this._playerService.hasPushed = true;
     event.preventDefault();
     this.prepareDrop();
     this._padsService.sparePadDragged = false;
@@ -157,6 +164,7 @@ export class BorderAreaComponent {
   }
 
   dropBeneath2(event) {
+    this._playerService.hasPushed = true;
     event.preventDefault();
     this.prepareDrop();
     this._padsService.sparePadDragged = false;
@@ -170,6 +178,7 @@ export class BorderAreaComponent {
   }
 
   dropBeneath3(event) {
+    this._playerService.hasPushed = true;
     event.preventDefault();
     this.prepareDrop();
     this._padsService.sparePadDragged = false;
@@ -183,6 +192,7 @@ export class BorderAreaComponent {
   }
 
   dropLeft1(event) {
+    this._playerService.hasPushed = true;
     event.preventDefault();
     this.prepareDrop();
     this._padsService.sparePadDragged = false;
@@ -197,6 +207,7 @@ export class BorderAreaComponent {
   }
 
   dropLeft2(event) {
+    this._playerService.hasPushed = true;
     event.preventDefault();
     this.prepareDrop();
     this._padsService.sparePadDragged = false;
@@ -210,6 +221,7 @@ export class BorderAreaComponent {
   }
 
   dropLeft3(event) {
+    this._playerService.hasPushed = true;
     event.preventDefault();
     this.prepareDrop();
     this._padsService.sparePadDragged = false;
@@ -230,4 +242,5 @@ export class BorderAreaComponent {
 
   ngOnInit() {
   }
+
 }

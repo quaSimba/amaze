@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Player } from './player';
 import * as $ from 'jquery';
-import { TargetAreaService } from '../target-area/target-area.service'
+import { PlayerTargetsService } from '../player-targets/player-targets.service'
 import { PadsService } from '../pads/pads.service';
 import { Pad } from '../pads/pads';
 
@@ -15,31 +15,29 @@ export class PlayerService {
   players: Player[] = [this.playerOne, this.playerTwo, this.playerThree, this. playerFour];
   private _rowDistance ;
   private _colDistance;
-  private _currentColor;
-  private _isMoving;
+  private _currentPlayer: number;
+  private _hasPushed: boolean;
+  private _hasMoved: boolean;
 
-  targetAreaService = null;
+  playerTargetsService = null;
   padsService = null;
 
-  constructor(private _targetArea:TargetAreaService, private _pads: PadsService){
+  constructor(private _playerTargets:PlayerTargetsService, private _pads: PadsService){
 
-    this._isMoving = false;
-    this.targetAreaService = _targetArea;
+    this.hasPushed = false;
+    this.hasMoved = false;
+    this.currentPlayer = 1;
+    this.playerTargetsService = _playerTargets;
     this.padsService = _pads;
 
   }
 
-
-  showLocation(){
-    console.log("Row: " + this.playerOne.currentPad.row);
-    console.log("Column: " + this.playerOne.currentPad.col);
-  }
-
   move(target: Pad){
 
-    switch(this.currentColor){
+  if(this._hasMoved == false && this._hasPushed == true){
+    switch(this.currentPlayer){
 
-      case "red":
+      case 1:
 
       this.colDistance = (target.col - this.playerOne.currentPad.col) * this.padsService.animDistance;
       this.rowDistance = (target.row - this.playerOne.currentPad.row) * this.padsService.animDistance;
@@ -54,23 +52,23 @@ export class PlayerService {
           top: "+=" + this.rowDistance
         });
 
-      if (this.targetAreaService.playerOneTargets.length != 0 &&
-         target.treasureID == this.targetAreaService.currentTargetOne.id)
+      if (this.playerTargetsService.playerOneTargets.length != 0 &&
+         target.treasureID == this.playerTargetsService.currentTargetOne.id)
       {
         console.log("Schatz eingesammelt")
 
-        this.targetAreaService.playerOneTargets.splice(0,1);
-        this.targetAreaService.currentTargetOne = this.targetAreaService.playerOneTargets[0];
-        console.log(this.targetAreaService.playerOneTargets);
+        this.playerTargetsService.playerOneTargets.splice(0,1);
+        this.playerTargetsService.currentTargetOne = this.playerTargetsService.playerOneTargets[0];
+        console.log(this.playerTargetsService.playerOneTargets);
       }
-      else if(this.targetAreaService.playerOneTargets.length == 0
+      else if(this.playerTargetsService.playerOneTargets.length == 0
          && target.playerSpawn == "red")
       {
         console.log("Gewonnen")
       }
       break;
 
-      case "blue":
+      case 2:
 
       this.colDistance = (target.col - this.playerTwo.currentPad.col) * this.padsService.animDistance;
       this.rowDistance = (target.row - this.playerTwo.currentPad.row) * this.padsService.animDistance;
@@ -85,20 +83,20 @@ export class PlayerService {
 
         this.playerTwo.currentPad = target
 
-      if (this.targetAreaService.playerTwoTargets.length != 0 &&
-         target.treasureID == this.targetAreaService.currentTargetTwo.id){
+      if (this.playerTargetsService.playerTwoTargets.length != 0 &&
+         target.treasureID == this.playerTargetsService.currentTargetTwo.id){
         console.log("Schatz eingesammelt")
-        this.targetAreaService.playerTwoTargets.splice(0,1);
-        this.targetAreaService.currentTargetTwo = this.targetAreaService.playerTwoTargets[0];
-        console.log(this.targetAreaService.playerTwoTargets);
+        this.playerTargetsService.playerTwoTargets.splice(0,1);
+        this.playerTargetsService.currentTargetTwo = this.playerTargetsService.playerTwoTargets[0];
+        console.log(this.playerTargetsService.playerTwoTargets);
       }
-      else if(this.targetAreaService.playerTwoTargets.length == 0 && target.playerSpawn == "blue")
+      else if(this.playerTargetsService.playerTwoTargets.length == 0 && target.playerSpawn == "blue")
       {
         console.log("Gewonnen")
       }
       break;
 
-      case "yellow":
+      case 3:
 
       this.colDistance = (target.col - this.playerThree.currentPad.col) * this.padsService.animDistance;
       this.rowDistance = (target.row - this.playerThree.currentPad.row) * this.padsService.animDistance;
@@ -114,20 +112,20 @@ export class PlayerService {
 
       this.playerThree.currentPad = target;
 
-      if (this.targetAreaService.playerThreeTargets.length != 0 &&
-         target.treasureID == this.targetAreaService.currentTargetThree.id){
+      if (this.playerTargetsService.playerThreeTargets.length != 0 &&
+         target.treasureID == this.playerTargetsService.currentTargetThree.id){
         console.log("Schatz eingesammelt")
-        this.targetAreaService.playerThreeTargets.splice(0,1);
-        this.targetAreaService.currentTargetThree = this.targetAreaService.playerThreeTargets[0];
-        console.log(this.targetAreaService.playerThreeTargets);
+        this.playerTargetsService.playerThreeTargets.splice(0,1);
+        this.playerTargetsService.currentTargetThree = this.playerTargetsService.playerThreeTargets[0];
+        console.log(this.playerTargetsService.playerThreeTargets);
       }
-      else if(this.targetAreaService.playerThreeTargets.length == 0 && target.playerSpawn == "yellow")
+      else if(this.playerTargetsService.playerThreeTargets.length == 0 && target.playerSpawn == "yellow")
       {
         console.log("Gewonnen")
       }
       break;
 
-      case "green":
+      case 4:
 
       this.colDistance = (target.col - this.playerFour.currentPad.col) * this.padsService.animDistance;
       this.rowDistance = (target.row - this.playerFour.currentPad.row) * this.padsService.animDistance;
@@ -142,32 +140,30 @@ export class PlayerService {
 
       this.playerFour.currentPad = target;
 
-      if (this.targetAreaService.playerFourTargets.length != 0 &&
-         target.treasureID == this.targetAreaService.currentTargetFour.id){
+      if (this.playerTargetsService.playerFourTargets.length != 0 &&
+         target.treasureID == this.playerTargetsService.currentTargetFour.id){
         console.log("Schatz eingesammelt")
-        this.targetAreaService.playerFourTargets.splice(0,1);
-        this.targetAreaService.currentTargetFour = this.targetAreaService.playerFourTargets[0];
-        console.log(this.targetAreaService.playerFourTargets);
+        this.playerTargetsService.playerFourTargets.splice(0,1);
+        this.playerTargetsService.currentTargetFour = this.playerTargetsService.playerFourTargets[0];
+        console.log(this.playerTargetsService.playerFourTargets);
       }
-      else if(this.targetAreaService.playerFourTargets.length == 0 && target.playerSpawn == "green")
+      else if(this.playerTargetsService.playerFourTargets.length == 0 && target.playerSpawn == "green")
       {
         console.log("Gewonnen")
       }
       break;
     }
+    this._hasMoved = true;
   }
+}
 
-  selectRed(){
-    this.currentColor= this.playerOne.color;
-  }
-  selectBlue(){
-    this.currentColor= this.playerTwo.color;
-  }
-  selectYellow(){
-    this.currentColor= this.playerThree.color;
-  }
-  selectGreen(){
-    this.currentColor= this.playerFour.color;
+  nextPlayer(){
+
+    if (this.currentPlayer != this.playerTargetsService.playerCount) this._currentPlayer ++;
+    else this.currentPlayer = 1;
+    this.hasPushed = false;
+    this.hasMoved = false;
+
   }
 
   pushColDown(currentCol: number){
@@ -250,6 +246,18 @@ export class PlayerService {
         }
       }
   }
+  get hasMoved (){
+    return this._hasMoved;
+  }
+  set hasMoved (newHasMoved: boolean){
+    this._hasMoved = newHasMoved;
+  }
+  get hasPushed (){
+    return this._hasPushed;
+  }
+  set hasPushed (newHasPushed: boolean){
+    this._hasPushed = newHasPushed;
+  }
   get rowDistance(){
     return this._rowDistance;
   }
@@ -262,10 +270,10 @@ export class PlayerService {
   set colDistance(a: number){
     this._colDistance = a;
   }
-  get currentColor(){
-    return this._currentColor;
+  get currentPlayer(){
+    return this._currentPlayer;
   }
-  set currentColor(a: string){
-    this._currentColor = a;
+  set currentPlayer(a: number){
+    this._currentPlayer = a;
   }
 }

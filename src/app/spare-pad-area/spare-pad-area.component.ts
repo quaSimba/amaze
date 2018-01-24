@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { PadsService } from '../pads/pads.service';
+import { PlayerTargetsService } from '../player-targets/player-targets.service'
 
 declare var $: any;
 declare var jquery: any;
@@ -14,7 +15,7 @@ export class SparePadAreaComponent {
 
   private _isDragged: boolean;
 
-  constructor(private _padsService: PadsService) {
+  constructor(private _padsService: PadsService, private _playerTargetsService: PlayerTargetsService) {
   }
 
   drag(event) {
