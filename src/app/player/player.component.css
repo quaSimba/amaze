@@ -1,28 +1,33 @@
-.buttons{
+.buttons {
   top: -15%;
   position: relative;
-  z-index: 2; }
-
-.player{
-    z-index: 1;
-    position: absolute;
-  	border-radius: 50%;
-    width: 30px;
-    height: 30px;
+  z-index: 3;
 }
-#playerOne{
+
+.player {
+  z-index: 1;
+  position: absolute;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+#playerOne {
   top: calc(50%/7 - 15px);
   left: calc(50%/7 - 15px);
 }
-#playerTwo{
-	top: calc(650%/7 - 15px);
-	left: calc(650%/7 - 15px) ;
+
+#playerTwo {
+  top: calc(650%/7 - 15px);
+  left: calc(650%/7 - 15px);
 }
-#playerThree{
-	top: calc(50%/7 - 15px);
-	left: calc(650%/7 - 15px  );
+
+#playerThree {
+  top: calc(50%/7 - 15px);
+  left: calc(650%/7 - 15px);
 }
-#playerFour{
+
+#playerFour {
   top: calc(650%/7 - 15px);
   left: calc(50%/7 - 15px);
 }

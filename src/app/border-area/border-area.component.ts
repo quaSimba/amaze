@@ -151,7 +151,7 @@ export class BorderAreaComponent {
     this._padsService.insertSparePad(8, 2);
     this._padsService.pushColUp(this._padsService.padsCol1);
     this._playerService.pushColUp(2);
-    this._pia8 = false;
+    this._pia1 = false;
     this.finishDrop(counterpart);
   }
 

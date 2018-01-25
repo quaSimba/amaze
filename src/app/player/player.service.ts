@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Player } from './player';
 import * as $ from 'jquery';
-import { TargetAreaService } from '../target-area/target-area.service'
+import { TargetAreaService } from '../target-area/target-area.service';
 import { PadsService } from '../pads/pads.service';
 import { Pad } from '../pads/pads';
 import { PathFinderService } from '../path-finder/path-finder.service';
@@ -37,31 +37,40 @@ export class PlayerService {
     console.log("Column: " + this.playerOne.currentPad.col);
   }
 
-  move(target: Pad) {
+  tempMethod(destination: Pad) {
 
-    if (!target.reachableForPlayers.get(this.currentColor)) {
+    if ((!destination.reachableForPlayers.get(this._currentColor)) || destination === this.playerOne.currentPad) {
       return;
     }
+    this._pathFinderService.path = [];
+    this._pathFinderService.findPath(this.playerOne.currentPad, destination);
+    this._pathFinderService.path.forEach((pad) => {
+      if ((pad !== null) && (pad !== this.playerOne.currentPad))
+        this.move(pad);
+    })
+  }
+
+  move(destination: Pad) {
 
     switch (this.currentColor) {
 
       case "red":
 
-        this.colDistance = (target.col - this.playerOne.currentPad.col) * this.padsService.animDistance;
-        this.rowDistance = (target.row - this.playerOne.currentPad.row) * this.padsService.animDistance;
+        this.colDistance = (destination.col - this.playerOne.currentPad.col) * this.padsService.animDistance;
+        this.rowDistance = (destination.row - this.playerOne.currentPad.row) * this.padsService.animDistance;
 
-        this.playerOne.currentPad = target;
+        this.playerOne.currentPad = destination;
 
         $("#playerOne").animate({
           left: "+=" + this.colDistance
-        });
+        }, 200, "linear");
 
         $("#playerOne").animate({
           top: "+=" + this.rowDistance
-        });
+        }, 200, "linear");
 
         if (this.targetAreaService.playerOneTargets.length != 0 &&
-          target.treasureID == this.targetAreaService.currentTargetOne.id) {
+          destination.treasureID == this.targetAreaService.currentTargetOne.id) {
           console.log("Schatz eingesammelt")
 
           this.targetAreaService.playerOneTargets.splice(0, 1);
@@ -69,89 +78,89 @@ export class PlayerService {
           console.log(this.targetAreaService.playerOneTargets);
         }
         else if (this.targetAreaService.playerOneTargets.length == 0
-          && target.playerSpawn == "red") {
+          && destination.playerSpawn == "red") {
           console.log("Gewonnen")
         }
         break;
 
       case "blue":
 
-        this.colDistance = (target.col - this.playerTwo.currentPad.col) * this.padsService.animDistance;
-        this.rowDistance = (target.row - this.playerTwo.currentPad.row) * this.padsService.animDistance;
+        this.colDistance = (destination.col - this.playerTwo.currentPad.col) * this.padsService.animDistance;
+        this.rowDistance = (destination.row - this.playerTwo.currentPad.row) * this.padsService.animDistance;
 
         $("#playerTwo").animate({
           left: "+=" + this.colDistance
-        });
+        }, 200, "linear");
 
         $("#playerTwo").animate({
           top: "+=" + this.rowDistance
-        });
+        }, 200, "linear");
 
-        this.playerTwo.currentPad = target
+        this.playerTwo.currentPad = destination
 
         if (this.targetAreaService.playerTwoTargets.length != 0 &&
-          target.treasureID == this.targetAreaService.currentTargetTwo.id) {
+          destination.treasureID == this.targetAreaService.currentTargetTwo.id) {
           console.log("Schatz eingesammelt")
           this.targetAreaService.playerTwoTargets.splice(0, 1);
           this.targetAreaService.currentTargetTwo = this.targetAreaService.playerTwoTargets[0];
           console.log(this.targetAreaService.playerTwoTargets);
         }
-        else if (this.targetAreaService.playerTwoTargets.length == 0 && target.playerSpawn == "blue") {
+        else if (this.targetAreaService.playerTwoTargets.length == 0 && destination.playerSpawn == "blue") {
           console.log("Gewonnen")
         }
         break;
 
       case "yellow":
 
-        this.colDistance = (target.col - this.playerThree.currentPad.col) * this.padsService.animDistance;
-        this.rowDistance = (target.row - this.playerThree.currentPad.row) * this.padsService.animDistance;
+        this.colDistance = (destination.col - this.playerThree.currentPad.col) * this.padsService.animDistance;
+        this.rowDistance = (destination.row - this.playerThree.currentPad.row) * this.padsService.animDistance;
 
 
         $("#playerThree").animate({
           left: "+=" + this.colDistance
-        });
+        }, 200, "linear");
 
         $("#playerThree").animate({
           top: "+=" + this.rowDistance
-        });
+        }, 200, "linear");
 
-        this.playerThree.currentPad = target;
+        this.playerThree.currentPad = destination;
 
         if (this.targetAreaService.playerThreeTargets.length != 0 &&
-          target.treasureID == this.targetAreaService.currentTargetThree.id) {
+          destination.treasureID == this.targetAreaService.currentTargetThree.id) {
           console.log("Schatz eingesammelt")
           this.targetAreaService.playerThreeTargets.splice(0, 1);
           this.targetAreaService.currentTargetThree = this.targetAreaService.playerThreeTargets[0];
           console.log(this.targetAreaService.playerThreeTargets);
         }
-        else if (this.targetAreaService.playerThreeTargets.length == 0 && target.playerSpawn == "yellow") {
+        else if (this.targetAreaService.playerThreeTargets.length == 0 && destination.playerSpawn == "yellow") {
           console.log("Gewonnen")
         }
         break;
 
       case "green":
 
-        this.colDistance = (target.col - this.playerFour.currentPad.col) * this.padsService.animDistance;
-        this.rowDistance = (target.row - this.playerFour.currentPad.row) * this.padsService.animDistance;
+        this.colDistance = (destination.col - this.playerFour.currentPad.col) * this.padsService.animDistance;
+        this.rowDistance = (destination.row - this.playerFour.currentPad.row) * this.padsService.animDistance;
 
         $("#playerFour").animate({
           left: "+=" + this.colDistance
-        });
+        }, 200, "linear");
 
         $("#playerFour").animate({
           top: "+=" + this.rowDistance
-        });
+        }, 200, "linear");
 
-        this.playerFour.currentPad = target;
+        this.playerFour.currentPad = destination;
 
         if (this.targetAreaService.playerFourTargets.length != 0 &&
-          target.treasureID == this.targetAreaService.currentTargetFour.id) {
+          destination.treasureID == this.targetAreaService.currentTargetFour.id) {
           console.log("Schatz eingesammelt")
           this.targetAreaService.playerFourTargets.splice(0, 1);
           this.targetAreaService.currentTargetFour = this.targetAreaService.playerFourTargets[0];
           console.log(this.targetAreaService.playerFourTargets);
         }
-        else if (this.targetAreaService.playerFourTargets.length == 0 && target.playerSpawn == "green") {
+        else if (this.targetAreaService.playerFourTargets.length == 0 && destination.playerSpawn == "green") {
           console.log("Gewonnen")
         }
         break;

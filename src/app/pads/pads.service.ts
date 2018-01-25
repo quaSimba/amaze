@@ -349,10 +349,12 @@ export class PadsService {
 
   resetReachableForPlayers() {
     this._allPads.forEach((pad, index) => {
-      pad.reachableForPlayers.set("red", false);
-      pad.reachableForPlayers.set("blue", false);
-      pad.reachableForPlayers.set("yellow", false);
-      pad.reachableForPlayers.set("green", false);
+      pad.reachableForPlayers.forEach((value, key) => {
+        pad.reachableForPlayers.set(key, false);
+      })
+      pad.openNeighbors.forEach((value, key) => {
+        pad.openNeighbors.set(key, null);
+      })
     });
   }
 
