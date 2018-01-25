@@ -66,7 +66,7 @@ export class PlayerService {
       }
       path.push(destination);
 
-      // Move
+      // Move along the path
       path.forEach((pad) => {
         this.move(player, pad);
       });
