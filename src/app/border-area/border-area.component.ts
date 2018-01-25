@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Pad } from '../pads/pads';
 import { PadsService } from '../pads/pads.service';
 import { PlayerService } from '../player/player.service';
+import { PathFinderService } from '../path-finder/path-finder.service';
 
 declare var $: any;
 declare var jquery: any;
@@ -28,7 +29,7 @@ export class BorderAreaComponent {
   private _pia11: boolean;
   private _pia12: boolean;
 
-  constructor(private _padsService: PadsService, private _playerService: PlayerService) {
+  constructor(private _padsService: PadsService, private _playerService: PlayerService, private _pathFinderService: PathFinderService) {
     this._pia1 = true;
     this._pia2 = true;
     this._pia3 = true;
@@ -73,7 +74,7 @@ export class BorderAreaComponent {
     this._padsService.pushColDown(this._padsService.padsCol1);
     this._playerService.pushColDown(2);
     this._pia7 = false;
-    this.disableInsertionArea(counterpart);
+    this.finishDrop(counterpart);
   }
 
   dropAbove2(event) {
@@ -86,9 +87,9 @@ export class BorderAreaComponent {
     this._padsService.insertSparePad(0, 4);
     this._padsService.pushColDown(this._padsService.padsCol2);
     this._playerService.pushColDown(4);
-    this.disableInsertionArea(counterpart);
+    this.finishDrop(counterpart);
     this._pia8 = false;
-    this.disableInsertionArea(counterpart);
+    this.finishDrop(counterpart);
   }
 
   dropAbove3(event) {
@@ -102,7 +103,7 @@ export class BorderAreaComponent {
     this._padsService.pushColDown(this._padsService.padsCol3);
     this._playerService.pushColDown(6);
     this._pia9 = false;
-    this.disableInsertionArea(counterpart);
+    this.finishDrop(counterpart);
   }
 
   dropRight1(event) {
@@ -116,7 +117,7 @@ export class BorderAreaComponent {
     this._padsService.pushRowLeft(this._padsService.padsRow1);
     this._playerService.pushRowLeft(2);
     this._pia10 = false;
-    this.disableInsertionArea(counterpart);
+    this.finishDrop(counterpart);
   }
 
   dropRight2(event) {
@@ -130,7 +131,7 @@ export class BorderAreaComponent {
     this._padsService.pushRowLeft(this._padsService.padsRow2);
     this._playerService.pushRowLeft(4);
     this._pia11 = false;
-    this.disableInsertionArea(counterpart);
+    this.finishDrop(counterpart);
   }
 
   dropRight3(event) {
@@ -144,7 +145,7 @@ export class BorderAreaComponent {
     this._padsService.pushRowLeft(this._padsService.padsRow3);
     this._playerService.pushRowLeft(6);
     this._pia12 = false;
-    this.disableInsertionArea(counterpart);
+    this.finishDrop(counterpart);
   }
 
   dropBeneath1(event) {
@@ -158,7 +159,7 @@ export class BorderAreaComponent {
     this._padsService.pushColUp(this._padsService.padsCol1);
     this._playerService.pushColUp(2);
     this._pia1 = false;
-    this.disableInsertionArea(counterpart);
+    this.finishDrop(counterpart);
   }
 
   dropBeneath2(event) {
@@ -172,7 +173,7 @@ export class BorderAreaComponent {
     this._padsService.pushColUp(this._padsService.padsCol2);
     this._playerService.pushColUp(4);
     this._pia2 = false;
-    this.disableInsertionArea(counterpart);
+    this.finishDrop(counterpart);
   }
 
   dropBeneath3(event) {
@@ -186,7 +187,7 @@ export class BorderAreaComponent {
     this._padsService.pushColUp(this._padsService.padsCol3);
     this._playerService.pushColUp(6);
     this._pia3 = false;
-    this.disableInsertionArea(counterpart);
+    this.finishDrop(counterpart);
   }
 
   dropLeft1(event) {
@@ -201,7 +202,7 @@ export class BorderAreaComponent {
     this._padsService.pushRowRight(this._padsService.padsRow1);
     this._playerService.pushRowRight(2);
     this._pia4 = false;
-    this.disableInsertionArea(counterpart);
+    this.finishDrop(counterpart);
   }
 
   dropLeft2(event) {
@@ -215,7 +216,7 @@ export class BorderAreaComponent {
     this._padsService.pushRowRight(this._padsService.padsRow2);
     this._playerService.pushRowRight(4);
     this._pia5 = false;
-    this.disableInsertionArea(counterpart);
+    this.finishDrop(counterpart);
   }
 
   dropLeft3(event) {
@@ -229,12 +230,13 @@ export class BorderAreaComponent {
     this._padsService.pushRowRight(this._padsService.padsRow3);
     this._playerService.pushRowRight(6);
     this._pia6 = false;
-    this.disableInsertionArea(counterpart);
+    this.finishDrop(counterpart);
   }
 
-  disableInsertionArea(insertionAreaSelector: string) {
+  finishDrop(insertionAreaSelector: string) {
     setTimeout(() => {
       $(insertionAreaSelector).removeClass("hide");
+      this._pathFinderService.updateReachablePads(this._playerService.players);
     }, this._padsService.animDuration)
   }
 

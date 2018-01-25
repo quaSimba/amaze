@@ -4,11 +4,13 @@ export class Pad {
   private _padType: number;
   private _rotationCase: number;
   private _openDirections: Map<string, boolean>;
+  private _openNeighbors: Map<string, Pad>;
   private _playerSpawn: string;
   private _treasureID: number;
   private _imgSource: string;
   private _row: number;
   private _col: number;
+  private _reachableForPlayers: Map<string, boolean>;
 
   constructor() {
     this._padType = null
@@ -17,9 +19,19 @@ export class Pad {
     this._openDirections.set("east", false);
     this._openDirections.set("south", false);
     this._openDirections.set("west", false);
+    this._openNeighbors = new Map<string, Pad>();
+    this._openNeighbors.set("north", null);
+    this._openNeighbors.set("east", null);
+    this._openNeighbors.set("south", null);
+    this._openNeighbors.set("west", null);
     this._rotationCase = 0;
     this._playerSpawn = null;
     this._treasureID = null;
+    this._reachableForPlayers = new Map<string, boolean>();
+    this._reachableForPlayers.set("red", false);
+    this._reachableForPlayers.set("blue", false);
+    this._reachableForPlayers.set("yellow", false);
+    this._reachableForPlayers.set("green", false);
   }
 
   updateOpenDirections() { }
@@ -43,8 +55,15 @@ export class Pad {
   get openDirections(): Map<string, boolean> {
     return this._openDirections;
   }
-  set openDirections(newopenDirections: Map<string, boolean>) {
-    this._openDirections = newopenDirections;
+  set openDirections(newOpenDirections: Map<string, boolean>) {
+    this._openDirections = newOpenDirections;
+  }
+
+  get openNeighbors(): Map<string, Pad> {
+    return this._openNeighbors;
+  }
+  set openNeighbors(newOpenNeighbors: Map<string, Pad>) {
+    this._openNeighbors = newOpenNeighbors;
   }
 
   get playerSpawn(): string {
@@ -80,6 +99,13 @@ export class Pad {
   }
   set col(newCol: number) {
     this._col = newCol;
+  }
+
+  get reachableForPlayers(): Map<string, boolean> {
+    return this._reachableForPlayers;
+  }
+  set reachableForPlayers(newReachable: Map<string, boolean>) {
+    this._reachableForPlayers = newReachable;
   }
 }
 

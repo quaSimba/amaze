@@ -16,6 +16,7 @@ import { NextPlayerComponent } from './next-player/next-player.component';
 import { PlayerService } from './player/player.service';
 import { PlayerTargetsComponent } from './player-targets/player-targets.component'
 import { RestartComponent }from "./restart/restart.component";
+import { PathFinderService } from './path-finder/path-finder.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { RestartComponent }from "./restart/restart.component";
   imports: [
     BrowserModule, BrowserAnimationsModule
   ],
-  providers: [PadsService, ShuffleService, PlayerTargetsService, PlayerService],
+  providers: [PadsService, ShuffleService, PlayerTargetsService, PlayerService, PathFinderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

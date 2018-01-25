@@ -32,7 +32,7 @@ export class PadsService {
   constructor(private _shuffleService: ShuffleService) {
     this._fixedPads = this.createFixedPads();
     this._loosePads = this.createLoosePads();
-    this._allPads = this._fixedPads.concat(this._loosePads).slice(0,49);
+    this._allPads = this._fixedPads.concat(this._loosePads); //.slice(0,49);
     this._padsRow1 = [];
     this._padsRow2 = [];
     this._padsRow3 = [];
@@ -62,7 +62,9 @@ export class PadsService {
     // Create all treasure pads
     let fixedTreasure: TPad[] = [new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad];
     fixedTreasure.forEach((treasure, index) => {
-      if (2 < index && index < 6) {
+      if (index < 3) {
+        return;
+      } else if (index < 6) {
         treasure.rotationCase = 1;
       } else if (index < 9) {
         treasure.rotationCase = 2;
@@ -71,7 +73,7 @@ export class PadsService {
       }
     });
 
-    tempPads = [this._spawns[0], fixedTreasure[6], fixedTreasure[7], this._spawns[1], fixedTreasure[9], fixedTreasure[10], fixedTreasure[8], fixedTreasure[3], fixedTreasure[11], fixedTreasure[0], fixedTreasure[4], fixedTreasure[5], this._spawns[3], fixedTreasure[1], fixedTreasure[2], this._spawns[2]];
+    tempPads = [this._spawns[0], fixedTreasure[6], fixedTreasure[7], this._spawns[1], fixedTreasure[3], fixedTreasure[4], fixedTreasure[8], fixedTreasure[9], fixedTreasure[5], fixedTreasure[0], fixedTreasure[10], fixedTreasure[11], this._spawns[3], fixedTreasure[1], fixedTreasure[2], this._spawns[2]];
 
     // Assign the proper treasureID (see targets/mock-targets.ts) to each treasure and set the row and col
     let treasureID = 0;
@@ -345,16 +347,27 @@ export class PadsService {
     }
   }
 
-  get spawns(): LPad[]{
+  resetReachableForPlayers() {
+    this._allPads.forEach((pad, index) => {
+      pad.reachableForPlayers.forEach((value, key) => {
+        pad.reachableForPlayers.set(key, false);
+      })
+      pad.openNeighbors.forEach((value, key) => {
+        pad.openNeighbors.set(key, null);
+      })
+    });
+  }
+
+  get spawns(): LPad[] {
     return this._spawns;
   }
-  set spawns(newSpawns : LPad[]){
+  set spawns(newSpawns: LPad[]) {
     this._spawns = newSpawns;
   }
-  get allPads(): Pad[]{
+  get allPads(): Pad[] {
     return this._allPads;
   }
-  set allPads(newAllPads : Pad[]){
+  set allPads(newAllPads: Pad[]) {
     this._allPads = newAllPads;
   }
   get loosePads(): Pad[] {
@@ -366,8 +379,8 @@ export class PadsService {
   get fixedPads(): Pad[] {
     return this._fixedPads;
   }
-  set fixedPads(newLoosePads: Pad[]) {
-    this._fixedPads = newLoosePads;
+  set fixedPads(newFixedPads: Pad[]) {
+    this._fixedPads = newFixedPads;
   }
 
   get padsRow1(): Pad[] {
