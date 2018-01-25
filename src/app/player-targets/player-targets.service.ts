@@ -58,7 +58,7 @@ private _currentTargetFour;
     this.currentTargetThree = this.playerThreeTargets[0];
     this.currentTargetFour = this.playerFourTargets[0];
   }
-  reset(){
+  restart(){
     location.reload();
   }
 

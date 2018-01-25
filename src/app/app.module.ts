@@ -15,6 +15,7 @@ import { PlayerComponent } from './player/player.component';
 import { NextPlayerComponent } from './next-player/next-player.component';
 import { PlayerService } from './player/player.service';
 import { PlayerTargetsComponent } from './player-targets/player-targets.component'
+import { RestartComponent }from "./restart/restart.component";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PlayerTargetsComponent } from './player-targets/player-targets.componen
     PlayerComponent,
     NextPlayerComponent,
     SparePadAreaComponent,
-    PlayerTargetsComponent
+    PlayerTargetsComponent,
+    RestartComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule

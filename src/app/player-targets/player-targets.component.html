@@ -1,8 +1,7 @@
 <div class="PlayerCountButtons">
-  <button (click)="_playerTargetsService.reset()"> Neustart </button>
     <div *ngIf="_playerTargetsService.playerCount == null" class="button-area">
-      <button (click)="_playerTargetsService.setPlayerCountTwo()"> Zwei Spieler </button>
-      <button (click)="_playerTargetsService.setPlayerCountThree()"> Drei Spieler </button>
-      <button (click)="_playerTargetsService.setPlayerCountFour()"> Vier Spieler </button>
+      <button class="btn btn-primary" (click)="_playerTargetsService.setPlayerCountTwo()"> 2 Spieler </button>
+      <button class="btn btn-primary" (click)="_playerTargetsService.setPlayerCountThree()"> 3 Spieler </button>
+      <button class="btn btn-primary" (click)="_playerTargetsService.setPlayerCountFour()"> 4 Spieler </button>
     </div>
 </div>

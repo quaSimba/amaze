@@ -1,8 +1,13 @@
-playing-area {
-  float: left;
+
+spare-pad-area{
+  padding: 10px;
+}
+player-targets{
 }
 
-.right-column {
-  overflow: hidden;
-  padding: calc(602px/9) 70px;
+target-area{
+  padding-top: 10px;
+}
+.row{
+  margin-top: 5%;
 }

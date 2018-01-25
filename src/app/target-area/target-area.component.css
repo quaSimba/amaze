@@ -1,4 +1,10 @@
 .target-area{
-  width: 150px;
-  text-align: center;
+  margin-top: 41%;
+  width: 180px;
+  background-color: #222326;
+  border:15px solid #222326;
+  border-radius: 30px;
+}
+.target-areas{
+
 }

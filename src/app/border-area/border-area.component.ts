@@ -157,10 +157,8 @@ export class BorderAreaComponent {
     this._padsService.insertSparePad(8, 2);
     this._padsService.pushColUp(this._padsService.padsCol1);
     this._playerService.pushColUp(2);
-    this._pia8 = false;
-    setTimeout(() => {
-      this._pia1 = false;
-    }, this._padsService.animDuration)
+    this._pia1 = false;
+    this.disableInsertionArea(counterpart);
   }
 
   dropBeneath2(event) {

@@ -2,22 +2,22 @@
     z-index: 1;
     position: absolute;
   	border-radius: 50%;
-    width: 24px;
-    height: 24px;
+    width: calc(100%/20);
+    height: calc(100%/20);
 }
 #playerOne{
-  top: calc(50%/7 - 12px);
-  left: calc(50%/7 - 12px);
+  top: calc(50%/7 - 100%/40);
+  left: calc(50%/7 - 100%/40);
 }
 #playerTwo{
-	top: calc(650%/7 - 12px);
-	left: calc(650%/7 - 12px);
+	top: calc(650%/7 - 100%/40);
+	left: calc(650%/7 - 100%/40);
 }
 #playerThree{
-	top: calc(50%/7 - 12px);
-	left: calc(650%/7 - 12px);
+	top: calc(50%/7 - 100%/40);
+	left: calc(650%/7 - 100%/40);
 }
 #playerFour{
-  top: calc(650%/7 - 12px);
-  left: calc(50%/7 - 12px);
+  top: calc(650%/7 - 100%/40);
+  left: calc(50%/7 - 100%/40);
 }

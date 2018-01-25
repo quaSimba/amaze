@@ -4,25 +4,30 @@
 }
 
 .pad-insertion-area {
+  display: table;
   position: absolute;
   width: calc(100%/9);
   height: calc(100%/9);
   box-sizing: border-box;
   border: 2px dashed;
   border-radius: 10px;
-  font-size: 0.8em;
+  font-size: 370%;
   text-align: center;
+
+}
+p{
+  display: table-cell;
   vertical-align: middle;
 }
 
 .enabled {
-  border-color: grey;
-  color: grey;
+  border-color: white;
+  color: white;
 }
 
 .disabled {
-  border-color: red;
-  color: red;
+  border-color: #d64c2c;
+  color: #d64c2c;
 }
 
 .hide {
