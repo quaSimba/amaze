@@ -151,6 +151,8 @@ export class PlayerService {
 
         colDeviation = destination.col - this.playerThree.currentPad.col;
         rowDeviation = destination.row - this.playerThree.currentPad.row;
+        colFactor = Math.abs(colDeviation);
+        rowFactor = Math.abs(rowDeviation);
         this.colDistance = (destination.col - this.playerThree.currentPad.col) * this.padsService.animDistance;
         this.rowDistance = (destination.row - this.playerThree.currentPad.row) * this.padsService.animDistance;
 
@@ -181,6 +183,8 @@ export class PlayerService {
 
         colDeviation = destination.col - this.playerFour.currentPad.col;
         rowDeviation = destination.row - this.playerFour.currentPad.row;
+        colFactor = Math.abs(colDeviation);
+        rowFactor = Math.abs(rowDeviation);
         this.colDistance = (destination.col - this.playerFour.currentPad.col) * this.padsService.animDistance;
         this.rowDistance = (destination.row - this.playerFour.currentPad.row) * this.padsService.animDistance;
 
