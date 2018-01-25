@@ -9,14 +9,14 @@ import { PathFinderService } from '../path-finder/path-finder.service';
 @Injectable()
 export class PlayerService {
 
-  playerOne: Player = new Player(this._pads.spawns[0], "#playerOne");
-  playerTwo: Player = new Player(this._pads.spawns[2], "#playerTwo");
-  playerThree: Player = new Player(this._pads.spawns[1], "#playerThree");
-  playerFour: Player = new Player(this._pads.spawns[3], "#playerFour");
-  players: Player[] = [this.playerOne, this.playerTwo, this.playerThree, this.playerFour];
+  private _playerOne: Player;
+  private _playerTwo: Player;
+  private _playerThree: Player;
+  private _playerFour: Player;
+  private _players: Player[];
   private _rowDistance;
   private _colDistance;
-  private _currentPlayer: number;
+  private _currentPlayer: Player;
   private _hasPushed: boolean;
   private _hasMoved: boolean;
 
@@ -25,9 +25,14 @@ export class PlayerService {
 
   constructor(private _playerTargets: PlayerTargetsService, private _pads: PadsService, private _pathFinderService: PathFinderService) {
 
+    this._playerOne = new Player(this._pads.spawns[0], "#playerOne");
+    this._playerTwo = new Player(this._pads.spawns[2], "#playerTwo");
+    this._playerThree = new Player(this._pads.spawns[1], "#playerThree");
+    this._playerFour = new Player(this._pads.spawns[3], "#playerFour");
+    this._players = [this._playerOne, this._playerTwo, this._playerThree, this._playerFour];
     this.hasPushed = false;
     this.hasMoved = false;
-    this.currentPlayer = 1;
+    this._currentPlayer = this.players[0];
     this.playerTargetsService = _playerTargets;
     this.padsService = _pads;
 
@@ -40,40 +45,62 @@ export class PlayerService {
     console.log("Column: " + this.playerOne.currentPad.col);
   }
 
-  tempMethod(destination: Pad) {
-    if (this._hasMoved == false && this._hasPushed == true) {
-      if ((!destination.reachableForPlayers.get("red")) || destination === this.playerOne.currentPad) {
+  prepareMove(player: Player, destination: Pad) {
+    if (this._hasMoved === false && this._hasPushed === true) {
+      if ((!destination.reachableForPlayers.get(player.color)) || destination === player.currentPad) {
         return;
       }
       this._pathFinderService.path = [];
-      this._pathFinderService.findPath(this.playerOne.currentPad, destination);
-      this._pathFinderService.path.forEach((pad) => {
-        if ((pad !== null) && (pad !== this.playerOne.currentPad))
-          this.move(pad);
-      })
+      this._pathFinderService.findPath(player.currentPad, destination);
+
+      // Shorten path so players only move straight subpaths directly instead of per pad
+      let path = [];
+      let tempPath = this._pathFinderService.path;
+      for (let i = 1; i < tempPath.length - 1; i++) {
+        let pad = tempPath[i];
+        let previousPad = tempPath[i - 1];
+        let nextPad = tempPath[i + 1]
+        if ((previousPad.row === pad.row && nextPad.row !== pad.row) || (previousPad.col === pad.col && nextPad.col !== pad.col)) {
+          path.push(pad);
+        }
+      }
+      path.push(destination);
+
+      // Move
+      path.forEach((pad) => {
+        this.move(player, pad);
+      });
       this._hasMoved = true;
     }
   }
 
-  move(destination: Pad) {
+  move(player: Player, destination: Pad) {
 
+    let colDeviation;
+    let rowDeviation
+    let colFactor;
+    let rowFactor;
 
     switch (this.currentPlayer) {
 
-      case 1:
+      case this._playerOne:
 
-        this.colDistance = (destination.col - this.playerOne.currentPad.col) * this.padsService.animDistance;
-        this.rowDistance = (destination.row - this.playerOne.currentPad.row) * this.padsService.animDistance;
-
-        this.playerOne.currentPad = destination;
+        colDeviation = destination.col - this.playerOne.currentPad.col;
+        rowDeviation = destination.row - this.playerOne.currentPad.row;
+        colFactor = Math.abs(colDeviation);
+        rowFactor = Math.abs(rowDeviation);
+        this.colDistance = colDeviation * this.padsService.animDistance;
+        this.rowDistance = rowDeviation * this.padsService.animDistance;
 
         $("#playerOne").animate({
           left: "+=" + this.colDistance
-        }, 200, "linear");
+        }, 200 * colFactor);
 
         $("#playerOne").animate({
           top: "+=" + this.rowDistance
-        }, 200, "linear");
+        }, 200 * rowFactor);
+
+        this.playerOne.currentPad = destination;
 
         if (this.playerTargetsService.playerOneTargets.length != 0 &&
           destination.treasureID == this.playerTargetsService.currentTargetOne.id) {
@@ -89,18 +116,22 @@ export class PlayerService {
         }
         break;
 
-      case 2:
+      case this._playerTwo:
 
+        colDeviation = destination.col - this.playerTwo.currentPad.col;
+        rowDeviation = destination.row - this.playerTwo.currentPad.row;
+        colFactor = Math.abs(colDeviation);
+        rowFactor = Math.abs(rowDeviation);
         this.colDistance = (destination.col - this.playerTwo.currentPad.col) * this.padsService.animDistance;
         this.rowDistance = (destination.row - this.playerTwo.currentPad.row) * this.padsService.animDistance;
 
         $("#playerTwo").animate({
           left: "+=" + this.colDistance
-        }, 200, "linear");
+        }, 200 * colFactor);
 
         $("#playerTwo").animate({
           top: "+=" + this.rowDistance
-        }, 200, "linear");
+        }, 200 * rowFactor);
 
         this.playerTwo.currentPad = destination
 
@@ -116,19 +147,21 @@ export class PlayerService {
         }
         break;
 
-      case 3:
+      case this._playerThree:
 
+        colDeviation = destination.col - this.playerThree.currentPad.col;
+        rowDeviation = destination.row - this.playerThree.currentPad.row;
         this.colDistance = (destination.col - this.playerThree.currentPad.col) * this.padsService.animDistance;
         this.rowDistance = (destination.row - this.playerThree.currentPad.row) * this.padsService.animDistance;
 
 
         $("#playerThree").animate({
           left: "+=" + this.colDistance
-        }, 200, "linear");
+        }, 200 * colFactor);
 
         $("#playerThree").animate({
           top: "+=" + this.rowDistance
-        }, 200, "linear");
+        }, 200 * rowFactor);
 
         this.playerThree.currentPad = destination;
 
@@ -144,18 +177,20 @@ export class PlayerService {
         }
         break;
 
-      case 4:
+      case this._playerFour:
 
+        colDeviation = destination.col - this.playerFour.currentPad.col;
+        rowDeviation = destination.row - this.playerFour.currentPad.row;
         this.colDistance = (destination.col - this.playerFour.currentPad.col) * this.padsService.animDistance;
         this.rowDistance = (destination.row - this.playerFour.currentPad.row) * this.padsService.animDistance;
 
         $("#playerFour").animate({
           left: "+=" + this.colDistance
-        }, 200, "linear");
+        }, 200 * colFactor);
 
         $("#playerFour").animate({
           top: "+=" + this.rowDistance
-        }, 200, "linear");
+        }, 200 * rowFactor);
 
         this.playerFour.currentPad = destination;
 
@@ -175,12 +210,10 @@ export class PlayerService {
   }
 
   nextPlayer() {
-
-    if (this.currentPlayer != this.playerTargetsService.playerCount) this._currentPlayer++;
-    else this.currentPlayer = 1;
+    if (this._players.indexOf(this.currentPlayer) + 1 !== this.playerTargetsService.playerCount) this._currentPlayer = this.players[this.players.indexOf(this._currentPlayer) + 1];
+    else this.currentPlayer = this.players[0];
     this.hasPushed = false;
     this.hasMoved = false;
-
   }
 
   pushColDown(currentCol: number) {
@@ -255,34 +288,74 @@ export class PlayerService {
       }
     }
   }
+
+  get playerOne(): Player {
+    return this._playerOne;
+  }
+  set playerOne(newPlayer: Player) {
+    this._playerOne = newPlayer;
+  }
+
+  get playerTwo(): Player {
+    return this._playerTwo;
+  }
+  set playerTwo(newPlayer: Player) {
+    this._playerTwo = newPlayer;
+  }
+
+  get playerThree(): Player {
+    return this._playerThree;
+  }
+  set playerThree(newPlayer: Player) {
+    this._playerThree = newPlayer;
+  }
+
+  get playerFour(): Player {
+    return this._playerFour;
+  }
+  set playerFour(newPlayer: Player) {
+    this._playerFour = newPlayer;
+  }
+
+  get players(): Player[] {
+    return this._players;
+  }
+  set player(newPlayers: Player[]) {
+    this._players = newPlayers;
+  }
+
   get hasMoved() {
     return this._hasMoved;
   }
   set hasMoved(newHasMoved: boolean) {
     this._hasMoved = newHasMoved;
   }
+
   get hasPushed() {
     return this._hasPushed;
   }
   set hasPushed(newHasPushed: boolean) {
     this._hasPushed = newHasPushed;
   }
+
   get rowDistance() {
     return this._rowDistance;
   }
   set rowDistance(a: number) {
     this._rowDistance = a;
   }
+
   get colDistance() {
     return this._colDistance;
   }
   set colDistance(a: number) {
     this._colDistance = a;
   }
+
   get currentPlayer() {
     return this._currentPlayer;
   }
-  set currentPlayer(a: number) {
+  set currentPlayer(a: Player) {
     this._currentPlayer = a;
   }
 }

@@ -1,6 +1,6 @@
 <div class="playing-board">
   <player></player>
-  <div *ngFor="let pad of _padsService.gridRep" class="pad row{{pad.row}} col{{pad.col}}" (click)="_playerService.tempMethod(pad)">
+  <div *ngFor="let pad of _padsService.gridRep" class="pad row{{pad.row}} col{{pad.col}}" (click)="_playerService.prepareMove(_playerService.currentPlayer, pad)">
     <div *ngIf="pad.reachableForPlayers.get('red')" class="red-overlay">
     </div>
     <div *ngIf="pad.reachableForPlayers.get('blue')" class="blue-overlay">
@@ -11,7 +11,7 @@
     </div>
     <img src="{{pad.imgSource}}" class="rotation-case{{pad.rotationCase}}" alt="Textur">
   </div>
-  <div *ngFor="let pad of _padsService.fixedPads" class="pad row{{pad.row}} col{{pad.col}} rotationCase{{pad.rotationCase}}" (click)="_playerService.tempMethod(pad)">
+  <div *ngFor="let pad of _padsService.fixedPads" class="pad row{{pad.row}} col{{pad.col}} rotationCase{{pad.rotationCase}}" (click)="_playerService.prepareMove(_playerService.currentPlayer, pad)">
     <div *ngIf="pad.reachableForPlayers.get('red')" class="red-overlay">
     </div>
     <div *ngIf="pad.reachableForPlayers.get('blue')" class="blue-overlay">
