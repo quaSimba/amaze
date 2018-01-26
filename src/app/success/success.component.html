@@ -5,21 +5,21 @@
     <button class="reset btn btn-primary btn-lg" (click)="_playerService.restart()"> Nochmal Spielen? </button>
   </div>
 </div>
-<div *ngIf="_playerService.playerTwoTargets == 0">
+<div *ngIf="_playerService.playerTwoTargets == 0 && _playerService.playerOne.currentPad == _padsService.spawns[2]">
   <div class="overlay"></div>
   <div id="twoSuccess" class="successArea">
     <div> <b> Blauer Spieler <br /> hat Gewonnen !</b> </div>
     <button class="reset btn btn-primary btn-lg" (click)="_playerService.restart()"> Nochmal Spielen? </button>
   </div>
 </div>
-<div *ngIf="_playerService.playerThreeTargets == 0">
+<div *ngIf="_playerService.playerThreeTargets == 0 && _playerService.playerOne.currentPad == _padsService.spawns[1]">
   <div class="overlay"></div>
   <div id="threeSuccess" class="successArea">
     <div> <b> Gelber Spieler <br /> hat Gewonnen !</b> </div>
     <button class="reset btn btn-primary btn-lg" (click)="_playerService.restart()"> Nochmal Spielen? </button>
   </div>
 </div>
-<div *ngIf="_playerService.playerFourTargets == 0">
+<div *ngIf="_playerService.playerFourTargets == 0 && _playerService.playerOne.currentPad == _padsService.spawns[3]">
   <div class="overlay"></div>
   <div id="fourSuccess" class="successArea">
     <div> <b> Grüner Spieler <br /> hat Gewonnen !</b> </div>
