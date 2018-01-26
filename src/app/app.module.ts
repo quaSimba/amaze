@@ -15,7 +15,7 @@ import { PlayerComponent } from './player/player.component';
 import { NextPlayerComponent } from './next-player/next-player.component';
 import { PlayerService } from './player/player.service';
 import { PlayerTargetsComponent } from './player-targets/player-targets.component'
-import { RestartComponent }from "./restart/restart.component";
+import { SystemButtonsComponent }from "./system-buttons/system-buttons.component";
 import { PathFinderService } from './path-finder/path-finder.service';
 
 @NgModule({
@@ -29,7 +29,7 @@ import { PathFinderService } from './path-finder/path-finder.service';
     NextPlayerComponent,
     SparePadAreaComponent,
     PlayerTargetsComponent,
-    RestartComponent
+    SystemButtonsComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule

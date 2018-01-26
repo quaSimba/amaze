@@ -4,12 +4,12 @@ import { PadsService } from '../pads/pads.service';
 
 
 @Component({
-  selector: "restart",
-  templateUrl: "./restart.component.html",
-  styleUrls: ["./restart.component.css"]
+  selector: "system-buttons",
+  templateUrl: "./system-buttons.component.html",
+  styleUrls: ["./system-buttons.component.css"]
 })
 
-export class RestartComponent {
+export class SystemButtonsComponent {
 
   constructor(private _playerTargetsService:PlayerTargetsService, private _padsService: PadsService){
   }
