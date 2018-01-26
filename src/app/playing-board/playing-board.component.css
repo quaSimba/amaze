@@ -6,8 +6,6 @@
   top: calc(100%/9);
   width: calc(700%/9);
   height: calc(700%/9);
-  background-image: url("../../assets/img/playing-board-small-lightblue.png");
-  background-size: cover;
 }
 
 .red-overlay {

@@ -76,20 +76,24 @@ export class PlayerService {
       path.push(destination);
 
       // Move along the path
+      let animDuration = 0;
       path.forEach((pad) => {
-        this.move(pad);
+        animDuration += this.move(pad);
       });
-      this.checkForTarget();
-      this._hasMoved = true;
+      setTimeout(() => {
+        this.checkForTarget();
+        this._hasMoved = true;
+      }, animDuration);
     }
   }
 
-  move(destination: Pad) {
+  move(destination: Pad): number {
 
     let colDeviation;
     let rowDeviation
     let colFactor;
     let rowFactor;
+    let animDuration;
 
     switch (this.currentPlayer) {
 
@@ -112,7 +116,8 @@ export class PlayerService {
 
         this.playerOne.currentPad = destination;
 
-        break;
+        animDuration = colFactor * 200 + rowFactor * 200;
+        return animDuration;
 
       case this._playerTwo:
 
@@ -133,7 +138,8 @@ export class PlayerService {
 
         this.playerTwo.currentPad = destination
 
-        break;
+        animDuration = colFactor * 200 + rowFactor * 200;
+        return animDuration;
 
       case this._playerThree:
 
@@ -155,7 +161,8 @@ export class PlayerService {
 
         this.playerThree.currentPad = destination;
 
-        break;
+        animDuration = colFactor * 200 + rowFactor * 200;
+        return animDuration;
 
       case this._playerFour:
 
@@ -176,7 +183,8 @@ export class PlayerService {
 
         this.playerFour.currentPad = destination;
 
-        break;
+        animDuration = colFactor * 200 + rowFactor * 200;
+        return animDuration;
     }
   }
 
@@ -188,6 +196,11 @@ export class PlayerService {
           console.log("Schatz eingesammelt")
           this.playerOneTargets.splice(0, 1);
           this.playerOne.currentPad.treasureID = null;
+          if (this.playerOne.currentPad.padType === 1) {
+            this.playerOne.currentPad.imgSource = "../../assets/img/pads/L-Pad@150px.png";
+          } else {
+            this.playerOne.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
+          }
           this.currentTargetOne = this.playerOneTargets[0];
           console.log(this.playerOneTargets);
         } else if (this.playerOneTargets.length == 0
@@ -201,6 +214,11 @@ export class PlayerService {
           console.log("Schatz eingesammelt")
           this.playerTwoTargets.splice(0, 1);
           this.playerTwo.currentPad.treasureID = null;
+          if (this.playerTwo.currentPad.padType === 1) {
+            this.playerTwo.currentPad.imgSource = "../../assets/img/pads/L-Pad@150px.png";
+          } else {
+            this.playerTwo.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
+          }
           this.currentTargetTwo = this.playerTwoTargets[0];
           console.log(this.playerTwoTargets);
         } else if (this.playerTwoTargets.length == 0 && this.playerTwo.currentPad.playerSpawn == "blue") {
@@ -213,6 +231,11 @@ export class PlayerService {
           console.log("Schatz eingesammelt")
           this.playerThreeTargets.splice(0, 1);
           this.playerThree.currentPad.treasureID = null;
+          if (this.playerThree.currentPad.padType === 1) {
+            this.playerThree.currentPad.imgSource = "../../assets/img/pads/L-Pad@150px.png";
+          } else {
+            this.playerThree.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
+          }
           this.currentTargetThree = this.playerThreeTargets[0];
           console.log(this.playerThreeTargets);
         } else if (this.playerThreeTargets.length == 0 && this.playerThree.currentPad.playerSpawn == "yellow") {
@@ -225,6 +248,11 @@ export class PlayerService {
           console.log("Schatz eingesammelt")
           this.playerFourTargets.splice(0, 1);
           this.playerFour.currentPad.treasureID = null;
+          if (this.playerFour.currentPad.padType === 1) {
+            this.playerFour.currentPad.imgSource = "../../assets/img/pads/L-Pad@150px.png";
+          } else {
+            this.playerFour.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
+          }
           this.currentTargetFour = this.playerFourTargets[0];
           console.log(this.playerFourTargets);
         } else if (this.playerFourTargets.length == 0 && this.playerFour.currentPad.playerSpawn == "green") {

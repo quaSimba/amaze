@@ -52,9 +52,13 @@ export class PadsService {
     // Create all spawns
     this._spawns = [new LPad, new LPad, new LPad, new LPad];
     this._spawns[0].playerSpawn = "red";
+    this._spawns[0].imgSource = "../../assets/img/pads/spawn-red@150px.png";
     this._spawns[1].playerSpawn = "yellow";
+    this._spawns[1].imgSource = "../../assets/img/pads/spawn-yellow@150px.png";
     this._spawns[2].playerSpawn = "blue";
+    this._spawns[2].imgSource = "../../assets/img/pads/spawn-blue@150px.png";
     this._spawns[3].playerSpawn = "green";
+    this._spawns[3].imgSource = "../../assets/img/pads/spawn-green@150px.png";
     this._spawns.forEach((spawn, index) => {
       spawn.rotationCase = index;
     })
@@ -80,6 +84,9 @@ export class PadsService {
     tempPads.forEach((pad, index) => {
       if (pad instanceof TPad) {
         pad.treasureID = treasureID;
+        pad.imgSource = TARGETS.filter((pad, key) => {
+          return pad.id === treasureID;
+        })[0].padPath;
         treasureID++;
       };
       if (index < 4) {
