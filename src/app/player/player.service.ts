@@ -68,13 +68,14 @@ export class PlayerService {
 
       // Move along the path
       path.forEach((pad) => {
-        this.move(player, pad);
+        this.move(pad);
       });
+      this.checkForTarget();
       this._hasMoved = true;
     }
   }
 
-  move(player: Player, destination: Pad) {
+  move(destination: Pad) {
 
     let colDeviation;
     let rowDeviation
@@ -102,18 +103,6 @@ export class PlayerService {
 
         this.playerOne.currentPad = destination;
 
-        if (this.playerTargetsService.playerOneTargets.length != 0 &&
-          destination.treasureID == this.playerTargetsService.currentTargetOne.id) {
-          console.log("Schatz eingesammelt")
-
-          this.playerTargetsService.playerOneTargets.splice(0, 1);
-          this.playerTargetsService.currentTargetOne = this.playerTargetsService.playerOneTargets[0];
-          console.log(this.playerTargetsService.playerOneTargets);
-        }
-        else if (this.playerTargetsService.playerOneTargets.length == 0
-          && destination.playerSpawn == "red") {
-          console.log("Gewonnen")
-        }
         break;
 
       case this._playerTwo:
@@ -135,16 +124,6 @@ export class PlayerService {
 
         this.playerTwo.currentPad = destination
 
-        if (this.playerTargetsService.playerTwoTargets.length != 0 &&
-          destination.treasureID == this.playerTargetsService.currentTargetTwo.id) {
-          console.log("Schatz eingesammelt")
-          this.playerTargetsService.playerTwoTargets.splice(0, 1);
-          this.playerTargetsService.currentTargetTwo = this.playerTargetsService.playerTwoTargets[0];
-          console.log(this.playerTargetsService.playerTwoTargets);
-        }
-        else if (this.playerTargetsService.playerTwoTargets.length == 0 && destination.playerSpawn == "blue") {
-          console.log("Gewonnen")
-        }
         break;
 
       case this._playerThree:
@@ -167,16 +146,6 @@ export class PlayerService {
 
         this.playerThree.currentPad = destination;
 
-        if (this.playerTargetsService.playerThreeTargets.length != 0 &&
-          destination.treasureID == this.playerTargetsService.currentTargetThree.id) {
-          console.log("Schatz eingesammelt")
-          this.playerTargetsService.playerThreeTargets.splice(0, 1);
-          this.playerTargetsService.currentTargetThree = this.playerTargetsService.playerThreeTargets[0];
-          console.log(this.playerTargetsService.playerThreeTargets);
-        }
-        else if (this.playerTargetsService.playerThreeTargets.length == 0 && destination.playerSpawn == "yellow") {
-          console.log("Gewonnen")
-        }
         break;
 
       case this._playerFour:
@@ -198,19 +167,62 @@ export class PlayerService {
 
         this.playerFour.currentPad = destination;
 
+        break;
+    }
+  }
+
+  checkForTarget() {
+    switch (this.currentPlayer) {
+      case this.playerOne:
+        if (this.playerTargetsService.playerOneTargets.length != 0 &&
+          this.playerOne.currentPad.treasureID == this.playerTargetsService.currentTargetOne.id) {
+          console.log("Schatz eingesammelt")
+          this.playerTargetsService.playerOneTargets.splice(0, 1);
+          this.playerOne.currentPad.treasureID = null;
+          this.playerTargetsService.currentTargetOne = this.playerTargetsService.playerOneTargets[0];
+          console.log(this.playerTargetsService.playerOneTargets);
+        } else if (this.playerTargetsService.playerOneTargets.length == 0
+          && this.playerOne.currentPad.playerSpawn == "red") {
+          console.log("Gewonnen")
+        }
+        break;
+      case this.playerTwo:
+        if (this.playerTargetsService.playerTwoTargets.length != 0 &&
+          this.playerTwo.currentPad.treasureID == this.playerTargetsService.currentTargetTwo.id) {
+          console.log("Schatz eingesammelt")
+          this.playerTargetsService.playerTwoTargets.splice(0, 1);
+          this.playerTwo.currentPad.treasureID = null;
+          this.playerTargetsService.currentTargetTwo = this.playerTargetsService.playerTwoTargets[0];
+          console.log(this.playerTargetsService.playerTwoTargets);
+        } else if (this.playerTargetsService.playerTwoTargets.length == 0 && this.playerTwo.currentPad.playerSpawn == "blue") {
+          console.log("Gewonnen")
+        }
+        break;
+      case this.playerThree:
+        if (this.playerTargetsService.playerThreeTargets.length != 0 &&
+          this.playerThree.currentPad.treasureID == this.playerTargetsService.currentTargetThree.id) {
+          console.log("Schatz eingesammelt")
+          this.playerTargetsService.playerThreeTargets.splice(0, 1);
+          this.playerThree.currentPad.treasureID = null;
+          this.playerTargetsService.currentTargetThree = this.playerTargetsService.playerThreeTargets[0];
+          console.log(this.playerTargetsService.playerThreeTargets);
+        } else if (this.playerTargetsService.playerThreeTargets.length == 0 && this.playerThree.currentPad.playerSpawn == "yellow") {
+          console.log("Gewonnen")
+        }
+        break;
+      case this.playerFour:
         if (this.playerTargetsService.playerFourTargets.length != 0 &&
-          destination.treasureID == this.playerTargetsService.currentTargetFour.id) {
+          this.playerFour.currentPad.treasureID == this.playerTargetsService.currentTargetFour.id) {
           console.log("Schatz eingesammelt")
           this.playerTargetsService.playerFourTargets.splice(0, 1);
+          this.playerFour.currentPad.treasureID = null;
           this.playerTargetsService.currentTargetFour = this.playerTargetsService.playerFourTargets[0];
           console.log(this.playerTargetsService.playerFourTargets);
-        }
-        else if (this.playerTargetsService.playerFourTargets.length == 0 && destination.playerSpawn == "green") {
+        } else if (this.playerTargetsService.playerFourTargets.length == 0 && this.playerFour.currentPad.playerSpawn == "green") {
           console.log("Gewonnen")
         }
         break;
     }
-
   }
 
   nextPlayer() {
