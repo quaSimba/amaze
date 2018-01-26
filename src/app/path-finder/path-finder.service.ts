@@ -144,11 +144,58 @@ export class PathFinderService {
   // Find a path to the destination. First call kickstarts a recursive proxess constisting of this function and processNeighbor() which end when the destination is found. Each pad being checked for destination is stored in this._path but gets poped if it is part of a branch not leading to the destination.
   findPath(pad, destination: Pad): boolean {
     this._path.push(pad);
-    //console.log("Checke für " + pad.row + ", " + pad.col)
+    //console.log("Checke für Reihe: " + pad.row + ", Spalte: " + pad.col)
     if (pad !== destination) {
       let targetFound: boolean = false;
 
-      let neighbors: Pad[] = [pad.openNeighbors.get("north"), pad.openNeighbors.get("east"), pad.openNeighbors.get("south"), pad.openNeighbors.get("west")];
+      let tempNeighbors: Pad[] = [pad.openNeighbors.get("north"), pad.openNeighbors.get("east"), pad.openNeighbors.get("south"), pad.openNeighbors.get("west")];
+
+      // Calculate the angle between the vector from pad to destination and the y-axis. It then is used to determine the order in neighbors. By doing so, the algorithm checks pads in the direction of destination first which makes it more likely to find the path faster. It also helps finding the shortest path if there is a circular subpath.
+      let xDeviation = destination.col - pad.col;
+      let yDeviation = destination.row - pad.row;
+      let deviationVectorLength = Math.sqrt(Math.pow(xDeviation, 2) + Math.pow(yDeviation, 2));
+      let dotProduct;
+      let angle = 0;
+      if (xDeviation < 0) {
+        dotProduct = yDeviation;
+        angle = 180;
+      } else {
+        dotProduct = -yDeviation;
+      }
+      angle += Math.floor(Math.acos(dotProduct / deviationVectorLength) * 180 / Math.PI)
+
+      let neighbors = [];
+      switch (Math.ceil(angle / 45)) {
+        case 1:
+          neighbors = [pad.openNeighbors.get("north"), pad.openNeighbors.get("east"), pad.openNeighbors.get("west"), pad.openNeighbors.get("south")];
+          break;
+        case 2:
+          neighbors = [pad.openNeighbors.get("east"), pad.openNeighbors.get("north"), pad.openNeighbors.get("south"), pad.openNeighbors.get("west")];
+          break;
+        case 3:
+          neighbors = [pad.openNeighbors.get("east"), pad.openNeighbors.get("south"), pad.openNeighbors.get("north"), pad.openNeighbors.get("west")];
+          break;
+        case 4:
+          neighbors = [pad.openNeighbors.get("south"), pad.openNeighbors.get("east"), pad.openNeighbors.get("west"), pad.openNeighbors.get("north")];
+          break;
+        case 5:
+          neighbors = [pad.openNeighbors.get("south"), pad.openNeighbors.get("west"), pad.openNeighbors.get("east"), pad.openNeighbors.get("north")];
+          break;
+        case 6:
+          neighbors = [pad.openNeighbors.get("west"), pad.openNeighbors.get("south"), pad.openNeighbors.get("north"), pad.openNeighbors.get("east")];
+          break;
+        case 7:
+          neighbors = [pad.openNeighbors.get("west"), pad.openNeighbors.get("north"), pad.openNeighbors.get("south"), pad.openNeighbors.get("east")];
+          break;
+        case 8:
+          neighbors = [pad.openNeighbors.get("north"), pad.openNeighbors.get("west"), pad.openNeighbors.get("east"), pad.openNeighbors.get("south")];
+          break;
+        default:
+          neighbors = [pad.openNeighbors.get("north"), pad.openNeighbors.get("east"), pad.openNeighbors.get("west"), pad.openNeighbors.get("south")];
+          break;
+      }
+
+      // Process the Neighbors of pad.
       let i = 0;
       do {
         targetFound = this.processNeighbor(pad, neighbors[i], destination);
