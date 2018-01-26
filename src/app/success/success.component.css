@@ -1,0 +1,52 @@
+.overlay {
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 1001;
+  -moz-opacity: 0.8;
+  opacity: .80;
+  filter: alpha(opacity=80);
+}
+.successArea{
+  position: absolute;
+  left: 38%;
+  top: 42%;
+  width: 500px;
+  height: auto;
+  z-index: 1002;
+  color: white;
+  text-align: center;
+  font-size: 300%;
+  border-radius: 30px;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #222326;
+}
+.btn {
+  font-size: 50%;
+  font-weight: bold;
+  width: 100%;
+  border-color: #222326;
+  background-color: #222326;
+  color: #b8bac1;
+  border-radius: 25px;
+}
+#oneSuccess{
+  background-color: #af0f0f;
+  border:15px solid #af0f0f;
+}
+#twoSuccess{
+  background-color: #316fb2;
+  border:15px solid #316fb2;
+}
+#threeSuccess{
+  background-color: #d8a729;
+  border:15px solid #d8a729;
+}
+#fourSuccess{
+  background-color: #2f9b23;
+  border:15px solid #2f9b23;
+}

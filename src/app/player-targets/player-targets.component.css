@@ -13,10 +13,10 @@
 
 .PlayerCountButtons {
   position: absolute;
-  left: 40%;
+  left: 43%;
   top: 35%;
   width: 300px;
-  background-color: #204940;
+  background-color: #949699;
   z-index: 1002;
   overflow: auto;
   padding: 20px;
@@ -38,7 +38,7 @@ btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active,
 }
 
 p {
-  color: #b8bac1;
+  color: #222326;
   text-align: center;
   font-size: 150%;
 }

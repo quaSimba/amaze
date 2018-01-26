@@ -16,6 +16,7 @@ import { PlayerService } from './player/player.service';
 import { PlayerTargetsComponent } from './player-targets/player-targets.component'
 import { SystemButtonsComponent }from "./system-buttons/system-buttons.component";
 import { PathFinderService } from './path-finder/path-finder.service';
+import { SuccessComponent } from './success/success.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { PathFinderService } from './path-finder/path-finder.service';
     NextPlayerComponent,
     SparePadAreaComponent,
     PlayerTargetsComponent,
-    SystemButtonsComponent
+    SystemButtonsComponent,
+    SuccessComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule

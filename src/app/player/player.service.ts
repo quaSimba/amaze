@@ -193,7 +193,6 @@ export class PlayerService {
       case this.playerOne:
         if (this.playerOneTargets.length != 0 &&
           this.playerOne.currentPad.treasureID == this.currentTargetOne.id) {
-          console.log("Schatz eingesammelt")
           this.playerOneTargets.splice(0, 1);
           this.playerOne.currentPad.treasureID = null;
           if (this.playerOne.currentPad.padType === 1) {
@@ -202,16 +201,15 @@ export class PlayerService {
             this.playerOne.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
           }
           this.currentTargetOne = this.playerOneTargets[0];
-          console.log(this.playerOneTargets);
         } else if (this.playerOneTargets.length == 0
           && this.playerOne.currentPad.playerSpawn == "red") {
-          console.log("Gewonnen")
+
         }
         break;
       case this.playerTwo:
         if (this.playerTwoTargets.length != 0 &&
           this.playerTwo.currentPad.treasureID == this.currentTargetTwo.id) {
-          console.log("Schatz eingesammelt")
+
           this.playerTwoTargets.splice(0, 1);
           this.playerTwo.currentPad.treasureID = null;
           if (this.playerTwo.currentPad.padType === 1) {
@@ -220,15 +218,14 @@ export class PlayerService {
             this.playerTwo.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
           }
           this.currentTargetTwo = this.playerTwoTargets[0];
-          console.log(this.playerTwoTargets);
         } else if (this.playerTwoTargets.length == 0 && this.playerTwo.currentPad.playerSpawn == "blue") {
-          console.log("Gewonnen")
+
         }
         break;
       case this.playerThree:
         if (this.playerThreeTargets.length != 0 &&
           this.playerThree.currentPad.treasureID == this.currentTargetThree.id) {
-          console.log("Schatz eingesammelt")
+
           this.playerThreeTargets.splice(0, 1);
           this.playerThree.currentPad.treasureID = null;
           if (this.playerThree.currentPad.padType === 1) {
@@ -237,15 +234,14 @@ export class PlayerService {
             this.playerThree.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
           }
           this.currentTargetThree = this.playerThreeTargets[0];
-          console.log(this.playerThreeTargets);
         } else if (this.playerThreeTargets.length == 0 && this.playerThree.currentPad.playerSpawn == "yellow") {
-          console.log("Gewonnen")
+
         }
         break;
       case this.playerFour:
         if (this.playerFourTargets.length != 0 &&
           this.playerFour.currentPad.treasureID == this.currentTargetFour.id) {
-          console.log("Schatz eingesammelt")
+
           this.playerFourTargets.splice(0, 1);
           this.playerFour.currentPad.treasureID = null;
           if (this.playerFour.currentPad.padType === 1) {
@@ -254,9 +250,8 @@ export class PlayerService {
             this.playerFour.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
           }
           this.currentTargetFour = this.playerFourTargets[0];
-          console.log(this.playerFourTargets);
         } else if (this.playerFourTargets.length == 0 && this.playerFour.currentPad.playerSpawn == "green") {
-          console.log("Gewonnen")
+
         }
         break;
     }
