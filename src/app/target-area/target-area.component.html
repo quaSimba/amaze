@@ -1,72 +1,72 @@
 <div class="target-areas">
-  <div [ngSwitch]="_playerTargetsService.playerCount">
+  <div [ngSwitch]="_playerService.playerCount">
 
     <div *ngSwitchCase="2">
-      <div *ngIf="_playerTargetsService.playerOneTargets.length == 0 && _playerService.currentPlayer == _playerService.playerOne">
+      <div *ngIf="_playerService.playerOneTargets.length == 0 && _playerService.currentPlayer == _playerService.playerOne">
         <p>
           Geschafft! Gehe zurück zum Anfang!
         </p>
       </div>
-      <img *ngIf="_playerTargetsService.playerOneTargets.length != 0 && _playerService.currentPlayer == _playerService.playerOne" class="target-area" src={{_playerTargetsService.currentTargetOne.cardPath}}>
+      <img *ngIf="_playerService.playerOneTargets.length != 0 && _playerService.currentPlayer == _playerService.playerOne" class="target-area" src={{_playerService.currentTargetOne.cardPath}}>
 
-      <div *ngIf="_playerTargetsService.playerTwoTargets.length == 0 && _playerService.currentPlayer == _playerService.playerTwo">
+      <div *ngIf="_playerService.playerTwoTargets.length == 0 && _playerService.currentPlayer == _playerService.playerTwo">
         <p>
           Geschafft! Gehe zurück zum Anfang!
         </p>
       </div>
-      <img *ngIf="_playerTargetsService.playerTwoTargets.length != 0 && _playerService.currentPlayer == _playerService.playerTwo" class="target-area" src={{_playerTargetsService.currentTargetTwo.cardPath}}>
+      <img *ngIf="_playerService.playerTwoTargets.length != 0 && _playerService.currentPlayer == _playerService.playerTwo" class="target-area" src={{_playerService.currentTargetTwo.cardPath}}>
     </div>
 
     <div *ngSwitchCase="3">
-      <div *ngIf="_playerTargetsService.playerOneTargets.length == 0 && _playerService.currentPlayer == _playerService.playerOne">
+      <div *ngIf="_playerService.playerOneTargets.length == 0 && _playerService.currentPlayer == _playerService.playerOne">
         <p>
           Geschafft! Gehe zurück zum Anfang!
         </p>
       </div>
-      <img *ngIf="_playerTargetsService.playerOneTargets.length != 0 && _playerService.currentPlayer == _playerService.playerOne" class="target-area" src={{_playerTargetsService.currentTargetOne.cardPath}}>
+      <img *ngIf="_playerService.playerOneTargets.length != 0 && _playerService.currentPlayer == _playerService.playerOne" class="target-area" src={{_playerService.currentTargetOne.cardPath}}>
 
-      <div *ngIf="_playerTargetsService.playerTwoTargets.length == 0 && _playerService.currentPlayer == _playerService.playerTwo" class="target-area">
+      <div *ngIf="_playerService.playerTwoTargets.length == 0 && _playerService.currentPlayer == _playerService.playerTwo" class="target-area">
         <p>
           Geschafft! Gehe zurück zum Anfang!
         </p>
       </div>
-      <img *ngIf="_playerTargetsService.playerTwoTargets.length != 0 && _playerService.currentPlayer == _playerService.playerTwo" class="target-area" src={{_playerTargetsService.currentTargetTwo.cardPath}}>
+      <img *ngIf="_playerService.playerTwoTargets.length != 0 && _playerService.currentPlayer == _playerService.playerTwo" class="target-area" src={{_playerService.currentTargetTwo.cardPath}}>
 
-      <div *ngIf="_playerTargetsService.playerThreeTargets.length == 0 && _playerService.currentPlayer == _playerService.playerThree" class="target-area">
+      <div *ngIf="_playerService.playerThreeTargets.length == 0 && _playerService.currentPlayer == _playerService.playerThree" class="target-area">
         <p>
           Geschafft! Gehe zurück zum Anfang!
         </p>
       </div>
-      <img *ngIf="_playerTargetsService.playerThreeTargets.length != 0 && _playerService.currentPlayer == _playerService.playerThree" class="target-area" src={{_playerTargetsService.currentTargetThree.cardPath}}>
+      <img *ngIf="_playerService.playerThreeTargets.length != 0 && _playerService.currentPlayer == _playerService.playerThree" class="target-area" src={{_playerService.currentTargetThree.cardPath}}>
     </div>
 
     <div *ngSwitchCase="4">
-      <div *ngIf="_playerTargetsService.playerOneTargets.length == 0 && _playerService.currentPlayer == _playerService.playerOne" class="target-area">
+      <div *ngIf="_playerService.playerOneTargets.length == 0 && _playerService.currentPlayer == _playerService.playerOne" class="target-area">
         <p>
           Geschafft! Gehe zurück zum Anfang!
         </p>
       </div>
-      <img *ngIf="_playerTargetsService.playerOneTargets.length != 0 && _playerService.currentPlayer == _playerService.playerOne" class="target-area" src={{_playerTargetsService.currentTargetOne.cardPath}}>
-      <div *ngIf="_playerTargetsService.playerTwoTargets.length == 0 && _playerService.currentPlayer == _playerService.playerTwo" class="target-area">
+      <img *ngIf="_playerService.playerOneTargets.length != 0 && _playerService.currentPlayer == _playerService.playerOne" class="target-area" src={{_playerService.currentTargetOne.cardPath}}>
+      <div *ngIf="_playerService.playerTwoTargets.length == 0 && _playerService.currentPlayer == _playerService.playerTwo" class="target-area">
         <p>
           Geschafft! Gehe zurück zum Anfang!
         </p>
       </div>
-      <img *ngIf="_playerTargetsService.playerTwoTargets.length != 0 && _playerService.currentPlayer == _playerService.playerTwo" class="target-area" src={{_playerTargetsService.currentTargetTwo.cardPath}}>
+      <img *ngIf="_playerService.playerTwoTargets.length != 0 && _playerService.currentPlayer == _playerService.playerTwo" class="target-area" src={{_playerService.currentTargetTwo.cardPath}}>
 
-      <div *ngIf="_playerTargetsService.playerThreeTargets.length == 0 && _playerService.currentPlayer == _playerService.playerThree" class="target-area">
+      <div *ngIf="_playerService.playerThreeTargets.length == 0 && _playerService.currentPlayer == _playerService.playerThree" class="target-area">
         <p>
           Geschafft! Gehe zurück zum Anfang!
         </p>
       </div>
-      <img *ngIf="_playerTargetsService.playerThreeTargets.length != 0 && _playerService.currentPlayer == _playerService.playerThree" class="target-area" src={{_playerTargetsService.currentTargetThree.cardPath}}>
+      <img *ngIf="_playerService.playerThreeTargets.length != 0 && _playerService.currentPlayer == _playerService.playerThree" class="target-area" src={{_playerService.currentTargetThree.cardPath}}>
 
-      <div *ngIf="_playerTargetsService.playerFourTargets.length == 0 && _playerService.currentPlayer == _playerService.playerFour" class="target-area">
+      <div *ngIf="_playerService.playerFourTargets.length == 0 && _playerService.currentPlayer == _playerService.playerFour" class="target-area">
         <p>
           Geschafft! Gehe zurück zum Anfang!
         </p>
       </div>
-      <img *ngIf="_playerTargetsService.playerFourTargets.length != 0 && _playerService.currentPlayer == _playerService.playerFour" class="target-area" src={{_playerTargetsService.currentTargetFour.cardPath}}>
+      <img *ngIf="_playerService.playerFourTargets.length != 0 && _playerService.currentPlayer == _playerService.playerFour" class="target-area" src={{_playerService.currentTargetFour.cardPath}}>
 
     </div>
     <div *ngSwitchDefault>

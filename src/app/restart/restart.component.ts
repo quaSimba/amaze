@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { PlayerTargetsService } from '../player-targets/player-targets.service'
 
+import { PlayerService } from '../player/player.service';
 
 @Component({
   selector: "restart",
@@ -10,6 +10,6 @@ import { PlayerTargetsService } from '../player-targets/player-targets.service'
 
 export class RestartComponent {
 
-  constructor(private _playerTargetsService:PlayerTargetsService){
+  constructor(private _playerService: PlayerService) {
   }
 }

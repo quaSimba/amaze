@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { PlayerTargetsService } from './player-targets.service'
+import { PlayerService } from '../player/player.service'
 
 
 @Component({
@@ -11,6 +11,6 @@ import { PlayerTargetsService } from './player-targets.service'
 
 export class PlayerTargetsComponent {
 
-  constructor(private _playerTargetsService:PlayerTargetsService){
+  constructor(private _playerService: PlayerService) {
   }
 }

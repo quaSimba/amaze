@@ -1,4 +1,4 @@
-<div [ngSwitch]="playerTargetsService.playerCount">
+<div [ngSwitch]="playerService.playerCount">
   <div *ngSwitchCase="1">
     <div [ngStyle]="{'background-color': playerService.playerOne.color}" id="playerOne" class="player"></div>
   </div>

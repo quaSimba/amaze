@@ -1,8 +1,8 @@
-<div *ngIf="playerTargetsService.playerCount != null" class="nextPlayerArea">
- <div *ngIf="playerService.hasPushed == true">
-  <button class="btn btn-success btn-lg" (click) ="playerService.nextPlayer()"> Nächster Spieler </button>
- </div>
- <div *ngIf="playerService.hasPushed == false">
-  <button class=" btn btn-lg pushBtn"> Erst Schieben! </button>
- </div>
+<div *ngIf="playerService.playerCount != null" class="nextPlayerArea">
+  <div *ngIf="playerService.hasPushed == true">
+    <button class="btn btn-success btn-lg" (click)="playerService.nextPlayer()"> Nächster Spieler </button>
+  </div>
+  <div *ngIf="playerService.hasPushed == false">
+    <button class=" btn btn-lg pushBtn"> Erst Schieben! </button>
+  </div>
 </div>
