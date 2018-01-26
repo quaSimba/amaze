@@ -3,6 +3,7 @@
   height: 100%;
 }
 
+
 .pad-insertion-area {
   display: table;
   position: absolute;
@@ -15,7 +16,7 @@
   text-align: center;
 
 }
-p{
+.ex{
   display: table-cell;
   vertical-align: middle;
 }

@@ -1,13 +1,23 @@
-
-spare-pad-area{
-  padding: 10px;
-}
-player-targets{
-}
-
-target-area{
-  padding-top: 10px;
-}
-.row{
+.row {
   margin-top: 5%;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.col-sm-3 {
+  height: 100%;
+  width: 240px;
+}
+
+.main {
+  margin-top: 11%;
+  border: 15px solid #204940;
+  border-radius: 30px;
+  background-color: #204940;
+}
+
+.sys {
+  border: 15px solid #204940;
+  border-radius: 30px;
+  background-color: #204940;
 }

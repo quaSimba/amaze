@@ -1,1 +1,4 @@
-<button class=" btn btn-primary btn-lg" (click)="_playerTargetsService.restart()"> Neustart </button>
+<div *ngIf="_playerTargetsService.playerCount != null" class="restartButtonArea">
+  <button class="reset btn btn-primary btn-lg" (click)="_playerTargetsService.restart()"> Neustart </button>
+  <button type="button" class="help btn btn-primary btn-lg" data-toggle="button" (click)="help()"> Hilfe </button>
+</div>

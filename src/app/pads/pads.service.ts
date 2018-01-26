@@ -28,6 +28,7 @@ export class PadsService {
   private _animDistance: number;
   private _animDuration: number;
   private _isMoving: boolean;
+  private _isVisible: boolean;
 
   constructor(private _shuffleService: ShuffleService) {
     this._fixedPads = this.createFixedPads();
@@ -43,6 +44,7 @@ export class PadsService {
     this._sparePadDropped = false;
     this._animDuration = 500;
     this._isMoving = false;
+    this._isVisible = false;
   }
 
   // Create all the pads that are fix on the board.
@@ -472,5 +474,12 @@ export class PadsService {
   }
   set isMoving(isMoving: boolean) {
     this._isMoving = isMoving;
+  }
+
+  get isVisible(): boolean {
+    return this._isVisible;
+  }
+  set isVisible(isMoving: boolean) {
+    this._isVisible = isMoving;
   }
 }

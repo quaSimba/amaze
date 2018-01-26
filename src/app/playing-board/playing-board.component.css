@@ -1,45 +1,54 @@
 /*For board*/
 
 .playing-board {
+  margin-top: 5px;
   position: absolute;
   left: calc(100%/9);
   top: calc(100%/9);
   width: calc(700%/9);
   height: calc(700%/9);
-  background-image: url("../../assets/img/playing-board-small-lightblue.png");
+  background-image: url("../../assets/img/playing-board-small-petrol.png");
   background-size: cover;
 }
 
 .red-overlay {
+  opacity: 0.3;
+  border-radius: 15px;
   z-index: 2;
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 0, 0, 0.3);
+  background-color: #af0f0f;
 }
 
 .blue-overlay {
+  opacity: 0.3;
+  border-radius: 15px;
   z-index: 2;
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 255, 0.3);
+  background-color: #244d7a;
 }
 
 .yellow-overlay {
+  opacity: 0.3;
+  border-radius: 15px;
   z-index: 2;
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 0, 0.3);
+  background-color: #d8a729;
 }
 
 .green-overlay {
+  opacity: 0.3;
+  border-radius: 15px;
   z-index: 2;
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 255, 0, 0.3);
+  background-color: #2f9b23;
 }
 
 /* position all pads */

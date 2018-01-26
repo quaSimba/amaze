@@ -1,21 +1,28 @@
-.buttons{ }
 
 .pushBtn {
+    font-weight: bold;
+    font-size: 100%;
     width: 100%;
-    height: 100px;
+    height: 41px;
     background: none;
-    padding: 12px 22px;
-    border-color: #222326;
-    border: 2px solid #222326;
-	  color: #222326;
+    border: 5px solid #5cb85c;
+	  color: #5cb85c;
     border-radius: 24px;
-    margin-top: 10px;
+    box-shadow: none;
   }
 
 
 .btn-success{
+  font-weight: bold;
+  font-size: 100%;
   width: 100%;
-  height: 100px;
-  margin-top: 10px;
+  height: 40px;
   border-radius: 24px;
+}
+
+.nextPlayerArea{
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  width:100%;
 }

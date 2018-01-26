@@ -1,20 +1,17 @@
 <div [ngSwitch]="playerTargetsService.playerCount">
-  <div *ngSwitchCase="1">
-    <div [ngStyle]="{'background-color': playerService.playerOne.color}" id="playerOne" class="player"></div>
-  </div>
   <div *ngSwitchCase="2">
-    <div [ngStyle]="{'background-color': playerService.playerOne.color}" id="playerOne" class="player"></div>
-    <div [ngStyle]="{'background-color': playerService.playerTwo.color}" id="playerTwo" class="player"></div>
+    <div  id="playerOne" class="player"> <b>P</b> </div>
+    <div  id="playerTwo" class="player"> <b>P</b> </div>
   </div>
   <div *ngSwitchCase="3">
-    <div [ngStyle]="{'background-color': playerService.playerOne.color}" id="playerOne" class="player"></div>
-    <div [ngStyle]="{'background-color': playerService.playerTwo.color}" id="playerTwo" class="player"></div>
-    <div [ngStyle]="{'background-color': playerService.playerThree.color}" id="playerThree" class="player"></div>
+    <div  id="playerOne" class="player"> <b>P</b> </div>
+    <div  id="playerTwo" class="player"> <b>P</b> </div>
+    <div  id="playerThree" class="player"> <b>P</b> </div>
   </div>
   <div *ngSwitchCase="4">
-    <div [ngStyle]="{'background-color': playerService.playerTwo.color}" id="playerTwo" class="player"></div>
-    <div [ngStyle]="{'background-color': playerService.playerOne.color}" id="playerOne" class="player"></div>
-    <div [ngStyle]="{'background-color': playerService.playerFour.color}" id="playerFour" class="player"></div>
-    <div [ngStyle]="{'background-color': playerService.playerThree.color}" id="playerThree" class="player"></div>
+    <div  id="playerTwo" class="player"> <b>P</b> </div>
+    <div  id="playerOne" class="player"> <b>P</b> </div>
+    <div  id="playerFour" class="player"> <b>P</b> </div>
+    <div  id="playerThree" class="player"> <b>P</b> </div>
   </div>
 </div>

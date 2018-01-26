@@ -19,10 +19,13 @@ export class SparePadAreaComponent {
   }
 
   drag(event) {
+    $(".spare-pad").css("opacity","0");
     this._padsService.sparePadDragged = true;
   }
 
   endDrag() {
+    setTimeout(function(){
+      $(".spare-pad").css("opacity","1")}, 500 );
     this._padsService.sparePadDragged = false;
   }
 }

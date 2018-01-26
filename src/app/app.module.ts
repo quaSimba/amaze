@@ -10,7 +10,7 @@ import { PadsService } from './pads/pads.service';
 import { SparePadAreaComponent } from './spare-pad-area/spare-pad-area.component';
 import { ShuffleService } from './helper-services/shuffle-service';
 import { TargetAreaComponent } from './target-area/target-area.component';
-import { PlayerTargetsService } from './player-targets/player-targets.service'
+import { PlayerTargetsService } from './player-targets/player-targets.service';
 import { PlayerComponent } from './player/player.component';
 import { NextPlayerComponent } from './next-player/next-player.component';
 import { PlayerService } from './player/player.service';

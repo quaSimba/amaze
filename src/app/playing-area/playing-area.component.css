@@ -1,4 +1,7 @@
 .playing-area {
+  border-radius: 30px;
+  background-color: #204940;
+  border:15px solid #204940;
   position: relative;
   width: 750px;
   height: 750px;

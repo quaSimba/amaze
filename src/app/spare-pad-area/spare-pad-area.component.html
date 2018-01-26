@@ -1,7 +1,5 @@
 <div class="spare-pad-area">
   <div *ngIf="_playerTargetsService.playerCount != null" class="spare-pad-container">
-    <div *ngIf="((_padsService.sparePadDragged && !_padsService.isMoving)||(_padsService.sparePadDropped && _padsService.isMoving))" class="pad curtain">
-    </div>
     <div id="spare-pad" class="pad spare-pad" draggable="true" (dragstart)="drag($event)" (dragend)="endDrag()">
       <img src="{{_padsService.sparePad.imgSource}}" class="rotation-case{{_padsService.sparePad.rotationCase}}" alt="Textur">
     </div>

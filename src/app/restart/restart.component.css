@@ -1,12 +1,19 @@
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
     background: #222326;
 }
+.help{
+  margin-top: 10%;
+}
 .btn {
-  position: relative;
+  font-weight: bold;
+  width: 100%;
   border-color: #222326;
   background-color: #222326;
   color: #b8bac1;
   border-radius: 25px;
-  margin-top: 10%;
-  margin-left: 19%;
+}
+.restartButtonArea{
+  width:100%;
+  margin-left: auto;
+  margin-right: auto;
 }

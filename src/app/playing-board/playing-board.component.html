@@ -1,24 +1,28 @@
 <div class="playing-board">
   <player></player>
   <div *ngFor="let pad of _padsService.gridRep" class="pad row{{pad.row}} col{{pad.col}}" (click)="_playerService.tempMethod(pad)">
-    <div *ngIf="pad.reachableForPlayers.get('red')" class="red-overlay">
-    </div>
-    <div *ngIf="pad.reachableForPlayers.get('blue')" class="blue-overlay">
-    </div>
-    <div *ngIf="pad.reachableForPlayers.get('yellow')" class="yellow-overlay">
-    </div>
-    <div *ngIf="pad.reachableForPlayers.get('green')" class="green-overlay">
+    <div *ngIf="_padsService.isVisible == true">
+      <div *ngIf="pad.reachableForPlayers.get('red')" class="red-overlay">
+      </div>
+      <div *ngIf="pad.reachableForPlayers.get('blue')" class="blue-overlay">
+      </div>
+      <div *ngIf="pad.reachableForPlayers.get('yellow')" class="yellow-overlay">
+      </div>
+      <div *ngIf="pad.reachableForPlayers.get('green')" class="green-overlay">
+      </div>
     </div>
     <img src="{{pad.imgSource}}" class="rotation-case{{pad.rotationCase}}" alt="Textur">
   </div>
   <div *ngFor="let pad of _padsService.fixedPads" class="pad row{{pad.row}} col{{pad.col}} rotationCase{{pad.rotationCase}}" (click)="_playerService.tempMethod(pad)">
-    <div *ngIf="pad.reachableForPlayers.get('red')" class="red-overlay">
-    </div>
-    <div *ngIf="pad.reachableForPlayers.get('blue')" class="blue-overlay">
-    </div>
-    <div *ngIf="pad.reachableForPlayers.get('yellow')" class="yellow-overlay">
-    </div>
-    <div *ngIf="pad.reachableForPlayers.get('green')" class="green-overlay">
+    <div *ngIf="_padsService.isVisible == true">
+      <div *ngIf="pad.reachableForPlayers.get('red')" class="red-overlay">
+      </div>
+      <div *ngIf="pad.reachableForPlayers.get('blue')" class="blue-overlay">
+      </div>
+      <div *ngIf="pad.reachableForPlayers.get('yellow')" class="yellow-overlay">
+      </div>
+      <div *ngIf="pad.reachableForPlayers.get('green')" class="green-overlay">
+      </div>
     </div>
   </div>
   <div *ngIf="_padsService.sparePadDropped" class="pad spare-pad row{{_padsService.sparePad.row}} col{{_padsService.sparePad.col}} rotation-case{{_padsService.sparePad.rotationCase}} ">

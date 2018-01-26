@@ -1,5 +1,9 @@
+<div *ngIf="_playerTargetsService.playerCount == null" class="button-area">
+<div class="overlay"></div>
 <div class="PlayerCountButtons">
-    <div *ngIf="_playerTargetsService.playerCount == null" class="button-area">
+      <p>
+        <b>Wähle eine Spieleranzahl aus!</b>
+      </p>
       <button class="btn btn-primary" (click)="_playerTargetsService.setPlayerCountTwo()"> 2 Spieler </button>
       <button class="btn btn-primary" (click)="_playerTargetsService.setPlayerCountThree()"> 3 Spieler </button>
       <button class="btn btn-primary" (click)="_playerTargetsService.setPlayerCountFour()"> 4 Spieler </button>

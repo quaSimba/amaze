@@ -1,7 +1,32 @@
-
-btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
-    background: #222326;
+.overlay {
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 1001;
+  -moz-opacity: 0.8;
+  opacity: .80;
+  filter: alpha(opacity=80);
 }
+
+.PlayerCountButtons {
+  position: absolute;
+  left: 40%;
+  top: 35%;
+  width: 300px;
+  background-color: #204940;
+  z-index: 1002;
+  overflow: auto;
+  padding: 20px;
+  border-radius: 30px;
+}
+
+btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+  background: #222326;
+}
+
 .btn {
   border-color: #222326;
   background-color: #222326;
@@ -10,4 +35,10 @@ btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active,
   width: 100%;
   margin-top: 10px;
   font-size: 25px;
+}
+
+p {
+  color: #b8bac1;
+  text-align: center;
+  font-size: 150%;
 }
