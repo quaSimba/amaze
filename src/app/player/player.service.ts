@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Player } from './player';
 import * as $ from 'jquery';
-import { PlayerTargetsService } from '../player-targets/player-targets.service'
 import { PadsService } from '../pads/pads.service';
 import { Pad } from '../pads/pads';
 import { PathFinderService } from '../path-finder/path-finder.service';
+import { ShuffleService } from '../helper-services/shuffle-service';
+import { TARGETS } from '../targets/mock-targets';
 
 @Injectable()
 export class PlayerService {
@@ -14,16 +15,26 @@ export class PlayerService {
   private _playerThree: Player;
   private _playerFour: Player;
   private _players: Player[];
+  private _activePlayers: Player[];
   private _rowDistance;
   private _colDistance;
   private _currentPlayer: Player;
   private _hasPushed: boolean;
   private _hasMoved: boolean;
+  private _shuffledTargets;
+  private _playerCount;
+  private _playerOneTargets;
+  private _playerTwoTargets;
+  private _playerThreeTargets;
+  private _playerFourTargets;
+  private _currentTargetOne;
+  private _currentTargetTwo;
+  private _currentTargetThree;
+  private _currentTargetFour;
 
-  playerTargetsService = null;
   padsService = null;
 
-  constructor(private _playerTargets: PlayerTargetsService, private _pads: PadsService, private _pathFinderService: PathFinderService) {
+  constructor(private _pads: PadsService, private _pathFinderService: PathFinderService, private _shuffle: ShuffleService) {
 
     this._playerOne = new Player(this._pads.spawns[0], "#playerOne");
     this._playerTwo = new Player(this._pads.spawns[2], "#playerTwo");
@@ -33,10 +44,8 @@ export class PlayerService {
     this.hasPushed = false;
     this.hasMoved = false;
     this._currentPlayer = this.players[0];
-    this.playerTargetsService = _playerTargets;
     this.padsService = _pads;
-
-    this._pathFinderService.updateReachablePads(this.players);
+    this._shuffledTargets = this._shuffle.shuffle(TARGETS.slice(0, TARGETS.length));
   }
 
 
@@ -67,19 +76,24 @@ export class PlayerService {
       path.push(destination);
 
       // Move along the path
+      let animDuration = 0;
       path.forEach((pad) => {
-        this.move(player, pad);
+        animDuration += this.move(pad);
       });
-      this._hasMoved = true;
+      setTimeout(() => {
+        this.checkForTarget();
+        this._hasMoved = true;
+      }, animDuration);
     }
   }
 
-  move(player: Player, destination: Pad) {
+  move(destination: Pad): number {
 
     let colDeviation;
     let rowDeviation
     let colFactor;
     let rowFactor;
+    let animDuration;
 
     switch (this.currentPlayer) {
 
@@ -102,19 +116,8 @@ export class PlayerService {
 
         this.playerOne.currentPad = destination;
 
-        if (this.playerTargetsService.playerOneTargets.length != 0 &&
-          destination.treasureID == this.playerTargetsService.currentTargetOne.id) {
-          console.log("Schatz eingesammelt")
-
-          this.playerTargetsService.playerOneTargets.splice(0, 1);
-          this.playerTargetsService.currentTargetOne = this.playerTargetsService.playerOneTargets[0];
-          console.log(this.playerTargetsService.playerOneTargets);
-        }
-        else if (this.playerTargetsService.playerOneTargets.length == 0
-          && destination.playerSpawn == "red") {
-          console.log("Gewonnen")
-        }
-        break;
+        animDuration = colFactor * 200 + rowFactor * 200;
+        return animDuration;
 
       case this._playerTwo:
 
@@ -135,17 +138,8 @@ export class PlayerService {
 
         this.playerTwo.currentPad = destination
 
-        if (this.playerTargetsService.playerTwoTargets.length != 0 &&
-          destination.treasureID == this.playerTargetsService.currentTargetTwo.id) {
-          console.log("Schatz eingesammelt")
-          this.playerTargetsService.playerTwoTargets.splice(0, 1);
-          this.playerTargetsService.currentTargetTwo = this.playerTargetsService.playerTwoTargets[0];
-          console.log(this.playerTargetsService.playerTwoTargets);
-        }
-        else if (this.playerTargetsService.playerTwoTargets.length == 0 && destination.playerSpawn == "blue") {
-          console.log("Gewonnen")
-        }
-        break;
+        animDuration = colFactor * 200 + rowFactor * 200;
+        return animDuration;
 
       case this._playerThree:
 
@@ -167,17 +161,8 @@ export class PlayerService {
 
         this.playerThree.currentPad = destination;
 
-        if (this.playerTargetsService.playerThreeTargets.length != 0 &&
-          destination.treasureID == this.playerTargetsService.currentTargetThree.id) {
-          console.log("Schatz eingesammelt")
-          this.playerTargetsService.playerThreeTargets.splice(0, 1);
-          this.playerTargetsService.currentTargetThree = this.playerTargetsService.playerThreeTargets[0];
-          console.log(this.playerTargetsService.playerThreeTargets);
-        }
-        else if (this.playerTargetsService.playerThreeTargets.length == 0 && destination.playerSpawn == "yellow") {
-          console.log("Gewonnen")
-        }
-        break;
+        animDuration = colFactor * 200 + rowFactor * 200;
+        return animDuration;
 
       case this._playerFour:
 
@@ -198,23 +183,87 @@ export class PlayerService {
 
         this.playerFour.currentPad = destination;
 
-        if (this.playerTargetsService.playerFourTargets.length != 0 &&
-          destination.treasureID == this.playerTargetsService.currentTargetFour.id) {
+        animDuration = colFactor * 200 + rowFactor * 200;
+        return animDuration;
+    }
+  }
+
+  checkForTarget() {
+    switch (this.currentPlayer) {
+      case this.playerOne:
+        if (this.playerOneTargets.length != 0 &&
+          this.playerOne.currentPad.treasureID == this.currentTargetOne.id) {
           console.log("Schatz eingesammelt")
-          this.playerTargetsService.playerFourTargets.splice(0, 1);
-          this.playerTargetsService.currentTargetFour = this.playerTargetsService.playerFourTargets[0];
-          console.log(this.playerTargetsService.playerFourTargets);
+          this.playerOneTargets.splice(0, 1);
+          this.playerOne.currentPad.treasureID = null;
+          if (this.playerOne.currentPad.padType === 1) {
+            this.playerOne.currentPad.imgSource = "../../assets/img/pads/L-Pad@150px.png";
+          } else {
+            this.playerOne.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
+          }
+          this.currentTargetOne = this.playerOneTargets[0];
+          console.log(this.playerOneTargets);
+        } else if (this.playerOneTargets.length == 0
+          && this.playerOne.currentPad.playerSpawn == "red") {
+          console.log("Gewonnen")
         }
-        else if (this.playerTargetsService.playerFourTargets.length == 0 && destination.playerSpawn == "green") {
+        break;
+      case this.playerTwo:
+        if (this.playerTwoTargets.length != 0 &&
+          this.playerTwo.currentPad.treasureID == this.currentTargetTwo.id) {
+          console.log("Schatz eingesammelt")
+          this.playerTwoTargets.splice(0, 1);
+          this.playerTwo.currentPad.treasureID = null;
+          if (this.playerTwo.currentPad.padType === 1) {
+            this.playerTwo.currentPad.imgSource = "../../assets/img/pads/L-Pad@150px.png";
+          } else {
+            this.playerTwo.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
+          }
+          this.currentTargetTwo = this.playerTwoTargets[0];
+          console.log(this.playerTwoTargets);
+        } else if (this.playerTwoTargets.length == 0 && this.playerTwo.currentPad.playerSpawn == "blue") {
+          console.log("Gewonnen")
+        }
+        break;
+      case this.playerThree:
+        if (this.playerThreeTargets.length != 0 &&
+          this.playerThree.currentPad.treasureID == this.currentTargetThree.id) {
+          console.log("Schatz eingesammelt")
+          this.playerThreeTargets.splice(0, 1);
+          this.playerThree.currentPad.treasureID = null;
+          if (this.playerThree.currentPad.padType === 1) {
+            this.playerThree.currentPad.imgSource = "../../assets/img/pads/L-Pad@150px.png";
+          } else {
+            this.playerThree.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
+          }
+          this.currentTargetThree = this.playerThreeTargets[0];
+          console.log(this.playerThreeTargets);
+        } else if (this.playerThreeTargets.length == 0 && this.playerThree.currentPad.playerSpawn == "yellow") {
+          console.log("Gewonnen")
+        }
+        break;
+      case this.playerFour:
+        if (this.playerFourTargets.length != 0 &&
+          this.playerFour.currentPad.treasureID == this.currentTargetFour.id) {
+          console.log("Schatz eingesammelt")
+          this.playerFourTargets.splice(0, 1);
+          this.playerFour.currentPad.treasureID = null;
+          if (this.playerFour.currentPad.padType === 1) {
+            this.playerFour.currentPad.imgSource = "../../assets/img/pads/L-Pad@150px.png";
+          } else {
+            this.playerFour.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
+          }
+          this.currentTargetFour = this.playerFourTargets[0];
+          console.log(this.playerFourTargets);
+        } else if (this.playerFourTargets.length == 0 && this.playerFour.currentPad.playerSpawn == "green") {
           console.log("Gewonnen")
         }
         break;
     }
-
   }
 
   nextPlayer() {
-    if (this._players.indexOf(this.currentPlayer) + 1 !== this.playerTargetsService.playerCount) this._currentPlayer = this.players[this.players.indexOf(this._currentPlayer) + 1];
+    if (this._players.indexOf(this.currentPlayer) + 1 !== this.playerCount) this._currentPlayer = this.players[this.players.indexOf(this._currentPlayer) + 1];
     else this.currentPlayer = this.players[0];
     this.hasPushed = false;
     this.hasMoved = false;
@@ -293,6 +342,56 @@ export class PlayerService {
     }
   }
 
+  setPlayerCountTwo() {
+
+    this.playerCount = 2;
+    this._shuffle.shuffle(this._shuffledTargets);
+    this.playerOneTargets = this._shuffledTargets.slice(0, 12);
+    this.playerTwoTargets = this._shuffledTargets.slice(12, 24);
+
+    this.currentTargetOne = this.playerOneTargets[0];
+    this.currentTargetTwo = this.playerTwoTargets[0];
+
+    this._activePlayers = this._players.slice(0, this._playerCount);
+    this._pathFinderService.updateReachablePads(this._activePlayers);
+  }
+
+  setPlayerCountThree() {
+    this.playerCount = 3;
+    this._shuffle.shuffle(this._shuffledTargets);
+    this.playerOneTargets = this._shuffledTargets.slice(0, 8);
+    this.playerTwoTargets = this._shuffledTargets.slice(8, 16);
+    this.playerThreeTargets = this._shuffledTargets.slice(16, 24);
+
+    this.currentTargetOne = this.playerOneTargets[0];
+    this.currentTargetTwo = this.playerTwoTargets[0];
+    this.currentTargetThree = this.playerThreeTargets[0];
+
+    this._activePlayers = this._players.slice(0, this._playerCount);
+    this._pathFinderService.updateReachablePads(this._activePlayers);
+  }
+
+  setPlayerCountFour() {
+    this.playerCount = 4;
+    this._shuffle.shuffle(this._shuffledTargets);
+    this.playerOneTargets = this._shuffledTargets.slice(0, 6);
+    this.playerTwoTargets = this._shuffledTargets.slice(6, 12);
+    this.playerThreeTargets = this._shuffledTargets.slice(12, 18);
+    this.playerFourTargets = this._shuffledTargets.slice(18, 24);
+
+    this.currentTargetOne = this.playerOneTargets[0];
+    this.currentTargetTwo = this.playerTwoTargets[0];
+    this.currentTargetThree = this.playerThreeTargets[0];
+    this.currentTargetFour = this.playerFourTargets[0];
+
+    this._activePlayers = this._players.slice(0, this._playerCount);
+    this._pathFinderService.updateReachablePads(this._activePlayers);
+  }
+
+  restart() {
+    location.reload();
+  }
+
   get playerOne(): Player {
     return this._playerOne;
   }
@@ -328,6 +427,13 @@ export class PlayerService {
     this._players = newPlayers;
   }
 
+  get activePlayers(): Player[] {
+    return this._activePlayers;
+  }
+  set activePlayers(newActivePlayers: Player[]) {
+    this._activePlayers = newActivePlayers;
+  }
+
   get hasMoved() {
     return this._hasMoved;
   }
@@ -361,5 +467,74 @@ export class PlayerService {
   }
   set currentPlayer(a: Player) {
     this._currentPlayer = a;
+  }
+
+  get shuffledTargets() {
+    return this._shuffledTargets;
+  }
+  set shuffledTargets(a) {
+    this._shuffledTargets = a;
+  }
+  get currentTargetOne() {
+    return this._currentTargetOne;
+  }
+  set currentTargetOne(a) {
+    this._currentTargetOne = a;
+  }
+
+  get currentTargetTwo() {
+    return this._currentTargetTwo;
+  }
+  set currentTargetTwo(a) {
+    this._currentTargetTwo = a;
+  }
+
+  get currentTargetThree() {
+    return this._currentTargetThree;
+  }
+  set currentTargetThree(a) {
+    this._currentTargetThree = a;
+  }
+
+  get currentTargetFour() {
+    return this._currentTargetFour;
+  }
+  set currentTargetFour(a) {
+    this._currentTargetFour = a;
+  }
+
+  get playerOneTargets() {
+    return this._playerOneTargets;
+  }
+  set playerOneTargets(a) {
+    this._playerOneTargets = a;
+  }
+
+  get playerTwoTargets() {
+    return this._playerTwoTargets;
+  }
+  set playerTwoTargets(a) {
+    this._playerTwoTargets = a;
+  }
+
+  get playerThreeTargets() {
+    return this._playerThreeTargets;
+  }
+  set playerThreeTargets(a) {
+    this._playerThreeTargets = a;
+  }
+
+  get playerFourTargets() {
+    return this._playerFourTargets;
+  }
+  set playerFourTargets(a) {
+    this._playerFourTargets = a;
+  }
+
+  get playerCount() {
+    return this._playerCount;
+  }
+  set playerCount(a) {
+    this._playerCount = a;
   }
 }

@@ -1,8 +1,8 @@
 <div class="target-areas">
-  <div [ngSwitch]="_playerTargetsService.playerCount">
+  <div [ngSwitch]="_playerService.playerCount">
 
     <div *ngSwitchCase="2">
-      <div *ngIf="_playerTargetsService.playerOneTargets.length != 0 && _playerService.currentPlayer == 1">
+      <div *ngIf="_playerService.playerOneTargets.length == 0 && _playerService.currentPlayer == _playerService.playerOne">
         <p id="one">
           Gehe zurück zum Anfang!
         </p>
@@ -10,14 +10,14 @@
           Geschafft!
         </div>
       </div>
-      <div *ngIf="_playerTargetsService.playerOneTargets.length == 0 && _playerService.currentPlayer == 1">
-        <img class="target-area" id="one" src={{_playerTargetsService.currentTargetOne.cardPath}}>
+      <div *ngIf="_playerService.playerOneTargets.length != 0 && _playerService.currentPlayer == _playerService.playerOne">
+        <img class="target-area" id="one" src={{_playerService.currentTargetOne.cardPath}}>
         <div id="one" class="counter">
-          {{_playerTargetsService.playerOneTargets.length}} / 12 übrig
+          {{_playerService.playerOneTargets.length}} / 12 übrig
         </div>
       </div>
 
-      <div *ngIf="_playerTargetsService.playerTwoTargets.length == 0 && _playerService.currentPlayer == 2">
+      <div *ngIf="_playerService.playerTwoTargets.length == 0 && _playerService.currentPlayer == _playerService.playerTwo">
         <p id="two">
           Gehe zurück zum Anfang!
         </p>
@@ -25,16 +25,16 @@
           Geschafft!
         </div>
       </div>
-      <div *ngIf="_playerTargetsService.playerOneTargets.length != 0 && _playerService.currentPlayer == 2">
-        <img class="target-area" id="two" src={{_playerTargetsService.currentTargetTwo.cardPath}}>
+      <div *ngIf="_playerService.playerOneTargets.length != 0 && _playerService.currentPlayer == _playerService.playerTwo">
+        <img class="target-area" id="two" src={{_playerService.currentTargetTwo.cardPath}}>
         <div id="two" class="counter">
-          {{_playerTargetsService.playerTwoTargets.length}} / 12 übrig
+          {{_playerService.playerTwoTargets.length}} / 12 übrig
         </div>
       </div>
     </div>
 
     <div *ngSwitchCase="3">
-      <div *ngIf="_playerTargetsService.playerOneTargets.length == 0 && _playerService.currentPlayer == 1">
+      <div *ngIf="_playerService.playerOneTargets.length == 0 && _playerService.currentPlayer == _playerService.playerOne">
         <p id="one">
           Gehe zurück zum Anfang!
         </p>
@@ -42,14 +42,14 @@
           Geschafft!
         </div>
       </div>
-      <div *ngIf="_playerTargetsService.playerOneTargets.length != 0 && _playerService.currentPlayer == 1">
-        <img class="target-area" id="one" src={{_playerTargetsService.currentTargetOne.cardPath}}>
+      <div *ngIf="_playerService.playerOneTargets.length != 0 && _playerService.currentPlayer == _playerService.playerOne">
+        <img class="target-area" id="one" src={{_playerService.currentTargetOne.cardPath}}>
         <div id="one" class="counter">
-          {{_playerTargetsService.playerOneTargets.length}} / 8 übrig
+          {{_playerService.playerOneTargets.length}} / 8 übrig
         </div>
       </div>
 
-      <div *ngIf="_playerTargetsService.playerTwoTargets.length == 0 && _playerService.currentPlayer == 2" class="target-area">
+      <div *ngIf="_playerService.playerTwoTargets.length == 0 && _playerService.currentPlayer == _playerService.playerTwo" class="target-area">
         <p id="two">
           Gehe zurück zum Anfang!
         </p>
@@ -58,14 +58,14 @@
         </div>
       </div>
 
-      <div *ngIf="_playerTargetsService.playerOneTargets.length != 0 && _playerService.currentPlayer == 2">
-        <img class="target-area" id="two" src={{_playerTargetsService.currentTargetTwo.cardPath}}>
+      <div *ngIf="_playerService.playerOneTargets.length != 0 && _playerService.currentPlayer == _playerService.playerTwo">
+        <img class="target-area" id="two" src={{_playerService.currentTargetTwo.cardPath}}>
         <div id="two" class="counter">
-          {{_playerTargetsService.playerTwoTargets.length}} / 8 übrig
+          {{_playerService.playerTwoTargets.length}} / 8 übrig
         </div>
       </div>
 
-      <div *ngIf="_playerTargetsService.playerThreeTargets.length == 0 && _playerService.currentPlayer == 3" class="target-area">
+      <div *ngIf="_playerService.playerThreeTargets.length == 0 && _playerService.currentPlayer == _playerService.playerThree" class="target-area">
         <p id="three">
           Gehe zurück zum Anfang!
         </p>
@@ -74,16 +74,16 @@
         </div>
       </div>
 
-      <div *ngIf="_playerTargetsService.playerOneTargets.length != 0 && _playerService.currentPlayer == 3">
-        <img class="target-area" id="three" src={{_playerTargetsService.currentTargetThree.cardPath}}>
+      <div *ngIf="_playerService.playerOneTargets.length != 0 && _playerService.currentPlayer == _playerService.playerThree">
+        <img class="target-area" id="three" src={{_playerService.currentTargetThree.cardPath}}>
         <div id="three" class="counter">
-          {{_playerTargetsService.playerThreeTargets.length}} / 8 übrig
+          {{_playerService.playerThreeTargets.length}} / 8 übrig
         </div>
       </div>
     </div>
 
     <div *ngSwitchCase="4">
-      <div *ngIf="_playerTargetsService.playerOneTargets.length == 0 && _playerService.currentPlayer == 1">
+      <div *ngIf="_playerService.playerOneTargets.length == 0 && _playerService.currentPlayer == _playerService.playerOne">
         <p id="one">
           Gehe zurück zum Anfang!
         </p>
@@ -91,14 +91,14 @@
           Geschafft!
         </div>
       </div>
-      <div *ngIf="_playerTargetsService.playerOneTargets.length != 0 && _playerService.currentPlayer == 1">
-        <img class="target-area" id="one" src={{_playerTargetsService.currentTargetOne.cardPath}}>
+      <div *ngIf="_playerService.playerOneTargets.length != 0 && _playerService.currentPlayer == _playerService.playerOne">
+        <img class="target-area" id="one" src={{_playerService.currentTargetOne.cardPath}}>
         <div id="one" class="counter">
-          {{_playerTargetsService.playerOneTargets.length}} / 6 übrig
+          {{_playerService.playerOneTargets.length}} / 6 übrig
         </div>
       </div>
 
-      <div *ngIf="_playerTargetsService.playerTwoTargets.length == 0 && _playerService.currentPlayer == 2" class="target-area">
+      <div *ngIf="_playerService.playerTwoTargets.length == 0 && _playerService.currentPlayer == _playerService.playerTwo" class="target-area">
         <p id="two">
           Gehe zurück zum Anfang!
         </p>
@@ -107,14 +107,14 @@
         </div>
       </div>
 
-      <div *ngIf="_playerTargetsService.playerOneTargets.length != 0 && _playerService.currentPlayer == 2">
-        <img class="target-area" id="two" src={{_playerTargetsService.currentTargetTwo.cardPath}}>
+      <div *ngIf="_playerService.playerOneTargets.length != 0 && _playerService.currentPlayer == _playerService.playerTwo">
+        <img class="target-area" id="two" src={{_playerService.currentTargetTwo.cardPath}}>
         <div id="two" class="counter">
-          {{_playerTargetsService.playerTwoTargets.length}} / 6 übrig
+          {{_playerService.playerTwoTargets.length}} / 6 übrig
         </div>
       </div>
 
-      <div *ngIf="_playerTargetsService.playerThreeTargets.length == 0 && _playerService.currentPlayer == 3" class="target-area">
+      <div *ngIf="_playerService.playerThreeTargets.length == 0 && _playerService.currentPlayer == _playerService.playerThree" class="target-area">
         <p id="three">
           Gehe zurück zum Anfang!
         </p>
@@ -123,14 +123,14 @@
         </div>
       </div>
 
-      <div *ngIf="_playerTargetsService.playerOneTargets.length != 0 && _playerService.currentPlayer == 3">
-        <img class="target-area" id="three" src={{_playerTargetsService.currentTargetThree.cardPath}}>
+      <div *ngIf="_playerService.playerOneTargets.length != 0 && _playerService.currentPlayer == _playerService.playerThree">
+        <img class="target-area" id="three" src={{_playerService.currentTargetThree.cardPath}}>
         <div id="three" class="counter">
-          {{_playerTargetsService.playerThreeTargets.length}} / 6 übrig
+          {{_playerService.playerThreeTargets.length}} / 6 übrig
         </div>
       </div>
 
-      <div *ngIf="_playerTargetsService.playerFourTargets.length == 0 && _playerService.currentPlayer == 4" class="target-area">
+      <div *ngIf="_playerService.playerFourTargets.length == 0 && _playerService.currentPlayer == _playerService.playerFour" class="target-area">
         <p id="four">
           Gehe zurück zum Anfang!
         </p>
@@ -140,10 +140,10 @@
 
       </div>
 
-      <div *ngIf="_playerTargetsService.playerOneTargets.length != 0 && _playerService.currentPlayer == 4">
-        <img class="target-area" id="four" src={{_playerTargetsService.currentTargetFour.cardPath}}>
+      <div *ngIf="_playerService.playerOneTargets.length != 0 && _playerService.currentPlayer == _playerService.playerFour">
+        <img class="target-area" id="four" src={{_playerService.currentTargetFour.cardPath}}>
         <div id="four" class="counter">
-          {{_playerTargetsService.playerFourTargets.length}} / 6 übrig
+          {{_playerService.playerFourTargets.length}} / 6 übrig
         </div>
       </div>
 

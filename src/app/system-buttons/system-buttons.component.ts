@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PlayerTargetsService } from '../player-targets/player-targets.service';
+import { PlayerService } from '../player/player.service';
 import { PadsService } from '../pads/pads.service';
 
 
@@ -11,7 +11,7 @@ import { PadsService } from '../pads/pads.service';
 
 export class SystemButtonsComponent {
 
-  constructor(private _playerTargetsService:PlayerTargetsService, private _padsService: PadsService){
+  constructor(private _playerService:PlayerService, private _padsService: PadsService){
   }
   help(){
     if(this._padsService.isVisible == false) this._padsService.isVisible = true;

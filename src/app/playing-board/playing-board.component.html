@@ -24,6 +24,7 @@
       <div *ngIf="pad.reachableForPlayers.get('green')" class="green-overlay">
       </div>
     </div>
+    <img src="{{pad.imgSource}}" class="rotation-case{{pad.rotationCase}}" alt="Textur">
   </div>
   <div *ngIf="_padsService.sparePadDropped" class="pad spare-pad row{{_padsService.sparePad.row}} col{{_padsService.sparePad.col}} rotation-case{{_padsService.sparePad.rotationCase}} ">
     <img src="{{_padsService.sparePad.imgSource}} " alt="Textur ">

@@ -236,7 +236,7 @@ export class BorderAreaComponent {
   finishDrop(insertionAreaSelector: string) {
     setTimeout(() => {
       $(insertionAreaSelector).removeClass("hide");
-      this._pathFinderService.updateReachablePads(this._playerService.players);
+      this._pathFinderService.updateReachablePads(this._playerService.activePlayers);
     }, this._padsService.animDuration)
   }
 

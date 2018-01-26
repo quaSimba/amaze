@@ -7,8 +7,6 @@
   top: calc(100%/9);
   width: calc(700%/9);
   height: calc(700%/9);
-  background-image: url("../../assets/img/playing-board-small-petrol.png");
-  background-size: cover;
 }
 
 .red-overlay {
@@ -28,7 +26,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: #244d7a;
+  background-color: #316fb2;
 }
 
 .yellow-overlay {
