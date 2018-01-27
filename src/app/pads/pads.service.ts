@@ -55,10 +55,10 @@ export class PadsService {
     this._spawns = [new LPad, new LPad, new LPad, new LPad];
     this._spawns[0].playerSpawn = "red";
     this._spawns[0].imgSource = "../../assets/img/pads/spawn-red@150px.png";
-    this._spawns[1].playerSpawn = "yellow";
-    this._spawns[1].imgSource = "../../assets/img/pads/spawn-yellow@150px.png";
-    this._spawns[2].playerSpawn = "blue";
-    this._spawns[2].imgSource = "../../assets/img/pads/spawn-blue@150px.png";
+    this._spawns[1].playerSpawn = "blue";
+    this._spawns[1].imgSource = "../../assets/img/pads/spawn-blue@150px.png";
+    this._spawns[2].playerSpawn = "yellow";
+    this._spawns[2].imgSource = "../../assets/img/pads/spawn-yellow@150px.png";
     this._spawns[3].playerSpawn = "green";
     this._spawns[3].imgSource = "../../assets/img/pads/spawn-green@150px.png";
     this._spawns.forEach((spawn, index) => {
@@ -79,7 +79,7 @@ export class PadsService {
       }
     });
 
-    tempPads = [this._spawns[0], fixedTreasure[6], fixedTreasure[7], this._spawns[1], fixedTreasure[3], fixedTreasure[4], fixedTreasure[8], fixedTreasure[9], fixedTreasure[5], fixedTreasure[0], fixedTreasure[10], fixedTreasure[11], this._spawns[3], fixedTreasure[1], fixedTreasure[2], this._spawns[2]];
+    tempPads = [this._spawns[0], fixedTreasure[6], fixedTreasure[7], this._spawns[2], fixedTreasure[3], fixedTreasure[4], fixedTreasure[8], fixedTreasure[9], fixedTreasure[5], fixedTreasure[0], fixedTreasure[10], fixedTreasure[11], this._spawns[3], fixedTreasure[1], fixedTreasure[2], this._spawns[1]];
 
     // Assign the proper treasureID (see targets/mock-targets.ts) to each treasure and set the row and col
     let treasureID = 0;

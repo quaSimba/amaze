@@ -27,19 +27,19 @@ p{
   margin-right: auto;
   width: 100%;
 }
-#one{
+#playerOne{
   background-color: #af0f0f;
   border:15px solid #af0f0f;
 }
-#two{
+#playerTwo{
   background-color: #316fb2;
   border:15px solid #316fb2;
 }
-#three{
+#playerThree{
   background-color: #d8a729;
   border:15px solid #d8a729;
 }
-#four{
+#playerFour{
   background-color: #2f9b23;
   border:15px solid #2f9b23;
 }

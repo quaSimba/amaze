@@ -15,7 +15,6 @@ export class PlayerService {
   private _playerThree: Player;
   private _playerFour: Player;
   private _players: Player[];
-  private _activePlayers: Player[];
   private _rowDistance;
   private _colDistance;
   private _currentPlayer: Player;
@@ -23,36 +22,25 @@ export class PlayerService {
   private _hasMoved: boolean;
   private _shuffledTargets;
   private _playerCount;
-  private _playerOneTargets;
-  private _playerTwoTargets;
-  private _playerThreeTargets;
-  private _playerFourTargets;
-  private _currentTargetOne;
-  private _currentTargetTwo;
-  private _currentTargetThree;
-  private _currentTargetFour;
 
   padsService = null;
 
   constructor(private _pads: PadsService, private _pathFinderService: PathFinderService, private _shuffle: ShuffleService) {
 
-    this._playerOne = new Player(this._pads.spawns[0], "#playerOne");
-    this._playerTwo = new Player(this._pads.spawns[2], "#playerTwo");
-    this._playerThree = new Player(this._pads.spawns[1], "#playerThree");
-    this._playerFour = new Player(this._pads.spawns[3], "#playerFour");
+    this._playerOne = new Player(this._pads.spawns[0], "playerOne");
+    this._playerTwo = new Player(this._pads.spawns[1], "playerTwo");
+    this._playerThree = new Player(this._pads.spawns[2], "playerThree");
+    this._playerFour = new Player(this._pads.spawns[3], "playerFour");
     this._players = [this._playerOne, this._playerTwo, this._playerThree, this._playerFour];
     this.hasPushed = false;
     this.hasMoved = false;
     this._currentPlayer = this.players[0];
     this.padsService = _pads;
     this._shuffledTargets = this._shuffle.shuffle(TARGETS.slice(0, TARGETS.length));
+
   }
 
 
-  showLocation() {
-    console.log("Row: " + this.playerOne.currentPad.row);
-    console.log("Column: " + this.playerOne.currentPad.col);
-  }
 
   prepareMove(player: Player, destination: Pad) {
     if (this._hasMoved === false && this._hasPushed === true) {
@@ -78,16 +66,16 @@ export class PlayerService {
       // Move along the path
       let animDuration = 0;
       path.forEach((pad) => {
-        animDuration += this.move(pad);
+        animDuration += this.move(pad, player);
       });
       setTimeout(() => {
-        this.checkForTarget();
+        this.checkForTarget(player);
         this._hasMoved = true;
       }, animDuration);
     }
   }
 
-  move(destination: Pad): number {
+  move(destination: Pad, player: Player): number {
 
     let colDeviation;
     let rowDeviation
@@ -95,166 +83,45 @@ export class PlayerService {
     let rowFactor;
     let animDuration;
 
-    switch (this.currentPlayer) {
+    colDeviation = destination.col - player.currentPad.col;
+    rowDeviation = destination.row - player.currentPad.row;
+    colFactor = Math.abs(colDeviation);
+    rowFactor = Math.abs(rowDeviation);
+    this.colDistance = colDeviation * this.padsService.animDistance;
+    this.rowDistance = rowDeviation * this.padsService.animDistance;
 
-      case this._playerOne:
+    $("#" + player.cssID).animate({
+      left: "+=" + this.colDistance
+    }, 200 * colFactor);
 
-        colDeviation = destination.col - this.playerOne.currentPad.col;
-        rowDeviation = destination.row - this.playerOne.currentPad.row;
-        colFactor = Math.abs(colDeviation);
-        rowFactor = Math.abs(rowDeviation);
-        this.colDistance = colDeviation * this.padsService.animDistance;
-        this.rowDistance = rowDeviation * this.padsService.animDistance;
+    $("#" + player.cssID).animate({
+      top: "+=" + this.rowDistance
+    }, 200 * rowFactor);
 
-        $("#playerOne").animate({
-          left: "+=" + this.colDistance
-        }, 200 * colFactor);
+    player.currentPad = destination;
 
-        $("#playerOne").animate({
-          top: "+=" + this.rowDistance
-        }, 200 * rowFactor);
+    animDuration = colFactor * 200 + rowFactor * 200;
+    return animDuration;
 
-        this.playerOne.currentPad = destination;
-
-        animDuration = colFactor * 200 + rowFactor * 200;
-        return animDuration;
-
-      case this._playerTwo:
-
-        colDeviation = destination.col - this.playerTwo.currentPad.col;
-        rowDeviation = destination.row - this.playerTwo.currentPad.row;
-        colFactor = Math.abs(colDeviation);
-        rowFactor = Math.abs(rowDeviation);
-        this.colDistance = (destination.col - this.playerTwo.currentPad.col) * this.padsService.animDistance;
-        this.rowDistance = (destination.row - this.playerTwo.currentPad.row) * this.padsService.animDistance;
-
-        $("#playerTwo").animate({
-          left: "+=" + this.colDistance
-        }, 200 * colFactor);
-
-        $("#playerTwo").animate({
-          top: "+=" + this.rowDistance
-        }, 200 * rowFactor);
-
-        this.playerTwo.currentPad = destination
-
-        animDuration = colFactor * 200 + rowFactor * 200;
-        return animDuration;
-
-      case this._playerThree:
-
-        colDeviation = destination.col - this.playerThree.currentPad.col;
-        rowDeviation = destination.row - this.playerThree.currentPad.row;
-        colFactor = Math.abs(colDeviation);
-        rowFactor = Math.abs(rowDeviation);
-        this.colDistance = (destination.col - this.playerThree.currentPad.col) * this.padsService.animDistance;
-        this.rowDistance = (destination.row - this.playerThree.currentPad.row) * this.padsService.animDistance;
-
-
-        $("#playerThree").animate({
-          left: "+=" + this.colDistance
-        }, 200 * colFactor);
-
-        $("#playerThree").animate({
-          top: "+=" + this.rowDistance
-        }, 200 * rowFactor);
-
-        this.playerThree.currentPad = destination;
-
-        animDuration = colFactor * 200 + rowFactor * 200;
-        return animDuration;
-
-      case this._playerFour:
-
-        colDeviation = destination.col - this.playerFour.currentPad.col;
-        rowDeviation = destination.row - this.playerFour.currentPad.row;
-        colFactor = Math.abs(colDeviation);
-        rowFactor = Math.abs(rowDeviation);
-        this.colDistance = (destination.col - this.playerFour.currentPad.col) * this.padsService.animDistance;
-        this.rowDistance = (destination.row - this.playerFour.currentPad.row) * this.padsService.animDistance;
-
-        $("#playerFour").animate({
-          left: "+=" + this.colDistance
-        }, 200 * colFactor);
-
-        $("#playerFour").animate({
-          top: "+=" + this.rowDistance
-        }, 200 * rowFactor);
-
-        this.playerFour.currentPad = destination;
-
-        animDuration = colFactor * 200 + rowFactor * 200;
-        return animDuration;
-    }
   }
 
-  checkForTarget() {
-    switch (this.currentPlayer) {
-      case this.playerOne:
-        if (this.playerOneTargets.length != 0 &&
-          this.playerOne.currentPad.treasureID == this.currentTargetOne.id) {
-          this.playerOneTargets.splice(0, 1);
-          this.playerOne.currentPad.treasureID = null;
-          if (this.playerOne.currentPad.padType === 1) {
-            this.playerOne.currentPad.imgSource = "../../assets/img/pads/L-Pad@150px.png";
-          } else {
-            this.playerOne.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
-          }
-          this.currentTargetOne = this.playerOneTargets[0];
-        } else if (this.playerOneTargets.length == 0
-          && this.playerOne.currentPad.playerSpawn == "red") {
+  checkForTarget(player: Player) {
 
-        }
-        break;
-      case this.playerTwo:
-        if (this.playerTwoTargets.length != 0 &&
-          this.playerTwo.currentPad.treasureID == this.currentTargetTwo.id) {
+    if (player.playerTargets.length != 0 &&
+      player.currentPad.treasureID == player.currentTarget.id) {
+      player.playerTargets.splice(0, 1);
+      player.currentPad.treasureID = null;
+      if (player.currentPad.padType === 1) {
+        player.currentPad.imgSource = "../../assets/img/pads/L-Pad@150px.png";
+      } else {
+        player.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
+      }
+      player.currentTarget = player.playerTargets[0];
+    } else if (player.playerTargets.length == 0
+      && player.currentPad.playerSpawn == "red") {
 
-          this.playerTwoTargets.splice(0, 1);
-          this.playerTwo.currentPad.treasureID = null;
-          if (this.playerTwo.currentPad.padType === 1) {
-            this.playerTwo.currentPad.imgSource = "../../assets/img/pads/L-Pad@150px.png";
-          } else {
-            this.playerTwo.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
-          }
-          this.currentTargetTwo = this.playerTwoTargets[0];
-        } else if (this.playerTwoTargets.length == 0 && this.playerTwo.currentPad.playerSpawn == "blue") {
-
-        }
-        break;
-      case this.playerThree:
-        if (this.playerThreeTargets.length != 0 &&
-          this.playerThree.currentPad.treasureID == this.currentTargetThree.id) {
-
-          this.playerThreeTargets.splice(0, 1);
-          this.playerThree.currentPad.treasureID = null;
-          if (this.playerThree.currentPad.padType === 1) {
-            this.playerThree.currentPad.imgSource = "../../assets/img/pads/L-Pad@150px.png";
-          } else {
-            this.playerThree.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
-          }
-          this.currentTargetThree = this.playerThreeTargets[0];
-        } else if (this.playerThreeTargets.length == 0 && this.playerThree.currentPad.playerSpawn == "yellow") {
-
-        }
-        break;
-      case this.playerFour:
-        if (this.playerFourTargets.length != 0 &&
-          this.playerFour.currentPad.treasureID == this.currentTargetFour.id) {
-
-          this.playerFourTargets.splice(0, 1);
-          this.playerFour.currentPad.treasureID = null;
-          if (this.playerFour.currentPad.padType === 1) {
-            this.playerFour.currentPad.imgSource = "../../assets/img/pads/L-Pad@150px.png";
-          } else {
-            this.playerFour.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
-          }
-          this.currentTargetFour = this.playerFourTargets[0];
-        } else if (this.playerFourTargets.length == 0 && this.playerFour.currentPad.playerSpawn == "green") {
-
-        }
-        break;
     }
+
   }
 
   nextPlayer() {
@@ -267,13 +134,13 @@ export class PlayerService {
   pushColDown(currentCol: number) {
     for (var i = 0; i < this.players.length; i++) {
       if (this.players[i].currentPad.col == currentCol && this.players[i].currentPad.row != 7) {
-        $(this.players[i].cssID).animate({
+        $("#" + this.players[i].cssID).animate({
           top: "+=" + this.padsService.animDistance
         }, 500);
       }
       else if (this.players[i].currentPad.col == currentCol && this.players[i].currentPad.row == 7) {
 
-        $(this.players[i].cssID).animate({
+        $("#" + this.players[i].cssID).animate({
           top: "-=" + this.padsService.animDistance * 6
         }, 500);
         if (currentCol == 2) this.players[i].currentPad = this.padsService.padsCol1[0];
@@ -285,13 +152,13 @@ export class PlayerService {
   pushColUp(currentCol: number) {
     for (var i = 0; i < this.players.length; i++) {
       if (this.players[i].currentPad.col == currentCol && this.players[i].currentPad.row != 1) {
-        $(this.players[i].cssID).animate({
+        $("#" + this.players[i].cssID).animate({
           top: "-=" + this.padsService.animDistance
         }, 500);
       }
       else if (this.players[i].currentPad.col == currentCol && this.players[i].currentPad.row == 1) {
 
-        $(this.players[i].cssID).animate({
+        $("#" + this.players[i].cssID).animate({
           top: "+=" + this.padsService.animDistance * 6
         }, 500);
         if (currentCol == 2) this.players[i].currentPad = this.padsService.padsCol1[this.padsService.padsCol1.length - 1];
@@ -303,12 +170,12 @@ export class PlayerService {
   pushRowRight(currentRow: number) {
     for (var i = 0; i < this.players.length; i++) {
       if (this.players[i].currentPad.row == currentRow && this.players[i].currentPad.col != 7) {
-        $(this.players[i].cssID).animate({
+        $("#" + this.players[i].cssID).animate({
           left: "+=" + this.padsService.animDistance
         }, 500);
       }
       else if (this.players[i].currentPad.row == currentRow && this.players[i].currentPad.col == 7) {
-        $(this.players[i].cssID).animate({
+        $("#" + this.players[i].cssID).animate({
           left: "-=" + this.padsService.animDistance * 6
         }, 500);
 
@@ -321,13 +188,13 @@ export class PlayerService {
   pushRowLeft(currentRow: number) {
     for (var i = 0; i < this.players.length; i++) {
       if (this.players[i].currentPad.row == currentRow && this.players[i].currentPad.col != 1) {
-        $(this.players[i].cssID).animate({
+        $("#" + this.players[i].cssID).animate({
           left: "-=" + this.padsService.animDistance
         }, 500);
       }
       else if (this.players[i].currentPad.row == currentRow && this.players[i].currentPad.col == 1) {
 
-        $(this.players[i].cssID).animate({
+        $("#" + this.players[i].cssID).animate({
           left: "+=" + this.padsService.animDistance * 6
         }, 500);
         if (currentRow == 2) this.players[i].currentPad = this.padsService.padsRow1[this.padsService.padsRow1.length - 1];
@@ -337,55 +204,26 @@ export class PlayerService {
     }
   }
 
-  setPlayerCountTwo() {
+  setPlayerCount(count: number) {
 
-    this.playerCount = 2;
+    this._players.splice(count, this._players.length - count);
+    this.playerCount = count;
+
     this._shuffle.shuffle(this._shuffledTargets);
-    this.playerOneTargets = this._shuffledTargets.slice(0, 12);
-    this.playerTwoTargets = this._shuffledTargets.slice(12, 24);
 
-    this.currentTargetOne = this.playerOneTargets[0];
-    this.currentTargetTwo = this.playerTwoTargets[0];
+    this._players.forEach((player, index) => {
+      player.playerTargets = this._shuffledTargets.slice(index * 24 / count, (index + 1) * 24 / count);
+      player.currentTarget = player.playerTargets[0];
+    });
 
-    this._activePlayers = this._players.slice(0, this._playerCount);
-    this._pathFinderService.updateReachablePads(this._activePlayers);
-  }
-
-  setPlayerCountThree() {
-    this.playerCount = 3;
-    this._shuffle.shuffle(this._shuffledTargets);
-    this.playerOneTargets = this._shuffledTargets.slice(0, 8);
-    this.playerTwoTargets = this._shuffledTargets.slice(8, 16);
-    this.playerThreeTargets = this._shuffledTargets.slice(16, 24);
-
-    this.currentTargetOne = this.playerOneTargets[0];
-    this.currentTargetTwo = this.playerTwoTargets[0];
-    this.currentTargetThree = this.playerThreeTargets[0];
-
-    this._activePlayers = this._players.slice(0, this._playerCount);
-    this._pathFinderService.updateReachablePads(this._activePlayers);
-  }
-
-  setPlayerCountFour() {
-    this.playerCount = 4;
-    this._shuffle.shuffle(this._shuffledTargets);
-    this.playerOneTargets = this._shuffledTargets.slice(0, 6);
-    this.playerTwoTargets = this._shuffledTargets.slice(6, 12);
-    this.playerThreeTargets = this._shuffledTargets.slice(12, 18);
-    this.playerFourTargets = this._shuffledTargets.slice(18, 24);
-
-    this.currentTargetOne = this.playerOneTargets[0];
-    this.currentTargetTwo = this.playerTwoTargets[0];
-    this.currentTargetThree = this.playerThreeTargets[0];
-    this.currentTargetFour = this.playerFourTargets[0];
-
-    this._activePlayers = this._players.slice(0, this._playerCount);
-    this._pathFinderService.updateReachablePads(this._activePlayers);
+    this._pathFinderService.updateReachablePads(this._players);
   }
 
   restart() {
     location.reload();
   }
+
+
 
   get playerOne(): Player {
     return this._playerOne;
@@ -418,15 +256,8 @@ export class PlayerService {
   get players(): Player[] {
     return this._players;
   }
-  set player(newPlayers: Player[]) {
+  set players(newPlayers: Player[]) {
     this._players = newPlayers;
-  }
-
-  get activePlayers(): Player[] {
-    return this._activePlayers;
-  }
-  set activePlayers(newActivePlayers: Player[]) {
-    this._activePlayers = newActivePlayers;
   }
 
   get hasMoved() {
@@ -469,61 +300,6 @@ export class PlayerService {
   }
   set shuffledTargets(a) {
     this._shuffledTargets = a;
-  }
-  get currentTargetOne() {
-    return this._currentTargetOne;
-  }
-  set currentTargetOne(a) {
-    this._currentTargetOne = a;
-  }
-
-  get currentTargetTwo() {
-    return this._currentTargetTwo;
-  }
-  set currentTargetTwo(a) {
-    this._currentTargetTwo = a;
-  }
-
-  get currentTargetThree() {
-    return this._currentTargetThree;
-  }
-  set currentTargetThree(a) {
-    this._currentTargetThree = a;
-  }
-
-  get currentTargetFour() {
-    return this._currentTargetFour;
-  }
-  set currentTargetFour(a) {
-    this._currentTargetFour = a;
-  }
-
-  get playerOneTargets() {
-    return this._playerOneTargets;
-  }
-  set playerOneTargets(a) {
-    this._playerOneTargets = a;
-  }
-
-  get playerTwoTargets() {
-    return this._playerTwoTargets;
-  }
-  set playerTwoTargets(a) {
-    this._playerTwoTargets = a;
-  }
-
-  get playerThreeTargets() {
-    return this._playerThreeTargets;
-  }
-  set playerThreeTargets(a) {
-    this._playerThreeTargets = a;
-  }
-
-  get playerFourTargets() {
-    return this._playerFourTargets;
-  }
-  set playerFourTargets(a) {
-    this._playerFourTargets = a;
   }
 
   get playerCount() {

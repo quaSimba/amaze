@@ -34,19 +34,19 @@
   color: #b8bac1;
   border-radius: 25px;
 }
-#oneSuccess{
+#playerOne{
   background-color: #af0f0f;
   border:15px solid #af0f0f;
 }
-#twoSuccess{
+#playerTwo{
   background-color: #316fb2;
   border:15px solid #316fb2;
 }
-#threeSuccess{
+#playerThree{
   background-color: #d8a729;
   border:15px solid #d8a729;
 }
-#fourSuccess{
+#playerFour{
   background-color: #2f9b23;
   border:15px solid #2f9b23;
 }
