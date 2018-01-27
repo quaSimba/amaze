@@ -23,22 +23,17 @@ export class PlayerService {
   private _shuffledTargets;
   private _playerCount;
 
-  padsService = null;
-
-  constructor(private _pads: PadsService, private _pathFinderService: PathFinderService, private _shuffle: ShuffleService) {
-    this._playerOne = new Player(this._pads.spawns[0], "playerOne");
-    this._playerTwo = new Player(this._pads.spawns[1], "playerTwo");
-    this._playerThree = new Player(this._pads.spawns[2], "playerThree");
-    this._playerFour = new Player(this._pads.spawns[3], "playerFour");
+  constructor(private _padsService: PadsService, private _pathFinderService: PathFinderService, private _shuffle: ShuffleService) {
+    this._playerOne = new Player(this._padsService.spawns[0], "playerOne");
+    this._playerTwo = new Player(this._padsService.spawns[1], "playerTwo");
+    this._playerThree = new Player(this._padsService.spawns[2], "playerThree");
+    this._playerFour = new Player(this._padsService.spawns[3], "playerFour");
     this._players = [this._playerOne, this._playerTwo, this._playerThree, this._playerFour];
     this.hasPushed = false;
     this.hasMoved = false;
     this._currentPlayer = this.players[0];
-    this.padsService = _pads;
     this._shuffledTargets = this._shuffle.shuffle(TARGETS.slice(0, TARGETS.length));
   }
-
-
 
   prepareMove(player: Player, destination: Pad) {
     if (this._hasMoved === false && this._hasPushed === true) {
@@ -74,7 +69,6 @@ export class PlayerService {
   }
 
   move(destination: Pad, player: Player): number {
-
     let colDeviation;
     let rowDeviation
     let colFactor;
@@ -85,8 +79,8 @@ export class PlayerService {
     rowDeviation = destination.row - player.currentPad.row;
     colFactor = Math.abs(colDeviation);
     rowFactor = Math.abs(rowDeviation);
-    this.colDistance = colDeviation * this.padsService.animDistance;
-    this.rowDistance = rowDeviation * this.padsService.animDistance;
+    this.colDistance = colDeviation * this._padsService.animDistance;
+    this.rowDistance = rowDeviation * this._padsService.animDistance;
 
     $("#" + player.cssID).animate({
       left: "+=" + this.colDistance
@@ -100,11 +94,9 @@ export class PlayerService {
 
     animDuration = colFactor * 200 + rowFactor * 200;
     return animDuration;
-
   }
 
   checkForTarget(player: Player) {
-
     if (player.currentPad.treasureID == player.currentTarget.id) {
       player.playerTargets.splice(0, 1);
       player.currentPad.treasureID = null;
@@ -128,77 +120,79 @@ export class PlayerService {
     for (var i = 0; i < this.players.length; i++) {
       if (this.players[i].currentPad.col == currentCol && this.players[i].currentPad.row != 7) {
         $("#" + this.players[i].cssID).animate({
-          top: "+=" + this.padsService.animDistance
+          top: "+=" + this._padsService.animDistance
         }, 500);
       }
       else if (this.players[i].currentPad.col == currentCol && this.players[i].currentPad.row == 7) {
 
         $("#" + this.players[i].cssID).animate({
-          top: "-=" + this.padsService.animDistance * 6
+          top: "-=" + this._padsService.animDistance * 6
         }, 500);
-        if (currentCol == 2) this.players[i].currentPad = this.padsService.padsCol1[0];
-        else if (currentCol == 4) this.players[i].currentPad = this.padsService.padsCol2[0];
-        else if (currentCol == 6) this.players[i].currentPad = this.padsService.padsCol3[0];
+        if (currentCol == 2) this.players[i].currentPad = this._padsService.padsCol1[0];
+        else if (currentCol == 4) this.players[i].currentPad = this._padsService.padsCol2[0];
+        else if (currentCol == 6) this.players[i].currentPad = this._padsService.padsCol3[0];
       }
     }
   }
+
   pushColUp(currentCol: number) {
     for (var i = 0; i < this.players.length; i++) {
       if (this.players[i].currentPad.col == currentCol && this.players[i].currentPad.row != 1) {
         $("#" + this.players[i].cssID).animate({
-          top: "-=" + this.padsService.animDistance
+          top: "-=" + this._padsService.animDistance
         }, 500);
       }
       else if (this.players[i].currentPad.col == currentCol && this.players[i].currentPad.row == 1) {
 
         $("#" + this.players[i].cssID).animate({
-          top: "+=" + this.padsService.animDistance * 6
+          top: "+=" + this._padsService.animDistance * 6
         }, 500);
-        if (currentCol == 2) this.players[i].currentPad = this.padsService.padsCol1[this.padsService.padsCol1.length - 1];
-        else if (currentCol == 4) this.players[i].currentPad = this.padsService.padsCol2[this.padsService.padsCol2.length - 1];
-        else if (currentCol == 6) this.players[i].currentPad = this.padsService.padsCol3[this.padsService.padsCol3.length - 1];
+        if (currentCol == 2) this.players[i].currentPad = this._padsService.padsCol1[this._padsService.padsCol1.length - 1];
+        else if (currentCol == 4) this.players[i].currentPad = this._padsService.padsCol2[this._padsService.padsCol2.length - 1];
+        else if (currentCol == 6) this.players[i].currentPad = this._padsService.padsCol3[this._padsService.padsCol3.length - 1];
       }
     }
   }
+
   pushRowRight(currentRow: number) {
     for (var i = 0; i < this.players.length; i++) {
       if (this.players[i].currentPad.row == currentRow && this.players[i].currentPad.col != 7) {
         $("#" + this.players[i].cssID).animate({
-          left: "+=" + this.padsService.animDistance
+          left: "+=" + this._padsService.animDistance
         }, 500);
       }
       else if (this.players[i].currentPad.row == currentRow && this.players[i].currentPad.col == 7) {
         $("#" + this.players[i].cssID).animate({
-          left: "-=" + this.padsService.animDistance * 6
+          left: "-=" + this._padsService.animDistance * 6
         }, 500);
 
-        if (currentRow == 2) this.players[i].currentPad = this.padsService.padsRow1[0];
-        else if (currentRow == 4) this.players[i].currentPad = this.padsService.padsRow2[0];
-        else if (currentRow == 6) this.players[i].currentPad = this.padsService.padsRow3[0];
+        if (currentRow == 2) this.players[i].currentPad = this._padsService.padsRow1[0];
+        else if (currentRow == 4) this.players[i].currentPad = this._padsService.padsRow2[0];
+        else if (currentRow == 6) this.players[i].currentPad = this._padsService.padsRow3[0];
       }
     }
   }
+
   pushRowLeft(currentRow: number) {
     for (var i = 0; i < this.players.length; i++) {
       if (this.players[i].currentPad.row == currentRow && this.players[i].currentPad.col != 1) {
         $("#" + this.players[i].cssID).animate({
-          left: "-=" + this.padsService.animDistance
+          left: "-=" + this._padsService.animDistance
         }, 500);
       }
       else if (this.players[i].currentPad.row == currentRow && this.players[i].currentPad.col == 1) {
 
         $("#" + this.players[i].cssID).animate({
-          left: "+=" + this.padsService.animDistance * 6
+          left: "+=" + this._padsService.animDistance * 6
         }, 500);
-        if (currentRow == 2) this.players[i].currentPad = this.padsService.padsRow1[this.padsService.padsRow1.length - 1];
-        else if (currentRow == 4) this.players[i].currentPad = this.padsService.padsRow2[this.padsService.padsRow2.length - 1];
-        else if (currentRow == 6) this.players[i].currentPad = this.padsService.padsRow3[this.padsService.padsRow3.length - 1];
+        if (currentRow == 2) this.players[i].currentPad = this._padsService.padsRow1[this._padsService.padsRow1.length - 1];
+        else if (currentRow == 4) this.players[i].currentPad = this._padsService.padsRow2[this._padsService.padsRow2.length - 1];
+        else if (currentRow == 6) this.players[i].currentPad = this._padsService.padsRow3[this._padsService.padsRow3.length - 1];
       }
     }
   }
 
   setPlayerCount(count: number) {
-
     this._players.splice(count, this._players.length - count);
     this.playerCount = count;
 
@@ -208,15 +202,12 @@ export class PlayerService {
       player.playerTargets = this._shuffledTargets.slice(index * 24 / count, (index + 1) * 24 / count);
       player.currentTarget = player.playerTargets[0];
     });
-
     this._pathFinderService.updateReachablePads(this._players);
   }
 
   restart() {
     location.reload();
   }
-
-
 
   get playerOne(): Player {
     return this._playerOne;
