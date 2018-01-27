@@ -13,7 +13,7 @@
 
 .PlayerCountButtons {
   position: absolute;
-  left: 43%;
+  left: calc(50% - 150px);
   top: 35%;
   width: 300px;
   background-color: #949699;

@@ -12,7 +12,7 @@
 }
 .successArea{
   position: absolute;
-  left: 38%;
+  left: calc(50% - 250px);
   top: 42%;
   width: 500px;
   height: auto;
