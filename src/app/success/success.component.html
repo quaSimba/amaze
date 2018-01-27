@@ -1,7 +1,7 @@
-  <div *ngIf="_playerService.currentPlayer.playerTargets == 0 && _playerService.currentPlayer.currentPad == _padsService.spawns[_playerService.players.indexOf(_playerService.currentPlayer)]">
-    <div class="overlay"></div>
-    <div id="{{_playerService.currentPlayer.cssID}}" class="successArea">
-      <div> <b> Spieler {{1 + _playerService.players.indexOf(_playerService.currentPlayer)}} <br /> hat Gewonnen !</b> </div>
-      <button class="reset btn btn-primary btn-lg" (click)="_playerService.restart()"> Nochmal Spielen? </button>
-    </div>
+<div *ngIf="_playerService.currentPlayer.playerTargets == 0 && _playerService.currentPlayer.currentPad == _padsService.spawns[_playerService.players.indexOf(_playerService.currentPlayer)]">
+  <div class="overlay"></div>
+  <div id="{{_playerService.currentPlayer.cssID}}" class="successArea">
+    <div> <b> Spieler {{1 + _playerService.players.indexOf(_playerService.currentPlayer)}} <br /> hat Gewonnen !</b> </div>
+    <button class="reset btn btn-primary btn-lg" (click)="_playerService.restart()"> Nochmal Spielen? </button>
   </div>
+</div>

@@ -26,7 +26,6 @@ export class PlayerService {
   padsService = null;
 
   constructor(private _pads: PadsService, private _pathFinderService: PathFinderService, private _shuffle: ShuffleService) {
-
     this._playerOne = new Player(this._pads.spawns[0], "playerOne");
     this._playerTwo = new Player(this._pads.spawns[1], "playerTwo");
     this._playerThree = new Player(this._pads.spawns[2], "playerThree");
@@ -37,7 +36,6 @@ export class PlayerService {
     this._currentPlayer = this.players[0];
     this.padsService = _pads;
     this._shuffledTargets = this._shuffle.shuffle(TARGETS.slice(0, TARGETS.length));
-
   }
 
 
@@ -107,8 +105,7 @@ export class PlayerService {
 
   checkForTarget(player: Player) {
 
-    if (player.playerTargets.length != 0 &&
-      player.currentPad.treasureID == player.currentTarget.id) {
+    if (player.currentPad.treasureID == player.currentTarget.id) {
       player.playerTargets.splice(0, 1);
       player.currentPad.treasureID = null;
       if (player.currentPad.padType === 1) {
@@ -117,11 +114,7 @@ export class PlayerService {
         player.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
       }
       player.currentTarget = player.playerTargets[0];
-    } else if (player.playerTargets.length == 0
-      && player.currentPad.playerSpawn == "red") {
-
     }
-
   }
 
   nextPlayer() {
