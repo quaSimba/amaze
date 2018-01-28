@@ -97,7 +97,8 @@ export class PlayerService {
   }
 
   checkForTarget(player: Player) {
-    if (player.currentPad.treasureID == player.currentTarget.id) {
+
+    if (player.currentPad.treasureID == player.playerTargets[0].id) {
       player.playerTargets.splice(0, 1);
       player.currentPad.treasureID = null;
       if (player.currentPad.padType === 1) {
@@ -105,7 +106,6 @@ export class PlayerService {
       } else {
         player.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
       }
-      player.currentTarget = player.playerTargets[0];
     }
   }
 
@@ -200,7 +200,6 @@ export class PlayerService {
 
     this._players.forEach((player, index) => {
       player.playerTargets = this._shuffledTargets.slice(index * 24 / count, (index + 1) * 24 / count);
-      player.currentTarget = player.playerTargets[0];
     });
     this._pathFinderService.updateReachablePads(this._players);
   }

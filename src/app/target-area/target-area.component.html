@@ -8,7 +8,7 @@
         </div>
       </div>
       <div *ngIf="_playerService.currentPlayer.playerTargets.length != 0">
-        <img class="target-area" id="{{_playerService.currentPlayer.cssID}}" src={{_playerService.currentPlayer.currentTarget.cardPath}}>
+        <img class="target-area" id="{{_playerService.currentPlayer.cssID}}" src={{_playerService.currentPlayer.playerTargets[0].cardPath}}>
         <div id="{{_playerService.currentPlayer.cssID}}" class="counter">
           {{_playerService.currentPlayer.playerTargets.length}} / {{24 / _playerService.playerCount}} übrig
         </div>
