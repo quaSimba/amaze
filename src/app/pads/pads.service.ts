@@ -57,13 +57,13 @@ export class PadsService {
     this._spawns[0].imgSource = "../../assets/img/pads/spawn-red@150px.png";
     this._spawns[1].playerSpawn = "blue";
     this._spawns[1].imgSource = "../../assets/img/pads/spawn-blue@150px.png";
+    this._spawns[1].rotationCase = 2;
     this._spawns[2].playerSpawn = "yellow";
     this._spawns[2].imgSource = "../../assets/img/pads/spawn-yellow@150px.png";
+    this._spawns[2].rotationCase = 1;
     this._spawns[3].playerSpawn = "green";
     this._spawns[3].imgSource = "../../assets/img/pads/spawn-green@150px.png";
-    this._spawns.forEach((spawn, index) => {
-      spawn.rotationCase = index;
-    })
+    this._spawns[3].rotationCase = 3;
 
     // Create all treasure pads
     let fixedTreasure: TPad[] = [new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad, new TPad];
