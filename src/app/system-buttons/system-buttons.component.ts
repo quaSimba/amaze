@@ -11,7 +11,7 @@ import { PadsService } from '../pads/pads.service';
 
 export class SystemButtonsComponent {
 
-  constructor(private _playerService:PlayerService, private _padsService: PadsService){
+  constructor(public _playerService:PlayerService, private _padsService: PadsService){
   }
   help(){
     if(this._padsService.isVisible == false) this._padsService.isVisible = true;

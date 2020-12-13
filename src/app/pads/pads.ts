@@ -115,7 +115,7 @@ export class IPad extends Pad {
     this.padType = 0;
     this.openDirections.set("east", true);
     this.openDirections.set("west", true);
-    this.imgSource = '../assets/img/pads/I-Pad@150px.png';
+    this.imgSource = './assets/img/pads/I-Pad@150px.png';
   }
 
   updateOpenDirections() {
@@ -146,7 +146,7 @@ export class LPad extends Pad {
     this.padType = 1;
     this.openDirections.set("east", true);
     this.openDirections.set("south", true);
-    this.imgSource = '../assets/img/pads/L-Pad@150px.png';
+    this.imgSource = './assets/img/pads/L-Pad@150px.png';
   }
 
   updateOpenDirections() {
@@ -189,7 +189,7 @@ export class TPad extends Pad {
     this.openDirections.set("east", true);
     this.openDirections.set("west", true);
     this.treasureID = 0;
-    this.imgSource = '../assets/img/pads/T-Pad@150px.png';
+    this.imgSource = './assets/img/pads/T-Pad@150px.png';
   }
   updateOpenDirections() {
     switch (this.rotationCase) {

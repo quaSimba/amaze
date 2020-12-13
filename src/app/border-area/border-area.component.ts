@@ -29,7 +29,7 @@ export class BorderAreaComponent {
   private _pia11: boolean;
   private _pia12: boolean;
 
-  constructor(private _padsService: PadsService, private _playerService: PlayerService, private _pathFinderService: PathFinderService) {
+  constructor(public _padsService: PadsService, public _playerService: PlayerService, private _pathFinderService: PathFinderService) {
     this._pia1 = true;
     this._pia2 = true;
     this._pia3 = true;

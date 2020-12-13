@@ -102,9 +102,9 @@ export class PlayerService {
       player.playerTargets.splice(0, 1);
       player.currentPad.treasureID = null;
       if (player.currentPad.padType === 1) {
-        player.currentPad.imgSource = "../../assets/img/pads/L-Pad@150px.png";
+        player.currentPad.imgSource = "././assets/img/pads/L-Pad@150px.png";
       } else {
-        player.currentPad.imgSource = "../../assets/img/pads/T-Pad@150px.png"
+        player.currentPad.imgSource = "././assets/img/pads/T-Pad@150px.png"
       }
     }
   }

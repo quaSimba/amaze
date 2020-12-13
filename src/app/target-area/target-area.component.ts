@@ -9,7 +9,7 @@ import { PlayerService } from '../player/player.service';
 
 export class TargetAreaComponent{
 
-  constructor(private _playerService: PlayerService) {
+  constructor(public _playerService: PlayerService) {
   }
 
 }

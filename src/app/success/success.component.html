@@ -1,4 +1,4 @@
-<div *ngIf="_playerService.currentPlayer.playerTargets == 0 && _playerService.currentPlayer.currentPad == _padsService.spawns[_playerService.players.indexOf(_playerService.currentPlayer)]">
+<div *ngIf="_playerService.currentPlayer.playerTargets != undefined && _playerService.currentPlayer.playerTargets.length == 0 && _playerService.currentPlayer.currentPad == _padsService.spawns[_playerService.players.indexOf(_playerService.currentPlayer)]">
   <div class="overlay"></div>
   <div id="{{_playerService.currentPlayer.cssID}}" class="successArea">
     <div> <b> Spieler {{1 + _playerService.players.indexOf(_playerService.currentPlayer)}} <br /> hat Gewonnen !</b> </div>

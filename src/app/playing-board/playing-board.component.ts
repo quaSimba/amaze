@@ -14,7 +14,7 @@ declare var jquery: any;
 })
 export class PlayingBoardComponent implements OnInit {
 
-  constructor(private _padsService: PadsService, private _playerService: PlayerService){
+  constructor(public _padsService: PadsService, private _playerService: PlayerService){
   }
 
   ngOnInit() {

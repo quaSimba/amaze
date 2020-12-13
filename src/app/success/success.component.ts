@@ -10,7 +10,7 @@ import { PadsService } from '../pads/pads.service';
 
 export class SuccessComponent{
 
-  constructor(private _playerService:PlayerService,private _padsService:PadsService){
+  constructor(public _playerService:PlayerService, public _padsService:PadsService){
 
   }
 

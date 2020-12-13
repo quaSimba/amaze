@@ -11,6 +11,6 @@ import { PlayerService } from '../player/player.service'
 
 export class PlayerTargetsComponent {
 
-  constructor(private _playerService: PlayerService) {
+  constructor(public _playerService: PlayerService) {
   }
 }

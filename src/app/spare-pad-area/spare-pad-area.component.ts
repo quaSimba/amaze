@@ -15,7 +15,7 @@ export class SparePadAreaComponent {
 
   private _isDragged: boolean;
 
-  constructor(private _padsService: PadsService, private _playerService: PlayerService) {
+  constructor(public _padsService: PadsService, public _playerService: PlayerService) {
   }
 
   drag(event) {
